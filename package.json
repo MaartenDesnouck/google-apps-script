@@ -1,0 +1,25 @@
+{
+  "name": "google-apps-script",
+  "version": "0.0.1",
+  "description": "Complete CLI for Google Apps Script",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdsnouck/google-apps-script.git"
+  },
+  "keywords": [
+    "CLI",
+    "Google",
+    "Apps",
+    "Script"
+  ],
+  "author": "Maarten Desnouck",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mdsnouck/google-apps-script/issues"
+  },
+  "homepage": "https://github.com/mdsnouck/google-apps-script#readme"
+}
