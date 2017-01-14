@@ -4,3 +4,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dm/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
 
 Coming soon.
+
+## Installation
+
+    $ npm install google-apps-script
