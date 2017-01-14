@@ -1,0 +1,15 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var package = require('../package.json');
+
+program
+    .version(package.version);
+
+program
+    .parse(process.argv);
+
+if (program.args.length < 1) {
+    program.outputHelp();
+    process.exit(2);
+}
