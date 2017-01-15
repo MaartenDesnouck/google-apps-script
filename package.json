@@ -27,8 +27,10 @@
   },
   "homepage": "https://github.com/mdsnouck/google-apps-script#readme",
   "dependencies": {
+    "colors": "^1.1.2",
     "commander": "2.9.0",
     "google-auth-library": "^0.10.0",
-    "googleapis": "^16.1.0"
+    "googleapis": "^16.1.0",
+    "open": "0.0.5"
   }
 }
