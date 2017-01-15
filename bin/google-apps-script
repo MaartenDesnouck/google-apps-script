@@ -20,6 +20,11 @@ program
     .action(require(lib + '/deploy'));
 
 program
+    .command('auth')
+    .description('Authenticate Drive API.')
+    .action(require(lib + '/authenticate'));
+
+program
     .parse(process.argv);
 
 if (program.args.length < 1) {
