@@ -9,20 +9,30 @@ var lib = path.join(__dirname, '../lib');
 program
     .version(package.version);
 
-program
-    .command('pull')
-    .description('Pull code from google drive.')
-    .action(require(lib + '/pull'));
+// program
+//     .command('pull')
+//     .description('Pull code from google drive.')
+//     .action(require(lib + '/pull'));
 
 program
-    .command('deploy')
-    .description('Deploy code to google drive.')
-    .action(require(lib + '/deploy'));
+    .command('list')
+    .description('List all files in google drive.')
+    .action(require(lib + '/list'));
+
+// program
+//     .command('deploy')
+//     .description('Deploy code to google drive.')
+//     .action(require(lib + '/deploy'));
 
 program
     .command('auth')
     .description('Authenticate Drive API.')
-    .action(require(lib + '/authenticate'));
+    .action(require(lib + '/auth'));
+
+// program
+//     .command('create')
+//     .description('Create a folder in Drive')
+//     .action(require(lib + '/createFolder'));
 
 program
     .parse(process.argv);

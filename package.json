@@ -3,11 +3,8 @@
   "version": "0.0.1",
   "description": "Complete CLI for Google Apps Script",
   "main": "index",
-  "scripts": {
-    "test": "test"
-  },
   "bin": {
-    "GAS": "./bin/google-apps-script"
+    "gas": "./bin/google-apps-script"
   },
   "preferGlobal": true,
   "repository": {

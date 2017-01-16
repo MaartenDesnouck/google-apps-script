@@ -8,3 +8,11 @@ Coming soon.
 ## Installation
 
     $ npm install google-apps-script
+
+## Usage
+
+    $ gas auth
+
+    $ gas list
+
+    //Thats all so far
