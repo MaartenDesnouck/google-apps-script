@@ -25,6 +25,11 @@ program
 //     .action(require(lib + '/deploy'));
 
 program
+    .command('pull <fileId>')
+    .description('Get a file from google drive.')
+    .action(require(lib + '/pull'));
+
+program
     .command('auth')
     .description('Authenticate Drive API.')
     .action(require(lib + '/auth'));
