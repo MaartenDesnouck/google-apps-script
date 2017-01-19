@@ -16,7 +16,7 @@ program
 
 program
     .command('list')
-    .description('List all files in google drive.')
+    .description('List the fileids of all your script files.')
     .action(require(lib + '/list'));
 
 // program
@@ -25,9 +25,9 @@ program
 //     .action(require(lib + '/deploy'));
 
 program
-    .command('pull <fileId>')
-    .description('Get a file from google drive.')
-    .action(require(lib + '/pull'));
+    .command('clone <fileId>')
+    .description('Clone a script file with a give fileid (see gaps list).')
+    .action(require(lib + '/clone'));
 
 program
     .command('auth')
