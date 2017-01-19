@@ -11,8 +11,8 @@ Coming soon.
 
 ## Usage
 
-    $ gas auth
+    $ gaps auth (-f)
 
-    $ gas list
+    $ gaps list
 
     //Thats all so far

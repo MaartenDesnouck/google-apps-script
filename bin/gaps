@@ -31,6 +31,7 @@ program
 
 program
     .command('auth')
+    .option('-f, --force', 'Force reauthentication')
     .description('Authenticate Drive API.')
     .action(require(lib + '/auth'));
 

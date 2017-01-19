@@ -4,7 +4,7 @@
   "description": "Complete CLI for Google Apps Script",
   "main": "index",
   "bin": {
-    "gas": "./bin/google-apps-script"
+    "gaps": "./bin/gaps"
   },
   "preferGlobal": true,
   "repository": {
