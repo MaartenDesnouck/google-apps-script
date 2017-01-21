@@ -13,7 +13,7 @@ Coming soon.
 
     $ gaps auth [-f]
 
-    $ gaps list
+    $ gaps list [nameContains]
 
     $ gaps clone <fileId>
 
