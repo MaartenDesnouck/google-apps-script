@@ -12,33 +12,43 @@ program
 program
     .command('auth')
     .option('-f, --force', 'Force reauthentication')
-    .description('Authenticate Drive API (add \'-f\' to force reauthentication).')
+    .description('authenticate Drive API (add \'-f\' to force reauthentication)')
     .action(require(lib + '/auth'));
 
 program
     .command('list [nameFilter]')
-    .description('List the script files in your Google Drive (optional filter on filename).')
+    .description('list the script files in your Google Drive (optional filter on filename)')
     .action(require(lib + '/list'));
 
 program
     .command('clone <fileId>')
-    .description('Clone a script file with a given fileId (see \'list\').')
+    .description('clone a script file with a given fileId (see \'list\')')
     .action(require(lib + '/clone'));
 
 program
     .command('pull')
-    .description('When a project is already cloned, pull new code from your Google Drive.')
+    .description('when a project is already cloned, pull new code from your Google Drive')
     .action(require(lib + '/pull'));
 
 program
     .command('deploy')
-    .description('Deploy code to google drive.')
+    .description('deploy code to Google Drive')
     .action(require(lib + '/deploy'));
 
-// program
-//     .command('create')
-//     .description('Create a folder in Drive')
-//     .action(require(lib + '/createFolder'));
+program
+    .command('*')
+    .action(function(env) {
+        console.log('\'gas %s\' is not a valid command use \'gas -h\' for all valid commands.', env);
+        process.exit(2);
+    });
+
+program.on('--help', function() {
+    console.log('  Examples:');
+    console.log('');
+    console.log('    $ gas list my-awesome-script');
+    console.log('    $ gas clone 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
+    console.log('');
+});
 
 program
     .parse(process.argv);
