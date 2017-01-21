@@ -34,6 +34,12 @@ When you have made some changes in the online editor you can pull them.
 $ gas pull
 ```
 
+When you have made some local changes you can deploy them.
+
+```
+$ gas deploy
+```
+
 
 
 <br><br>
