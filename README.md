@@ -16,13 +16,13 @@ Start with authenticating the Drive API. (Add '-f' to force reauthentication.)
 $ gaps auth [-f]
 ```
 
-List the script files with their id's in you Google Drive. You can add a string to filer on.
+List the script files with their id's in you Google Drive. You can add a string to filter on.
 
 ```
 $ gaps list [nameFilter]
 ```
 
-Go to an empty folder and clone a project by specifying the file id.
+Go to an empty folder and clone a project by specifying the file id. (see 'list' to find a specific file id)
 
 ```
 $ gaps clone <fileId>
