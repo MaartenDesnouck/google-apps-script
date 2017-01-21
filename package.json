@@ -1,10 +1,10 @@
 {
   "name": "google-apps-script",
   "version": "0.0.3",
-  "description": "Complete CLI for Google Apps Script",
+  "description": "gas, the Complete CLI for Google Apps Script",
   "main": "index",
   "bin": {
-    "gaps": "./bin/gaps"
+    "gas": "./bin/gas"
   },
   "preferGlobal": true,
   "repository": {

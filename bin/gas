@@ -30,10 +30,10 @@ program
     .description('When a project is already cloned, pull new code from your Google Drive.')
     .action(require(lib + '/pull'));
 
-// program
-//     .command('deploy')
-//     .description('Deploy code to google drive.')
-//     .action(require(lib + '/deploy'));
+program
+    .command('deploy')
+    .description('Deploy code to google drive.')
+    .action(require(lib + '/deploy'));
 
 // program
 //     .command('create')
