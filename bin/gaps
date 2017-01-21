@@ -9,31 +9,31 @@ var lib = path.join(__dirname, '../lib');
 program
     .version(package.version);
 
-// program
-//     .command('pull')
-//     .description('Pull code from google drive.')
-//     .action(require(lib + '/pull'));
+program
+    .command('auth')
+    .option('-f, --force', 'Force reauthentication')
+    .description('Authenticate Drive API (add \'-f\' to force reauthentication).')
+    .action(require(lib + '/auth'));
 
 program
-    .command('list [nameContains]')
-    .description('List the script files in your Google Drive.')
+    .command('list [nameFilter]')
+    .description('List the script files in your Google Drive (optional filter on filename).')
     .action(require(lib + '/list'));
+
+program
+    .command('clone <fileId>')
+    .description('Clone a script file with a given fileId (see \'list\').')
+    .action(require(lib + '/clone'));
+
+program
+    .command('pull')
+    .description('When a project is already cloned, pull new code from your Google Drive.')
+    .action(require(lib + '/pull'));
 
 // program
 //     .command('deploy')
 //     .description('Deploy code to google drive.')
 //     .action(require(lib + '/deploy'));
-
-program
-    .command('clone <fileId>')
-    .description('Clone a script file with a give fileId (see gaps list).')
-    .action(require(lib + '/clone'));
-
-program
-    .command('auth')
-    .option('-f, --force', 'Force reauthentication')
-    .description('Authenticate Drive API.')
-    .action(require(lib + '/auth'));
 
 // program
 //     .command('create')
