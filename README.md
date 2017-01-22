@@ -16,7 +16,7 @@ Start with authenticating the Drive API. (Add '-f' to force reauthentication.)
 $ gas auth [-f]
 ```
 
-List the script files with their id's in you Google Drive. You can add a string to filter on.
+List your script files with their id's. You can add a string to filter on.
 
 ```
 $ gas list [nameFilter]
