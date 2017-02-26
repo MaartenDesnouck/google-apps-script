@@ -21,7 +21,7 @@ program
     .action(require(lib + '/list'));
 
 program
-    .command('clone <fileId> [name]')
+    .command('clone <fileId>')
     .description('clone a script file with a given fileId (see \'list\')')
     .action(require(lib + '/clone'));
 
