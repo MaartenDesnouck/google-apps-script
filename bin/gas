@@ -50,9 +50,12 @@ program
 program.on('--help', function() {
     console.log('  Examples:');
     console.log('');
+    console.log('    $ gas new script');
+    console.log('    $ cd script');
+    console.log('    $ gas pull');
+    console.log('');
     console.log('    $ gas list my-awesome-script');
     console.log('    $ gas clone 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
-    console.log('    $ gas new script');
     console.log('');
 });
 
