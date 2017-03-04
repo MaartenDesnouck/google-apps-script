@@ -1,4 +1,4 @@
-<img src="https://github.com/MaartenDesnouck/google-apps-script/blob/master/images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
+<img src="https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script/master/images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
 
 # gas, the complete CLI for Google Apps Script
 
