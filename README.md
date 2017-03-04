@@ -1,7 +1,6 @@
-<div>
-    <p style="float: left;"><img src="gas-by-mdsnouck.png" width="50px" border="5px solid transparent;"></p>
-    <h1>gas, the complete CLI for Google Apps Script</h1>
-</div>
+<img src="gas-by-mdsnouck.png" alt="gas by Maarten Desnouck" title="gas" align="right" height="96" width="96"/>
+
+gas, the complete CLI for Google Apps Script
 
 [![NPM Version](http://img.shields.io/npm/v/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script) [![NPM Downloads](https://img.shields.io/npm/dm/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
 
