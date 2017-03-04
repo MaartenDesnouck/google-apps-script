@@ -1,4 +1,4 @@
-<img src="gas-by-mdsnouck.png" alt="gas by Maarten Desnouck" title="gas" align="right" height="96" width="96"/>
+<img src="images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
 
 # gas, the complete CLI for Google Apps Script
 
@@ -7,7 +7,7 @@
 # Installation
 
 ```
-$ npm install google-apps-script
+$ npm i -g google-apps-script
 ```
 
 # Usage

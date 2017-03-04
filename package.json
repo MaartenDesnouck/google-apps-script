@@ -1,10 +1,11 @@
 {
   "name": "google-apps-script",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "gas, the complete CLI for Google Apps Script",
   "main": "index",
   "bin": {
-    "gas": "./bin/gas"
+    "gas": "./bin/gas",
+    "google-apps-script": "./bin/gas"
   },
   "preferGlobal": true,
   "repository": {
@@ -24,11 +25,9 @@
   },
   "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
   "dependencies": {
-    "colors": "^1.1.2",
     "commander": "2.9.0",
-    "diff": "^3.2.0",
     "google-auth-library": "^0.10.0",
-    "googleapis": "^16.1.0",
+    "googleapis": "^17.1.0",
     "open": "0.0.5"
   }
 }
