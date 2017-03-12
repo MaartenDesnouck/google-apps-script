@@ -28,6 +28,7 @@
     "commander": "2.9.0",
     "google-auth-library": "^0.10.0",
     "googleapis": "^17.1.0",
-    "open": "0.0.5"
+    "open": "0.0.5",
+    "sanitize-filename": "1.6.1"
   }
 }
