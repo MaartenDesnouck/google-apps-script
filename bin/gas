@@ -15,6 +15,16 @@ program
     .description('authenticate Drive API (add \'-f\' to force reauthentication)')
     .action(require(lib + '/auth'));
 
+  program
+      .command('remote create <name>')
+      .description('create a new remote project')
+      .action(require(lib + '/pull'));
+
+  program
+      .command('remote add <fileId>')
+      .description('add or replace the remote project linked to the current folder')
+      .action(require(lib + '/pull'));
+
 program
     .command('list [nameFilter]')
     .description('list your script files and their id\'s (optional filter on filename)')
@@ -27,13 +37,14 @@ program
 
 program
     .command('new <name>')
-    .description('create a new Google Apps Script project (locally and remote)')
+    .description('create a new Google Apps Script project (locally and in your Google Drive)')
     .action(require(lib + '/new'));
 
 program
-    .command('deploy')
-    .description('deploy code to Google Drive')
-    .action(require(lib + '/deploy'));
+    .command('push')
+    .alias('deploy')
+    .description('push your local code to the linked project on your Google Drive')
+    .action(require(lib + '/push'));
 
 program
     .command('pull')
