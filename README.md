@@ -24,13 +24,13 @@ List your script files and their id's. You can add a string to filter on.
 $ gas list [nameFilter]
 ```
 
-Go to a folder and clone a project by specifying the file id. (see 'list' to find a specific file id)
+Clone a project locally by specifying the file id. (see 'list' to find a specific file id)
 
 ```
 $ gas clone <fileId>
 ```
 
-Go to a folder and create a new project.
+Create a new empty local and a linked remote project.
 
 ```
 $ gas new <name>
