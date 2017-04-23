@@ -58,7 +58,7 @@ program.on('--help', function() {
     console.log('    $ mkdir src');
     console.log('    $ cd src');
     console.log('    $ gas remote link 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
-    console.log('    $ gas pull scr');
+    console.log('    $ gas pull');
     console.log('');
 });
 
