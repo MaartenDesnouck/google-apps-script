@@ -5,10 +5,6 @@ var program = require('commander');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('link <fileId>')
-    .action(require(lib + '/remote-link'));
-
-program
     .command('create <name>')
     .action(require(lib + '/remote-create'));
 

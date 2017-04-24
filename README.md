@@ -17,8 +17,7 @@ $ npm i -g google-apps-script
     auth [options]     authenticate the Drive API (add '-f' to force reauthentication)
     remote             'remote create <name>' to create a new project in your Google Drive
                        'remote delete <fileId>' to delete a project from your Google Drive
-                       'remote link <fileId>' to link a remote Google Drive project to your current folder
-    list [nameFilter]  list your script files and their fileId's (optional filter on filename)
+    list [nameFilter]  list your remote projects and their fileId's (optional filter on filename)
     clone <fileId>     create a new local folder, link the remote project with the given fileId and do a pull from remote
     new <name>         create a new Google Apps Script project in your Google Drive and then clone that project locally
     push|deploy        push your local code to the linked project on your Google Drive
@@ -27,17 +26,17 @@ $ npm i -g google-apps-script
 
   Examples:
 
-    $ gas new script
-    $ cd script
+    $ gas new myScript
+    $ cd my-awesome-script
     $ gas pull
 
-    $ gas list my-awesome-script
-    $ gas clone 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E
+    $ gas list myScript
+    $ gas clone this-is-not-the-file-id-you-are-looking-for
 
-    $ gas remote create newProject
+    $ gas remote create myScript2
     $ mkdir src
     $ cd src
-    $ gas remote link 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E
+    $ gas remote link this-is-not-the-file-id-you-are-looking-for-either
     $ gas pull
 
 <br>

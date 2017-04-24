@@ -16,12 +16,16 @@ program
 
 program
     .command('remote', '\'remote create <name>\' to create a new project in your Google Drive' +
-        '\n\t\t       ' + '\'remote delete <fileId>\' to delete a project from your Google Drive' +
-        '\n\t\t       ' + '\'remote link <fileId>\' to link a remote Google Drive project to your current folder')
+        '\n\t\t       ' + '\'remote delete <fileId>\' to delete a project from your Google Drive')
+
+program
+    .command('link <fileId>')
+    .description('link the remote project with the given fileId to the current local folder')
+    .action(require(lib + '/link'));
 
 program
     .command('list [nameFilter]')
-    .description('list your script files and their fileId\'s (optional filter on filename)')
+    .description('list your remote projects and their fileId\'s (optional filter on filename)')
     .action(require(lib + '/list'));
 
 program
@@ -48,16 +52,17 @@ program
 program.on('--help', function() {
     console.log('  Examples:');
     console.log('');
-    console.log('    $ gas new script');
-    console.log('    $ cd script');
+    console.log('    $ gas new myScript');
+    console.log('    $ cd myScript');
     console.log('    $ gas pull');
     console.log('');
-    console.log('    $ gas list my-awesome-script');
-    console.log('    $ gas clone 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
+    console.log('    $ gas list myScript');
+    console.log('    $ gas clone this-is-not-the-file-id-you-are-looking-for');
     console.log('');
     console.log('    $ mkdir src');
     console.log('    $ cd src');
-    console.log('    $ gas remote link 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
+    console.log('    $ gas remote create myScript2');
+    console.log('    $ gas link this-is-not-the-file-id-you-are-looking-for-either');
     console.log('    $ gas pull');
     console.log('');
 });
