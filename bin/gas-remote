@@ -1,0 +1,22 @@
+#!/usr/bin/env node
+
+var path = require('path');
+var program = require('commander');
+var lib = path.join(__dirname, '../lib');
+
+program
+    .command('create <name>')
+    .action(require(lib + '/remote-create'));
+
+program
+    .command('delete <fileId>')
+    .action(require(lib + '/remote-delete'));
+
+program
+    .command('*')
+    .action(function(argv) {
+        console.log('\'gas remote %s\' is not a valid command use \'gas -h\' for help', argv);
+        process.exit(2);
+    });
+
+program.parse(process.argv);

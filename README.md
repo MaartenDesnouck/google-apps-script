@@ -12,43 +12,33 @@ $ npm i -g google-apps-script
 
 # Usage
 
-Start with authenticating the Drive API. (Add '-f' to force reauthentication.)
+  Commands:
 
-```
-$ gas auth [-f]
-```
+    auth [options]     authenticate the Drive API (add '-f' to force reauthentication)
+    remote             'remote create <name>' to create a new project in your Google Drive
+                       'remote delete <fileId>' to delete a project from your Google Drive
+    list [nameFilter]  list your remote projects and their fileId's (optional filter on filename)
+    clone <fileId>     create a new local folder, link the remote project with the given fileId and do a pull from remote
+    new <name>         create a new Google Apps Script project in your Google Drive and then clone that project locally
+    push|deploy        push your local code to the linked project on your Google Drive
+    pull               when a project is already cloned, pull new code from your Google Drive
+    help [cmd]         display help for [cmd]
 
-List your script files and their id's. You can add a string to filter on.
+  Examples:
 
-```
-$ gas list [nameFilter]
-```
+    $ gas new myScript
+    $ cd my-awesome-script
+    $ gas pull
 
-Clone a project locally by specifying the file id. (see 'list' to find a specific file id)
+    $ gas list myScript
+    $ gas clone this-is-not-the-file-id-you-are-looking-for
 
-```
-$ gas clone <fileId>
-```
+    $ gas remote create myScript2
+    $ mkdir src
+    $ cd src
+    $ gas remote link this-is-not-the-file-id-you-are-looking-for-either
+    $ gas pull
 
-Create a new empty local and a linked remote project.
-
-```
-$ gas new <name>
-```
-
-When you have made some local changes you can deploy them.
-
-```
-$ gas deploy
-```
-
-When you have made some changes using the online editor you can pull them.
-
-```
-$ gas pull
-```
-
-<br><br>
 <br>
 That's all (so far)
 

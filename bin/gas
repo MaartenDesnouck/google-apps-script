@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 var package = require('../package.json');
-var path = require('path');
 var program = require('commander');
-
+var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
@@ -12,57 +11,60 @@ program
 program
     .command('auth')
     .option('-f, --force', 'Force reauthentication')
-    .description('authenticate Drive API (add \'-f\' to force reauthentication)')
+    .description('authenticate the Drive API (add \'-f\' to force reauthentication)')
     .action(require(lib + '/auth'));
 
 program
+    .command('remote', '\'remote create <name>\' to create a new project in your Google Drive' +
+        '\n\t\t       ' + '\'remote delete <fileId>\' to delete a project from your Google Drive')
+
+program
+    .command('link <fileId>')
+    .description('link the remote project with the given fileId to the current local folder')
+    .action(require(lib + '/link'));
+
+program
     .command('list [nameFilter]')
-    .description('list your script files and their id\'s (optional filter on filename)')
+    .description('list your remote projects and their fileId\'s (optional filter on filename)')
     .action(require(lib + '/list'));
 
 program
     .command('clone <fileId>')
-    .description('clone a script file with a given fileId (see \'list\')')
+    .description('create a new local folder, link the remote project with the given fileId and do a pull from remote')
     .action(require(lib + '/clone'));
 
 program
     .command('new <name>')
-    .description('create a new Google Apps Script project (locally and remote)')
+    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
     .action(require(lib + '/new'));
 
 program
-    .command('deploy')
-    .description('deploy code to Google Drive')
-    .action(require(lib + '/deploy'));
+    .command('push')
+    .alias('deploy')
+    .description('push your local code to the linked project on your Google Drive')
+    .action(require(lib + '/push'));
 
 program
     .command('pull')
     .description('when a project is already cloned, pull new code from your Google Drive')
     .action(require(lib + '/pull'));
 
-program
-    .command('*')
-    .action(function(env) {
-        console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', env);
-        process.exit(2);
-    });
-
 program.on('--help', function() {
     console.log('  Examples:');
     console.log('');
-    console.log('    $ gas new script');
-    console.log('    $ cd script');
+    console.log('    $ gas new myScript');
+    console.log('    $ cd myScript');
     console.log('    $ gas pull');
     console.log('');
-    console.log('    $ gas list my-awesome-script');
-    console.log('    $ gas clone 19PJVrJufmoSaOYdRvp-bARPw7Rg83zZqlFwhpSeUkV8ahnLo3MDuJG9E');
+    console.log('    $ gas list myScript');
+    console.log('    $ gas clone this-is-not-the-file-id-you-are-looking-for');
+    console.log('');
+    console.log('    $ mkdir src');
+    console.log('    $ cd src');
+    console.log('    $ gas remote create myScript2');
+    console.log('    $ gas link this-is-not-the-file-id-you-are-looking-for-either');
+    console.log('    $ gas pull');
     console.log('');
 });
 
-program
-    .parse(process.argv);
-
-if (program.args.length < 1) {
-    program.outputHelp();
-    process.exit(2);
-}
+program.parse(process.argv);
