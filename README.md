@@ -46,7 +46,7 @@ $ gas clone <fileId>
 $ gas new <name>
 ```
 
-  # Examples
+# Examples
 ```
     $ gas new myScript
     $ cd my-awesome-script
