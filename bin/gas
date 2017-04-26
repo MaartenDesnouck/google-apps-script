@@ -49,6 +49,11 @@ program
     .description('when a project is already cloned, pull new code from your Google Drive')
     .action(require(lib + '/pull'));
 
+program
+    .command('open [fileId]')
+    .description('open this project or a specified project in the online editor')
+    .action(require(lib + '/open'));
+
 program.on('--help', function() {
     console.log('  Examples:');
     console.log('');

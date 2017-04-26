@@ -46,6 +46,12 @@ $ gas clone <fileId>
 $ gas new <name>
 ```
 
+Open a local project in the online editor:
+
+  ```
+  $ gas open [fileId]
+  ```
+
 # Examples
 ```
     $ gas new myScript
