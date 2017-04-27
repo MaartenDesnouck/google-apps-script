@@ -46,10 +46,10 @@ $ gas clone <fileId>
 $ gas new <name>
 ```
 
-Open a local project in the online editor:
+Open a linked project or a specified project in the online editor:
 
   ```
-  $ gas open [fileId]
+$ gas open [fileId]
   ```
 
 # Examples
