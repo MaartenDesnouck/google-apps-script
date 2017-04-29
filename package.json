@@ -1,6 +1,6 @@
 {
   "name": "google-apps-script",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "gas, the complete CLI for Google Apps Script",
   "main": "index",
   "bin": {
