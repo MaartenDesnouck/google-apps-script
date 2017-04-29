@@ -17,10 +17,11 @@ $ npm i -g google-apps-script
 $ gas auth [-f]
 ```
 
-  Create or delete a project in your Google Drive:
+  Create, delete or rename a project in your Google Drive:
 ```
 $ gas remote create <name>
 $ gas remote delete <fileId>
+$ gas remote rename <fileId> <newName>
 ```  
 
   List your remote projects and their fileId's (optional filter on filename):

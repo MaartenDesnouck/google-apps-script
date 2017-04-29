@@ -17,7 +17,7 @@ program
 program
     .command('remote', '\'remote create <name>\' to create a new project in your Google Drive' +
         '\n\t\t       ' + '\'remote delete <fileId>\' to delete a project from your Google Drive' +
-        '\n\t\t       ' + '\'remote rename <fileId>\' to rename a project in your Google Drive')
+        '\n\t\t       ' + '\'remote rename <fileId> <newName>\' to rename a project in your Google Drive')
 
 program
     .command('link <fileId>')
