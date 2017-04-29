@@ -13,6 +13,10 @@ program
     .action(require(lib + '/remote-delete'));
 
 program
+    .command('rename <fileId> <newName>')
+    .action(require(lib + '/remote-rename'));
+
+program
     .command('*')
     .action(function(argv) {
         console.log('\'gas remote %s\' is not a valid command use \'gas -h\' for help', argv);
