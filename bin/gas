@@ -26,6 +26,7 @@ program
 
 program
     .command('delete <fileName|fileId>')
+    .alias('remove')
     .description('delete a project from your Google Drive')
     .action(require(lib + '/remote-delete'));
 
