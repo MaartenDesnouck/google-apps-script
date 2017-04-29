@@ -15,12 +15,27 @@ program
     .action(require(lib + '/auth'));
 
 program
-    .command('remote', '\'remote create <name>\' to create a new project in your Google Drive' +
-        '\n\t\t       ' + '\'remote delete <fileId>\' to delete a project from your Google Drive' +
-        '\n\t\t       ' + '\'remote rename <fileId> <newName>\' to rename a project in your Google Drive')
+    .command('create <name>')
+    .description('create a new project in your Google Drive')
+    .action(require(lib + '/remote-create'));
 
 program
-    .command('link <fileId>')
+    .command('new <name>')
+    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
+    .action(require(lib + '/new'));
+
+program
+    .command('delete <fileName|fileId>')
+    .description('delete a project from your Google Drive')
+    .action(require(lib + '/remote-delete'));
+
+program
+    .command('rename <fileName|fileId> <newName>')
+    .description('rename a project in your Google Drive')
+    .action(require(lib + '/remote-rename'));
+
+program
+    .command('link <fileName|fileId>')
     .description('link the remote project with the given fileId to the current local folder')
     .action(require(lib + '/link'));
 
@@ -30,14 +45,9 @@ program
     .action(require(lib + '/list'));
 
 program
-    .command('clone <fileId>')
+    .command('clone <fileName|fileId>')
     .description('create a new local folder, link the remote project with the given fileId and do a pull from remote')
     .action(require(lib + '/clone'));
-
-program
-    .command('new <name>')
-    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
-    .action(require(lib + '/new'));
 
 program
     .command('push')
@@ -51,9 +61,16 @@ program
     .action(require(lib + '/pull'));
 
 program
-    .command('open [fileId]')
+    .command('open [fileName|fileId]')
     .description('open this project or a specified project in the online editor')
     .action(require(lib + '/open'));
+
+program
+    .command('*')
+    .action(function(argv) {
+        console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
+        process.exit(2);
+    });
 
 program.on('--help', function() {
     console.log('  Examples:');
@@ -62,15 +79,20 @@ program.on('--help', function() {
     console.log('    $ cd myScript');
     console.log('    $ gas pull');
     console.log('');
-    console.log('    $ gas list myScript');
-    console.log('    $ gas clone this-is-not-the-file-id-you-are-looking-for');
+    console.log('    $ gas list');
+    console.log('    $ gas clone myScript');
     console.log('');
     console.log('    $ mkdir src');
     console.log('    $ cd src');
-    console.log('    $ gas remote create myScript2');
-    console.log('    $ gas link this-is-not-the-file-id-you-are-looking-for-either');
+    console.log('    $ gas create myScript2');
+    console.log('    $ gas link myScript');
     console.log('    $ gas pull');
     console.log('');
 });
 
 program.parse(process.argv);
+
+if (program.args.length < 1) {
+    program.outputHelp();
+    process.exit(2);
+}
