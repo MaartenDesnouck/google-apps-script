@@ -63,8 +63,13 @@ program
 
 program
     .command('open [fileName|fileId]')
-    .description('open this project or a specified project in the online editor')
+    .description('open the project linked to the current folder or a specified project in the online editor')
     .action(require(lib + '/open'));
+
+program
+    .command('info [fileName|fileId]')
+    .description('display info the project linked to the current folder or a specified project')
+    .action(require(lib + '/info'));
 
 program
     .command('*')
