@@ -12,35 +12,40 @@ $ npm i -g google-apps-script
 
 # Usage
 
-  Authenticate the Drive API (add '-f' to force reauthentication):
+Authenticate the Drive API (add '-f' to force reauthentication):
+
 ```
 $ gas auth [-f]
 ```
 
-  Create, delete or rename a project in your Google Drive:
+Create, delete or rename a project in your Google Drive:
+
 ```
 $ gas create <name>
 $ gas delete <fileName|fileId>
 $ gas rename <fileName|fileId> <newName>
-```  
+```
 
-  List your remote projects and their fileId's (optional filter on filename):
+List your remote projects and their fileId's (optional filter on filename):
+
 ```
 $ gas list [nameFilter]
 ```
 
-  Link a remote project to your current directory:
+Link a remote project to your current directory:
+
 ```
 $ gas link <fileName|fileId>
 ```
 
-  Pull and push code from/to your remote project:
+Pull and push code from/to your remote project:
+
 ```
 $ gas pull
 $ gas push
 ```
 
-  Some shortcuts for creating, linking and pulling projects all in one:
+Some shortcuts for creating, linking and pulling projects all in one:
 
 ```
 $ gas clone <fileName|fileId>
@@ -49,31 +54,40 @@ $ gas new <name>
 
 Open a linked project or a specified project in the online editor:
 
-  ```
-$ gas open [fileId]
-  ```
+```
+$ gas open [fileName|fileId]
+```
+
+Get info about a linked project or a specified project:
+
+````
+$ gas open [fileName|fileId]
+````
 
 # Examples
+
 ```
-    $ gas new myScript
-    $ cd myScript
-    $ gas pull
+$ gas new myScript
+$ cd myScript
+$ gas pull
+$ gas open
 ```
-```   
-    $ gas list
-    $ gas clone myScript
+
 ```
+$ gas list
+$ gas clone myScript
 ```
-    $ gas create myScript2
-    $ mkdir src
-    $ cd src
-    $ gas link myScript2
-    $ gas pull
+
+```
+$ gas create myScript2
+$ mkdir src
+$ cd src
+$ gas link myScript2
+$ gas pull
 ```
 
 <br>
 That's all (so far)
 
-Suggestions or questions?   
-Tweet me [@MaartenDesnouck](https://twitter.com/MaartenDesnouck) or
-create an issue on [github](https://github.com/MaartenDesnouck/google-apps-script/issues/new).
+Suggestions or questions?<br>
+Tweet me [@MaartenDesnouck](https://twitter.com/MaartenDesnouck) or create an issue on [github](https://github.com/MaartenDesnouck/google-apps-script/issues/new).
