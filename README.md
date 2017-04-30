@@ -52,16 +52,16 @@ $ gas clone <fileName|fileId>
 $ gas new <name>
 ```
 
-Open a linked project or a specified project in the online editor:
+Open the linked project or a specified project in the online editor:
 
 ```
 $ gas open [fileName|fileId]
 ```
 
-Get info about a linked project or a specified project:
+Get info about the linked project or a specified project:
 
 ````
-$ gas open [fileName|fileId]
+$ gas info [fileName|fileId]
 ````
 
 # Examples
@@ -69,7 +69,6 @@ $ gas open [fileName|fileId]
 ```
 $ gas new myScript
 $ cd myScript
-$ gas pull
 $ gas open
 ```
 
@@ -83,6 +82,7 @@ $ gas create myScript2
 $ mkdir src
 $ cd src
 $ gas link myScript2
+$ gas info
 $ gas pull
 ```
 
