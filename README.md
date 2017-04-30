@@ -20,8 +20,8 @@ $ gas auth [-f]
   Create, delete or rename a project in your Google Drive:
 ```
 $ gas create <name>
-$ gas delete <fileId|fileName>
-$ gas rename <fileId|fileName> <newName>
+$ gas delete <fileName|fileId>
+$ gas rename <fileName|fileId> <newName>
 ```  
 
   List your remote projects and their fileId's (optional filter on filename):
@@ -31,7 +31,7 @@ $ gas list [nameFilter]
 
   Link a remote project to your current directory:
 ```
-$ gas link <fileId|fileName>
+$ gas link <fileName|fileId>
 ```
 
   Pull and push code from/to your remote project:
@@ -43,7 +43,7 @@ $ gas push
   Some shortcuts for creating, linking and pulling projects all in one:
 
 ```
-$ gas clone <fileId|fileName>
+$ gas clone <fileName|fileId>
 $ gas new <name>
 ```
 
