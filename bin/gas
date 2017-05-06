@@ -58,7 +58,7 @@ program
 
 program
     .command('pull')
-    .option('-i, --include', 'Pull included files from remotes')
+    .option('-i, --include', 'Pull included files from their sources')
     .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
