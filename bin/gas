@@ -75,7 +75,7 @@ program
 program
     .command('include')
     .description('pull included files from their remotes')
-    .action(require(lib + '/info'));
+    .action(require(lib + '/include'));
 
 program
     .command('*')
