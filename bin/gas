@@ -58,7 +58,8 @@ program
 
 program
     .command('pull')
-    .description('when a project is already cloned, pull new code from your Google Drive')
+    .option('-i, --include', 'Pull included files from remotes')
+    .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
 program
@@ -69,6 +70,11 @@ program
 program
     .command('info [fileName|fileId]')
     .description('display info the project linked to the current folder or a specified project')
+    .action(require(lib + '/info'));
+
+program
+    .command('include')
+    .description('pull included files from their remotes')
     .action(require(lib + '/info'));
 
 program
