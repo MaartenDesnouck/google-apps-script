@@ -2,12 +2,14 @@
 
 # gas, for locally developing Google Apps Script projects
 
-[![NPM Version](http://img.shields.io/npm/v/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script) [![NPM Downloads](https://img.shields.io/npm/dt/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
-
+[![NPM Package](https://nodei.co/npm/google-apps-script.png?downloads=true&stars=true)](https://nodei.co/npm/google-apps-script/)    
+[![NPM Downloads](https://img.shields.io/npm/dt/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
+[![Known Vulnerabilities](https://snyk.io/test/npm/google-apps-script/badge.svg?style=flat)](https://snyk.io/test/npm/google-apps-script)
+[![Dependency Status](https://gemnasium.com/badges/github.com/MaartenDesnouck/google-apps-script.svg)](https://gemnasium.com/github.com/MaartenDesnouck/google-apps-script)
 # Installation
 
 ```
-$ npm i -g google-apps-script
+$ npm install google-apps-script -g
 ```
 
 # Usage
