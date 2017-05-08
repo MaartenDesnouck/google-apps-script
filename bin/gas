@@ -74,7 +74,7 @@ program
 
 program
     .command('include')
-    .description('pull included files from their remotes')
+    .description('pull included files specified in \'gas-include.json\'')
     .action(require(lib + '/include'));
 
 program

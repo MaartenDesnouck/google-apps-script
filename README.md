@@ -67,6 +67,15 @@ Get info about the linked project or a specified project:
 $ gas info [fileName|fileId]
 ````
 
+There is also the beta feature of including specified library files
+```
+// Content of gas-include.json
+{"googleSheet.js": "https://raw.githubusercontent.com/MaartenDesnouck/npm-tracking/master/GoogleSheet.js"}   
+
+$ gas include
+$ gas push
+```
+
 # Examples
 
 ```
