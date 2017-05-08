@@ -69,8 +69,8 @@ $ gas info [fileName|fileId]
 
 There is also the beta feature of including specified library files
 ```
-// Content of gas-include.json
-{"googleSheet.js": "https://raw.githubusercontent.com/MaartenDesnouck/npm-tracking/master/GoogleSheet.js"}   
+// Content of gas-include.js
+'googleSheet.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/npm-tracking/master/GoogleSheet.js'  
 
 $ gas include
 $ gas push
