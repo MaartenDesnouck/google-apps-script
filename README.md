@@ -7,6 +7,7 @@
 [![NPM Downloads](https://img.shields.io/npm/dt/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
 [![Known Vulnerabilities](https://snyk.io/test/npm/google-apps-script/badge.svg?style=flat)](https://snyk.io/test/npm/google-apps-script)
 [![Gemnasium](https://img.shields.io/gemnasium/MaartenDesnouck/google-apps-script.svg)]()
+
 # Installation
 
 ```
@@ -70,7 +71,7 @@ $ gas info [fileName|fileId]
 There is also the beta feature of including specified library files
 ```
 // Content of gas-include.js
-'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'" 
+'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'"
 
 $ gas include
 $ gas push
