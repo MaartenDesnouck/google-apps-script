@@ -71,7 +71,7 @@ $ gas info [fileName|fileId]
 There is also the beta feature of including specified library files
 ```
 // Content of gas-include.js
-'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'"
+'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'
 
 $ gas include
 $ gas push
