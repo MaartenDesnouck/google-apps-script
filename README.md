@@ -3,10 +3,10 @@
 # gas, for locally developing Google Apps Script projects
 
 
-[![GitHub stars](https://img.shields.io/github/stars/MaartenDesnouck/google-apps-script.svg?style=social&label=Star)]()
+[![GitHub stars](https://img.shields.io/github/stars/MaartenDesnouck/google-apps-script.svg?style=social&label=Star)](https://github.com/MaartenDesnouck/google-apps-script)
 [![NPM Downloads](https://img.shields.io/npm/dt/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
 [![Known Vulnerabilities](https://snyk.io/test/npm/google-apps-script/badge.svg?style=flat)](https://snyk.io/test/npm/google-apps-script)
-[![Gemnasium](https://img.shields.io/gemnasium/MaartenDesnouck/google-apps-script.svg)]()
+[![Gemnasium](https://img.shields.io/gemnasium/MaartenDesnouck/google-apps-script.svg)](https://gemnasium.com/github.com/MaartenDesnouck/google-apps-script)
 
 # Installation
 
