@@ -1,35 +1,36 @@
 {
-  "name": "google-apps-script",
-  "version": "1.4.2",
-  "description": "gas, the complete CLI for Google Apps Script",
-  "main": "index",
-  "bin": {
-    "gas": "./bin/gas",
-    "google-apps-script": "./bin/gas"
-  },
-  "preferGlobal": true,
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/maartendesnouck/google-apps-script.git"
-  },
-  "keywords": [
-    "CLI",
-    "Google",
-    "Apps",
-    "Script"
-  ],
-  "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/maartendesnouck/google-apps-script/issues"
-  },
-  "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
-  "dependencies": {
-    "commander": "^2.9.0",
-    "google-auth-library": "^0.10.0",
-    "googleapis": "^19.0.0",
-    "open": "^0.0.5",
-    "rimraf": "^2.6.1",
-    "sanitize-filename": "^1.6.1"
-  }
+    "name": "google-apps-script",
+    "version": "1.4.2",
+    "description": "gas, the complete CLI for Google Apps Script",
+    "main": "index",
+    "bin": {
+        "gas": "./bin/gas",
+        "google-apps-script": "./bin/gas"
+    },
+    "preferGlobal": true,
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/maartendesnouck/google-apps-script.git"
+    },
+    "keywords": [
+        "CLI",
+        "Google",
+        "Apps",
+        "Script"
+    ],
+    "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/maartendesnouck/google-apps-script/issues"
+    },
+    "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
+    "dependencies": {
+        "colors": "^1.1.2",
+        "commander": "^2.9.0",
+        "google-auth-library": "^0.10.0",
+        "googleapis": "^19.0.0",
+        "open": "^0.0.5",
+        "rimraf": "^2.6.1",
+        "sanitize-filename": "^1.6.1"
+    }
 }
