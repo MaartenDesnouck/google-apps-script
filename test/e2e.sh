@@ -20,6 +20,9 @@ projectId3=''
 
 idLenght=57
 
+# Setup
+npm link
+
 # Testing auth
 echo '[Auth test]'
 
