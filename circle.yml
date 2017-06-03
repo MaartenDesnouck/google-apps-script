@@ -1,0 +1,7 @@
+machine:
+  node:
+    version: 6.10.3
+
+test:
+  override:
+    - ./test/e2e.sh:
