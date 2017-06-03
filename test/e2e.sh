@@ -1,7 +1,5 @@
 #!/bin/sh
 
-
-
 fail=0;
 total=0;
 
@@ -21,6 +19,7 @@ projectId3=''
 idLenght=57
 
 # Setup
+npm install
 npm link
 
 # Testing auth
@@ -304,7 +303,7 @@ echo '\n[Delete test]'
 echo "-------------------------------------"
 echo "Test result: $(($total-$fail))/$total"
 
-if $fail > 0;
+if [ $fail -gt 0 ];
 then
     exit 1
 else
