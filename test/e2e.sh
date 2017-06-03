@@ -303,3 +303,10 @@ echo '\n[Delete test]'
 
 echo "-------------------------------------"
 echo "Test result: $(($total-$fail))/$total"
+
+if $fail > 0;
+then
+    exit 1
+else
+    exit 0
+fi
