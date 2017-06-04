@@ -26,6 +26,7 @@ idLenght=57
 npm install
 npm install request
 npm link
+rm -r $commonPart*
 
 # Testing auth
 echo '[Auth test]'
@@ -36,7 +37,7 @@ echo '[Auth test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[1]"
+        echo "fail[1]"
         echo "  $result"
     fi
 
@@ -50,7 +51,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[2]"
+        echo "fail[2]"
         echo "  $result"
     fi
 
@@ -63,7 +64,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[3]"
+        echo "fail[3]"
         echo "  $result"
     fi
 
@@ -78,7 +79,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[4]"
+        echo "fail[4]"
         echo "  $result"
     fi
 
@@ -93,7 +94,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[5]"
+        echo "fail[5]"
         echo "  $result"
     fi
 
@@ -105,7 +106,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[6]"
+        echo "fail[6]"
         echo "  $result"
     fi
 
@@ -116,7 +117,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[7]"
+        echo "fail[7]"
         echo "  $result"
     fi
 
@@ -131,7 +132,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[8]"
+        echo "fail[8]"
         echo "  $result"
     fi
 
@@ -146,7 +147,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[9]"
+        echo "fail[9]"
         echo "  $result"
     fi
 
@@ -158,7 +159,7 @@ echo '\n[List, info and create test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[10]"
+        echo "fail[10]"
         echo "  $result"
     fi
 
@@ -173,7 +174,7 @@ echo '\n[Rename test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[11]"
+        echo "fail[11]"
         echo "  $result"
     fi
 
@@ -188,7 +189,7 @@ echo '\n[Rename test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[12]"
+        echo "fail[12]"
         echo "  $result"
     fi
 
@@ -200,7 +201,7 @@ echo '\n[Rename test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[13]"
+        echo "fail[13]"
         echo "  $result"
     fi
 
@@ -212,7 +213,7 @@ echo '\n[Rename test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[14]"
+        echo "fail[14]"
         echo "  $result"
     fi
 
@@ -228,7 +229,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[15]"
+        echo "fail[15]"
         echo "  $result"
     fi
 
@@ -243,7 +244,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[16]"
+        echo "fail[16]"
         echo "  $result"
     fi
 
@@ -255,7 +256,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[17]"
+        echo "fail[17]"
         echo "  $result"
     fi
 
@@ -270,7 +271,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[18]"
+        echo "fail[18]"
         echo "  $result"
     fi
 
@@ -285,7 +286,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[19]"
+        echo "fail[19]"
         echo "  $result"
     fi
 
@@ -300,7 +301,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[20]"
+        echo "fail[20]"
         echo "  $result"
     fi
 
@@ -312,7 +313,7 @@ echo '\n[Delete test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[21]"
+        echo "fail[21]"
         echo "  $result"
     fi
 
@@ -327,7 +328,7 @@ echo '\n[Link and pull test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[22]"
+        echo "fail[22]"
         echo "  $result"
     fi
 
@@ -346,7 +347,7 @@ echo '\n[Link and pull test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[23]"
+        echo "fail[23]"
         echo "  $result"
     fi
 
@@ -357,7 +358,7 @@ echo '\n[Link and pull test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[24]"
+        echo "fail[24]"
         echo "  $result"
     fi
 
@@ -380,7 +381,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[25]"
+        echo "fail[25]"
         echo "  $result"
     fi
 
@@ -392,8 +393,18 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[26]"
+        echo "fail[26]"
         echo "  $result"
+    fi
+
+    # .gitignore should exist in $projectName2
+    total=$(($total+1))
+    if [ -f $projectName2/.gitignore ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[27]"
+        echo "$(cat .gitignore)"
     fi
 
     # ID should exist in $projectName2/.gas
@@ -403,7 +414,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[27]"
+        echo "fail[28]"
         echo "  $result"
     fi
 
@@ -412,12 +423,11 @@ echo '\n[Push and clone test]'
 
     # main.js should not in $projectName2
     total=$(($total+1))
-    if [ ! -f  $projectName2/main.js ];
+    if [ ! -f $projectName2/main.js ];
     then
         succes=$(($succes+1))
     else
-        echo "  fail[28]"
-        echo "  $result"
+        echo "fail[29]"
     fi
 
     # Clone using projectName
@@ -431,7 +441,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[29]"
+        echo "fail[30]"
         echo "  $result"
     fi
 
@@ -442,7 +452,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[30]"
+        echo "fail[31]"
         echo "  $result"
     fi
 
@@ -457,7 +467,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[31]"
+        echo "fail[32]"
         echo "  $result"
     fi
 
@@ -471,7 +481,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[5]"
+        echo "fail[33]"
         echo "  $result"
     fi
 
@@ -486,7 +496,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[32]"
+        echo "fail[34]"
         echo "  $result"
     fi
 
@@ -497,7 +507,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "  fail[33]"
+        echo "fail[35]"
         echo "  $result"
     fi
 
