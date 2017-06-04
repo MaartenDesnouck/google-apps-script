@@ -1,0 +1,5 @@
+# Suggested .gitignore for gas projects
+
+.gas/local.json
+.gas/remote.json
+.gas/include

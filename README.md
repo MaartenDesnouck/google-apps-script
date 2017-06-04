@@ -68,7 +68,7 @@ Get info about the linked project or a specified project:
 $ gas info [fileName|fileId]
 ````
 
-There is also the beta feature of including specified library files
+There is also the beta feature of including specified external files
 ```
 // Content of gas-include.js
 'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'
@@ -99,8 +99,13 @@ $ gas info
 $ gas pull
 ```
 
-<br>
-That's all (so far)
+# .gitignore
+
+Gas creates some extra files in a .gas folder of which only 'ID' should be checked into git,   
+ so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
+
+<hr>
+That's all (so far).
 
 Suggestions or questions?<br>
 Tweet me [@MaartenDesnouck](https://twitter.com/MaartenDesnouck) or create an issue on [github](https://github.com/MaartenDesnouck/google-apps-script/issues/new).
