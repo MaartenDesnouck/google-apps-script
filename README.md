@@ -43,6 +43,7 @@ $ gas link <fileName|fileId>
 ```
 
 Pull and push code from/to your remote project:
+(We map files in local folders to their full path name in a project and the other way around)
 
 ```
 $ gas pull

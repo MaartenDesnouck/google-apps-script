@@ -31,7 +31,6 @@
         "googleapis": "^19.0.0",
         "mkdirp": "^0.5.1",
         "open": "^0.0.5",
-        "rimraf": "^2.6.1",
         "sanitize-filename": "^1.6.1"
     }
 }
