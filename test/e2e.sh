@@ -364,24 +364,39 @@ echo '\n[Link and pull test]'
 
 # Testing gas push and clone
 echo '\n[Push and clone test]'
-    # Create some files and push them
+    # Create some files and folders and push them
     cd $projectRootFolder2
-    echo '//test' > test.js
+    echo '//test1' > test1.js
+    mkdir 'testFolder' && cd 'testFolder'
+    echo '//test2' > test2.js
+    cd ..
     gas push
     cd ..
 
     # Clone using projectId
     gas clone $projectId2
 
-    # test.js should exist in $projectName2
+    # test1.js should exist in $projectName2
     total=$(($total+1))
-    result=$(cat $projectName2/test.js)
-    content='//test';
+    result=$(cat $projectName2/test1.js)
+    content='//test1';
     if [ "$result" = "$content" ];
     then
         succes=$(($succes+1))
     else
         echo "fail[25]"
+        echo "  $result"
+    fi
+
+    # test2.js should exist in $projectName2/testFolder
+    total=$(($total+1))
+    result=$(cat $projectName2/testFolder/test2.js)
+    content='//test2';
+    if [ "$result" = "$content" ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[26]"
         echo "  $result"
     fi
 
@@ -393,7 +408,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[26]"
+        echo "fail[27]"
         echo "  $result"
     fi
 
@@ -403,7 +418,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[27]"
+        echo "fail[28]"
         echo "$(cat .gitignore)"
     fi
 
@@ -418,6 +433,34 @@ echo '\n[Push and clone test]'
         echo "  $result"
     fi
 
+    # Delete test2.js and push from projectRootFolder2 and pull in projectName2
+    cd $projectRootFolder2
+    rm testFolder/test2.js
+    gas push
+    cd ..
+    cd $projectName2
+    gas pull
+    cd ..
+
+    # test2.js should not exist anymore
+    total=$(($total+1))
+    if [ ! -f $projectName2/test/test2.js ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[29]"
+    fi
+
+    # testFolder should not exist amymore
+    # test2.js should not exist anymore
+    total=$(($total+1))
+    if [ ! -e $projectName2/testFolder ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[30]"
+    fi
+
     # Delete folder
     rm -r $projectName2
 
@@ -427,7 +470,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[29]"
+        echo "fail[31]"
     fi
 
     # Clone using projectName
@@ -441,7 +484,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[30]"
+        echo "fail[32]"
         echo "  $result"
     fi
 
@@ -452,7 +495,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[31]"
+        echo "fail[33]"
         echo "  $result"
     fi
 
@@ -467,7 +510,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[32]"
+        echo "fail[34]"
         echo "  $result"
     fi
 
@@ -481,7 +524,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[33]"
+        echo "fail[35]"
         echo "  $result"
     fi
 
@@ -496,7 +539,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[34]"
+        echo "fail[36]"
         echo "  $result"
     fi
 
@@ -507,7 +550,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[35]"
+        echo "fail[37]"
         echo "  $result"
     fi
 
@@ -524,7 +567,7 @@ echo '\n[New test]'
 echo "-------------------------------------"
 echo "Test result: $(($succes))/$total"
 
-if [ $succes -gt 0 ];
+if [ $total -gt $succes ];
 then
     exit 1
 else
