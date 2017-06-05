@@ -370,6 +370,11 @@ echo '\n[Push and clone test]'
     mkdir 'testFolder' && cd 'testFolder'
     echo '//test2' > test2.js
     cd ..
+    mkdir 'testFolder2' && cd 'testFolder2'
+    mkdir 'testFolder3' && cd 'testFolder3'
+    echo '//test3' > test3.js
+    cd ..
+    cd ..
     gas push
     cd ..
 
@@ -400,6 +405,18 @@ echo '\n[Push and clone test]'
         echo "  $result"
     fi
 
+    # test3.js should exist in $projectRootFolder2/testFolder2/testFolder3
+    total=$(($total+1))
+    result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
+    content='//test3';
+    if [ "$result" = "$content" ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[27]"
+        echo "  $result"
+    fi
+
     # main.js should exist in $projectName2
     total=$(($total+1))
     result=$(cat $projectName2/main.js)
@@ -408,7 +425,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[27]"
+        echo "fail[28]"
         echo "  $result"
     fi
 
@@ -418,7 +435,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[28]"
+        echo "fail[29]"
         echo "$(cat .gitignore)"
     fi
 
@@ -429,7 +446,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[28]"
+        echo "fail[30]"
         echo "  $result"
     fi
 
@@ -448,7 +465,19 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[29]"
+        echo "fail[31]"
+    fi
+
+    # test3.js should exist in $projectName2/testFolder2/testFolder3
+    total=$(($total+1))
+    result=$(cat $projectName2/testFolder2/testFolder3/test3.js)
+    content='//test3';
+    if [ "$result" = "$content" ];
+    then
+        succes=$(($succes+1))
+    else
+        echo "fail[32]"
+        echo "  $result"
     fi
 
     # testFolder should not exist amymore
@@ -458,7 +487,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[30]"
+        echo "fail[33]"
     fi
 
     # Delete folder
@@ -470,7 +499,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[31]"
+        echo "fail[34]"
     fi
 
     # Clone using projectName
@@ -484,7 +513,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[32]"
+        echo "fail[35]"
         echo "  $result"
     fi
 
@@ -495,7 +524,7 @@ echo '\n[Push and clone test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[33]"
+        echo "fail[36]"
         echo "  $result"
     fi
 
@@ -510,7 +539,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[34]"
+        echo "fail[37]"
         echo "  $result"
     fi
 
@@ -524,7 +553,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[35]"
+        echo "fail[38]"
         echo "  $result"
     fi
 
@@ -539,7 +568,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[36]"
+        echo "fail[39]"
         echo "  $result"
     fi
 
@@ -550,7 +579,7 @@ echo '\n[New test]'
     then
         succes=$(($succes+1))
     else
-        echo "fail[37]"
+        echo "fail[40]"
         echo "  $result"
     fi
 
