@@ -24,7 +24,6 @@ idLenght=57
 
 # Setup
 npm install
-npm install request
 npm link
 rm -r $commonPart*
 
