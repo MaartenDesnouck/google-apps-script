@@ -217,7 +217,6 @@ else
     echo "  $result"
 fi
 
-
 # Testing gas delete
 echo '\n[Delete test]'
 
