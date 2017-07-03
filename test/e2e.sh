@@ -195,7 +195,7 @@ echo '\n[Rename test]'
     # Project with old name no longer exists
     total=$(($total+1))
     result=$(gas info $projectName1)
-    pattern="No exact match found in your Google Drive \[✘\].*"
+    pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
     if [[ "$result" =~ $pattern ]];
     then
         succes=$(($succes+1))
