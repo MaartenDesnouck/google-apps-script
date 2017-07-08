@@ -2,11 +2,11 @@
 
 # gas, for locally developing Google Apps Script projects
 
-
+[![npm](https://img.shields.io/npm/v/google-apps-script.svg)](https://www.npmjs.com/package/google-apps-script)
 [![GitHub stars](https://img.shields.io/github/stars/MaartenDesnouck/google-apps-script.svg?style=social&label=Star)](https://github.com/MaartenDesnouck/google-apps-script)
 [![NPM Downloads](https://img.shields.io/npm/dt/google-apps-script.svg?style=flat)](https://www.npmjs.org/package/google-apps-script)
 [![Known Vulnerabilities](https://snyk.io/test/npm/google-apps-script/badge.svg?style=flat)](https://snyk.io/test/npm/google-apps-script)
-[![bitHound Overall Score](https://www.bithound.io/github/MaartenDesnouck/google-apps-script/badges/score.svg)](https://www.bithound.io/github/MaartenDesnouck/google-apps-script)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/fe9e115d56ab4dada6c22c804d5f2db9)](https://www.codacy.com/app/MaartenDesnouck/google-apps-script/dashboard)
 # Installation
 
 ```
