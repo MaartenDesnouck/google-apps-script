@@ -28,7 +28,7 @@ npm link
 rm -r $commonPart*
 
 # Testing auth
-echo '[Auth test]'
+printf '\n[Auth test]\n'
 
 total=$(($total+1))
 result=$(gas auth)
@@ -37,12 +37,12 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[1]"
-    echo "  $result"
+    printf "fail[1]\n"
+    printf "  $result\n"
 fi
 
 # Testing gas list and gas create
-echo '\n[List, info and create test]'
+printf '\n[List, info and create test]\n'
 
 # Project we are going to create should not exist yet (1)
 total=$(($total+1))
@@ -51,8 +51,8 @@ if [ "$result" = "No script projects matching the filter found in your Google Dr
 then
     succes=$(($succes+1))
 else
-    echo "fail[2]"
-    echo "  $result"
+    printf "fail[2]\n"
+    printf "  $result\n"
 fi
 
 
@@ -64,8 +64,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[3]"
-    echo "  $result"
+    printf "fail[3]\n"
+    printf "  $result\n"
 fi
 
 # Create project 1
@@ -79,8 +79,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[4]"
-    echo "  $result"
+    printf "fail[4]\n"
+    printf "  $result\n"
 fi
 
 # Parse projectId
@@ -94,8 +94,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[5]"
-    echo "  $result"
+    printf "fail[5]\n"
+    printf "  $result\n"
 fi
 
 # Project we created should have info when we look it up using id
@@ -106,8 +106,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[6]"
-    echo "  $result"
+    printf "fail[6]\n"
+    printf "  $result\n"
 fi
 
 # Second project we are going to create should not exist yet
@@ -117,8 +117,8 @@ if [ "$result" = "No script projects matching the filter found in your Google Dr
 then
     succes=$(($succes+1))
 else
-    echo "fail[7]"
-    echo "  $result"
+    printf "fail[7]\n"
+    printf "  $result\n"
 fi
 
 # Create project 2
@@ -132,8 +132,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[8]"
-    echo "  $result"
+    printf "fail[8]\n"
+    printf "  $result\n"
 fi
 
 # Parse project id
@@ -147,8 +147,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[9]"
-    echo "  $result"
+    printf "fail[9]\n"
+    printf "  $result\n"
 fi
 
 # List with filter on common part should give us 2 results
@@ -159,12 +159,12 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[10]"
-    echo "  $result"
+    printf "fail[10]\n"
+    printf "  $result\n"
 fi
 
 # Testing gas rename
-echo '\n[Rename test]'
+printf '\n[Rename test]\n'
 
 # Project we are going to rename should exist
 total=$(($total+1))
@@ -174,8 +174,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[11]"
-    echo "  $result"
+    printf "fail[11]\n"
+    printf "  $result\n"
 fi
 
 # Rename project
@@ -189,8 +189,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[12]"
-    echo "  $result"
+    printf "fail[12]\n"
+    printf "  $result\n"
 fi
 
 # Project with old name no longer exists
@@ -201,8 +201,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[13]"
-    echo "  $result"
+    printf "fail[13]\n"
+    printf "  $result\n"
 fi
 
 # Project with old id has a new name
@@ -213,12 +213,12 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[14]"
-    echo "  $result"
+    printf "fail[14]\n"
+    printf "  $result\n"
 fi
 
 # Testing gas delete
-echo '\n[Delete test]'
+printf "\n[Delete test]\n"
 
 # Project we are going to delete should exists
 total=$(($total+1))
@@ -228,8 +228,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[15]"
-    echo "  $result"
+    printf "fail[15]\n"
+    printf "  $result\n"
 fi
 
 # Delete by name
@@ -243,8 +243,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[16]"
-    echo "  $result"
+    printf "fail[16]\n"
+    printf "  $result\n"
 fi
 
 # Project we deleted should no longer exists based on id
@@ -255,8 +255,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[17]"
-    echo "  $result"
+    printf "fail[17]\n"
+    printf "  $result\n"
 fi
 
 # Create new project
@@ -270,8 +270,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[18]"
-    echo "  $result"
+    printf "fail[18]\n"
+    printf "  $result\n"
 fi
 
 # Parse projectId
@@ -285,8 +285,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[19]"
-    echo "  $result"
+    printf "fail[19]\n"
+    printf "  $result\n"
 fi
 
 # Delete project based on id
@@ -300,8 +300,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[20]"
-    echo "  $result"
+    printf "fail[20]\n"
+    printf "  $result\n"
 fi
 
 # Project we deleted should no longer exist based on id
@@ -312,12 +312,12 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[21]"
-    echo "  $result"
+    printf "fail[21]\n"
+    printf "  $result\n"
 fi
 
 # Testing gas link and pull
-echo '\n[Link and pull test]'
+printf '\n[Link and pull test]\n'
 
 # Project we are going to link and pull should exists
 total=$(($total+1))
@@ -327,8 +327,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[22]"
-    echo "  $result"
+    printf "fail[22]\n"
+    printf "  $result\n"
 fi
 
 #Linking and pulling using projectId
@@ -346,8 +346,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[23]"
-    echo "  $result"
+    printf "fail[23]\n"
+    printf "  $result\n"
 fi
 
 # ID should exist in $projectRootFolder2/.gas
@@ -357,21 +357,21 @@ if [ "$result" = $projectId2 ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[24]"
-    echo "  $result"
+    printf "fail[24]\n"
+    printf "  $result\n"
 fi
 
 # Testing gas push and clone
-echo '\n[Push and clone test]'
+printf '\n[Push and clone test]\n'
 # Create some files and folders and push them
-cd $projectRootFolder2
-echo '//test1' > test1.js
-mkdir 'testFolder' && cd 'testFolder'
-echo '//test2' > test2.js
+cd $projectRootFolder2 || exit
+printf '//test1\n' > test1.js
+mkdir 'testFolder' && cd 'testFolder' || exit
+printf '//test2\n' > test2.js
 cd ..
-mkdir 'testFolder2' && cd 'testFolder2'
-mkdir 'testFolder3' && cd 'testFolder3'
-echo '//test3' > test3.js
+mkdir 'testFolder2' && cd 'testFolder2' || exit
+mkdir 'testFolder3' && cd 'testFolder3' || exit
+printf '//test3\n' > test3.js
 cd ..
 cd ..
 gas push
@@ -388,8 +388,8 @@ if [ "$result" = "$content" ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[25]"
-    echo "  $result"
+    printf "fail[25]\n"
+    printf "  $result\n"
 fi
 
 # test2.js should exist in $projectName2/testFolder
@@ -400,8 +400,8 @@ if [ "$result" = "$content" ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[26]"
-    echo "  $result"
+    printf "fail[26]\n"
+    printf "  $result\n"
 fi
 
 # test3.js should exist in $projectRootFolder2/testFolder2/testFolder3
@@ -412,8 +412,8 @@ if [ "$result" = "$content" ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[27]"
-    echo "  $result"
+    printf "fail[27]\n"
+    printf "  $result\n"
 fi
 
 # main.js should exist in $projectName2
@@ -424,8 +424,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[28]"
-    echo "  $result"
+    printf "fail[28]\n"
+    printf "  $result\n"
 fi
 
 # .gitignore should exist in $projectName2
@@ -434,8 +434,8 @@ if [ -f $projectName2/.gitignore ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[29]"
-    echo "$(cat .gitignore)"
+    printf "fail[29]\n"
+    printf "$(cat .gitignore)\n"
 fi
 
 # ID should exist in $projectName2/.gas
@@ -445,8 +445,8 @@ if [ "$result" = $projectId2 ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[30]"
-    echo "  $result"
+    printf "fail[30]\n"
+    printf "  $result\n"
 fi
 
 # Delete test2.js and push from projectRootFolder2 and pull in projectName2
@@ -464,7 +464,7 @@ if [ ! -f $projectName2/test/test2.js ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[31]"
+    printf "fail[31]\n"
 fi
 
 # test3.js should exist in $projectName2/testFolder2/testFolder3
@@ -475,8 +475,8 @@ if [ "$result" = "$content" ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[32]"
-    echo "  $result"
+    printf "fail[32]\n"
+    printf "  $result\n"
 fi
 
 # testFolder should not exist amymore
@@ -486,7 +486,7 @@ if [ ! -e $projectName2/testFolder ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[33]"
+    printf "fail[33]\n"
 fi
 
 # Delete folder
@@ -498,7 +498,7 @@ if [ ! -f $projectName2/main.js ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[34]"
+    printf "fail[34]\n"
 fi
 
 # Clone using projectName
@@ -512,8 +512,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[35]"
-    echo "  $result"
+    printf "fail[35]\n"
+    printf "  $result\n"
 fi
 
 # ID should exist in $projectName2/.gas
@@ -523,13 +523,13 @@ if [ "$result" = $projectId2 ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[36]"
-    echo "  $result"
+    printf "fail[36]\n"
+    printf "  $result\n"
 fi
 
 
 # Testing gas new
-echo '\n[New test]'
+printf '\n[New test]\n'
 
 # Project we are going to create should not exist yet
 total=$(($total+1))
@@ -538,8 +538,8 @@ if [ "$result" = "No script projects matching the filter found in your Google Dr
 then
     succes=$(($succes+1))
 else
-    echo "fail[37]"
-    echo "  $result"
+    printf "fail[37]\n"
+    printf "  $result\n"
 fi
 
 gas new $projectName4
@@ -552,8 +552,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[38]"
-    echo "  $result"
+    printf "fail[38]\n"
+    printf "  $result\n"
 fi
 
 # Parse projectId
@@ -567,8 +567,8 @@ if [[ "$result" =~ $pattern ]];
 then
     succes=$(($succes+1))
 else
-    echo "fail[39]"
-    echo "  $result"
+    printf "fail[39]\n"
+    printf "  $result"
 fi
 
 # ID should exist in $projectName4/.gas
@@ -578,8 +578,8 @@ if [ "$result" = $projectId4 ];
 then
     succes=$(($succes+1))
 else
-    echo "fail[40]"
-    echo "  $result"
+    printf "fail[40]\n"
+    printf "  $result\n"
 fi
 
 # TODO testing gas include
@@ -592,8 +592,8 @@ rm -r $projectRootFolder2
 rm -r $projectName4
 
 
-echo "-------------------------------------"
-echo "Test result: $(($succes))/$total"
+printf "____________________________________________\n"
+printf "Test result: $(($succes))/$total\n"
 
 if [ $total -gt $succes ];
 then
