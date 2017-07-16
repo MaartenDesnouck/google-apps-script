@@ -1,6 +1,6 @@
 #!/bin/sh
 
-succes=0;
+success=0;
 total=0;
 
 epoch=$(date +%s)
@@ -32,10 +32,10 @@ printf '\n[Auth test]\n'
 
 total=$(($total+1))
 result=$(gas auth)
-pattern="You are succesfully authenticated as '.*' \[✔\]";
+pattern="You are successfully authenticated as '.*' \[✔\]";
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[1]\n"
     printf "  $result\n"
@@ -49,7 +49,7 @@ total=$(($total+1))
 result=$(gas list $projectName1)
 if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[2]\n"
     printf "  $result\n"
@@ -62,7 +62,7 @@ result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[3]\n"
     printf "  $result\n"
@@ -77,7 +77,7 @@ result=$(gas list $projectName1)
 pattern="^\[(.{$idLenght})\] $projectName1$"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[4]\n"
     printf "  $result\n"
@@ -92,7 +92,7 @@ result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[5]\n"
     printf "  $result\n"
@@ -104,7 +104,7 @@ result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[6]\n"
     printf "  $result\n"
@@ -115,7 +115,7 @@ result=$(gas list $projectName2)
 total=$(($total+1))
 if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[7]\n"
     printf "  $result\n"
@@ -130,7 +130,7 @@ result=$(gas list $projectName2)
 pattern="^\[(.{$idLenght})\] $projectName2$"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[8]\n"
     printf "  $result\n"
@@ -145,7 +145,7 @@ result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[9]\n"
     printf "  $result\n"
@@ -157,7 +157,7 @@ result=$(gas list $commonPart)
 pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[10]\n"
     printf "  $result\n"
@@ -172,7 +172,7 @@ result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[11]\n"
     printf "  $result\n"
@@ -187,7 +187,7 @@ result=$(gas info $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[12]\n"
     printf "  $result\n"
@@ -199,7 +199,7 @@ result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[13]\n"
     printf "  $result\n"
@@ -211,7 +211,7 @@ result=$(gas info $projectId1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[14]\n"
     printf "  $result\n"
@@ -226,7 +226,7 @@ result=$(gas info $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[15]\n"
     printf "  $result\n"
@@ -241,7 +241,7 @@ result=$(gas info $newProjectName1)
 pattern="No project with name or id '$newProjectName1' found in your Google Drive \[✘\].*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[16]\n"
     printf "  $result\n"
@@ -253,7 +253,7 @@ result=$(gas info $projectId1)
 pattern="No project with name or id '$projectId1' found in your Google Drive \[✘\].*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[17]\n"
     printf "  $result\n"
@@ -268,7 +268,7 @@ result=$(gas info $projectName3)
 pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[18]\n"
     printf "  $result\n"
@@ -283,7 +283,7 @@ result=$(gas info $projectId3)
 pattern="name:           $projectName3.*id:             $projectId3.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[19]\n"
     printf "  $result\n"
@@ -298,7 +298,7 @@ result=$(gas info $projectName3)
 pattern="No project with name or id '$projectName3' found in your Google Drive \[✘\].*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[20]\n"
     printf "  $result\n"
@@ -310,7 +310,7 @@ result=$(gas info $projectId3)
 pattern="No project with name or id '$projectId3' found in your Google Drive \[✘\].*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[21]\n"
     printf "  $result\n"
@@ -325,7 +325,7 @@ result=$(gas info $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[22]\n"
     printf "  $result\n"
@@ -344,7 +344,7 @@ result=$(cat $projectRootFolder2/main.js)
 pattern="function myFunction\(\) \{.*\}"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[23]\n"
     printf "  $result\n"
@@ -355,7 +355,7 @@ total=$(($total+1))
 result=$(cat $projectRootFolder2/.gas/ID)
 if [ "$result" = $projectId2 ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[24]\n"
     printf "  $result\n"
@@ -386,7 +386,7 @@ result=$(cat $projectName2/test1.js)
 content='//test1';
 if [ "$result" = "$content" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[25]\n"
     printf "  $result\n"
@@ -398,7 +398,7 @@ result=$(cat $projectName2/testFolder/test2.js)
 content='//test2';
 if [ "$result" = "$content" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[26]\n"
     printf "  $result\n"
@@ -410,7 +410,7 @@ result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
 content='//test3';
 if [ "$result" = "$content" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[27]\n"
     printf "  $result\n"
@@ -422,7 +422,7 @@ result=$(cat $projectName2/main.js)
 pattern="function myFunction\(\) \{.*\}"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[28]\n"
     printf "  $result\n"
@@ -432,7 +432,7 @@ fi
 total=$(($total+1))
 if [ -f $projectName2/.gitignore ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[29]\n"
     printf "$(cat .gitignore)\n"
@@ -443,7 +443,7 @@ total=$(($total+1))
 result=$(cat $projectName2/.gas/ID)
 if [ "$result" = $projectId2 ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[30]\n"
     printf "  $result\n"
@@ -462,7 +462,7 @@ cd ..
 total=$(($total+1))
 if [ ! -f $projectName2/test/test2.js ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[31]\n"
 fi
@@ -473,7 +473,7 @@ result=$(cat $projectName2/testFolder2/testFolder3/test3.js)
 content='//test3';
 if [ "$result" = "$content" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[32]\n"
     printf "  $result\n"
@@ -484,7 +484,7 @@ fi
 total=$(($total+1))
 if [ ! -e $projectName2/testFolder ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[33]\n"
 fi
@@ -496,7 +496,7 @@ rm -r $projectName2
 total=$(($total+1))
 if [ ! -f $projectName2/main.js ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[34]\n"
 fi
@@ -510,7 +510,7 @@ result=$(cat $projectName2/main.js)
 pattern="function myFunction\(\) \{.*\}"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[35]\n"
     printf "  $result\n"
@@ -521,7 +521,7 @@ total=$(($total+1))
 result=$(cat $projectName2/.gas/ID)
 if [ "$result" = $projectId2 ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[36]\n"
     printf "  $result\n"
@@ -536,7 +536,7 @@ total=$(($total+1))
 result=$(gas list $projectName4)
 if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[37]\n"
     printf "  $result\n"
@@ -550,7 +550,7 @@ result=$(gas info $projectName4)
 pattern="name:           $projectName4.*id:             (.{$idLenght}).*"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[38]\n"
     printf "  $result\n"
@@ -565,7 +565,7 @@ result=$(cat $projectName4/main.js)
 pattern="function myFunction\(\) \{.*\}"
 if [[ "$result" =~ $pattern ]];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[39]\n"
     printf "  $result"
@@ -576,7 +576,7 @@ total=$(($total+1))
 result=$(cat $projectName4/.gas/ID)
 if [ "$result" = $projectId4 ];
 then
-    succes=$(($succes+1))
+    success=$(($success+1))
 else
     printf "fail[40]\n"
     printf "  $result\n"
@@ -593,9 +593,9 @@ rm -r $projectName4
 
 
 printf "____________________________________________\n"
-printf "Test result: $(($succes))/$total\n"
+printf "Test result: $success/$total\n"
 
-if [ $total -gt $succes ];
+if [ $total -gt $success ];
 then
     exit 1
 else
