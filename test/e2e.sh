@@ -450,11 +450,11 @@ else
 fi
 
 # Delete test2.js and push from projectRootFolder2 and pull in projectName2
-cd $projectRootFolder2
+cd $projectRootFolder2 || exit
 rm testFolder/test2.js
 gas push
 cd ..
-cd $projectName2
+cd $projectName2 || exit
 gas pull
 cd ..
 
@@ -582,7 +582,13 @@ else
     printf "  $result\n"
 fi
 
-# TODO testing gas include
+# Testing gas include
+printf '\n[Include test]\n'
+
+# write an include file
+# do gas include
+# do gas push
+# do gas pull
 
 # Cleaning up at the end by deleting remaining projects and folders
 gas delete $projectId2
