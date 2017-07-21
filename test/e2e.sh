@@ -584,13 +584,27 @@ fi
 
 # Testing gas include
 printf '\n[Include test]\n'
+printf '#todo'
+
+# do gas include
+# check that include file has been created
 
 # write an include file
-# do gas include
-# do gas push
-# do gas pull
+# cd $projectRootFolder2 || exit
+# printf '//test1\n' > test1.js
+# mkdir 'testFolder' && cd 'testFolder' || exit
+# printf '//test2\n' > test2.js
+# cd ..
+# mkdir 'testFolder2' && cd 'testFolder2' || exit
+# mkdir 'testFolder3' && cd 'testFolder3' || exit
+# printf '//test3\n' > test3.js
+# cd ..
+# cd ..
+# gas push
+# cd ..
 
 # Cleaning up at the end by deleting remaining projects and folders
+printf '\n[Cleaning up]\n'
 gas delete $projectId2
 gas delete $projectName4
 rm -r $projectName2
