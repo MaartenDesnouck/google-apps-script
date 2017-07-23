@@ -27,7 +27,6 @@
     "dependencies": {
         "colors": "^1.1.2",
         "commander": "^2.9.0",
-        "firebase": "^4.1.3",
         "google-auth-library": "^0.10.0",
         "googleapis": "^20.0.0",
         "open": "^0.0.5",
