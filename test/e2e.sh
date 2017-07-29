@@ -28,8 +28,11 @@ npm link
 rm -r $commonPart*
 
 # Put credentials in the right Location ($token is set in Circl CI env vars)
-mkdir ~/.google-apps-script
-printf $token > ~/.google-apps-script/token.json
+if [ $token ];
+then
+    mkdir ~/.google-apps-script
+    printf $token > ~/.google-apps-script/token.json
+fi
 
 # Testing auth
 printf '\n[Auth test]\n'
