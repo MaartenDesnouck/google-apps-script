@@ -20,9 +20,10 @@ program
     .action(require(lib + '/remote-create'));
 
 program
-    .command('new <name>')
+    .command('init <name>')
+    .alias('new' )
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
-    .action(require(lib + '/new'));
+    .action(require(lib + '/init'));
 
 program
     .command('delete <fileName|fileId>')
@@ -68,9 +69,15 @@ program
     .action(require(lib + '/open'));
 
 program
-    .command('info [fileName|fileId]')
+    .command('show [fileName|fileId]')
+    .alias('info')
     .description('display info the project linked to the current folder or a specified project')
-    .action(require(lib + '/info'));
+    .action(require(lib + '/show'));
+
+program
+    .command('status')
+    .description('display the status of your local files')
+    .action(require(lib + '/status'));
 
 program
     .command('include')
@@ -85,6 +92,7 @@ program
     });
 
 program.on('--help', function() {
+    console.log('');
     console.log('  Examples:');
     console.log('');
     console.log('    $ gas new myScript');

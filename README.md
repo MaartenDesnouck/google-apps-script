@@ -53,8 +53,8 @@ $ gas push
 Some shortcuts for creating, linking and pulling projects all in one:
 
 ```
+$ gas init <name>
 $ gas clone <fileName|fileId>
-$ gas new <name>
 ```
 
 Open the linked project or a specified project in the online editor:
@@ -63,10 +63,10 @@ Open the linked project or a specified project in the online editor:
 $ gas open [fileName|fileId]
 ```
 
-Get info about the linked project or a specified project:
+Show some info about the linked project or a specified project:
 
 ````
-$ gas info [fileName|fileId]
+$ gas show [fileName|fileId]
 ````
 
 There is also the beta feature of including specified external files
@@ -81,7 +81,7 @@ $ gas push
 # Examples
 
 ```
-$ gas new myScript
+$ gas init myScript
 $ cd myScript
 $ gas open
 ```
