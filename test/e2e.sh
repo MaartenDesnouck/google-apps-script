@@ -27,6 +27,10 @@ npm install
 npm link
 rm -r $commonPart*
 
+# Put credentials in the right Location
+mkdir ~/.google-apps-script
+printf $token > ~/.google-apps-script/token.json
+
 # Testing auth
 printf '\n[Auth test]\n'
 

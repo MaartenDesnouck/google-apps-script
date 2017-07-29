@@ -4,4 +4,4 @@ machine:
 
 test:
   override:
-    - ./test/circleci.sh:
+    - ./test/e2e.sh:
