@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 success=0;
 total=0;
@@ -27,7 +27,7 @@ npm install
 npm link
 rm -r $commonPart*
 
-# Put credentials in the right Location
+# Put credentials in the right Location ($token is set in Circl CI env vars)
 mkdir ~/.google-apps-script
 printf $token > ~/.google-apps-script/token.json
 
