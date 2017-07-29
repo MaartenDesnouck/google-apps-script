@@ -8,7 +8,8 @@ npm link
 echo 'test'
 
 # Put credentials in the right Location
-printf token > token.json
-
+mkdir ~/.google-apps-script
+printf token > ~/.google-apps-script/token.json
+cat  ~/.google-apps-script/token.json
 
 exit 0
