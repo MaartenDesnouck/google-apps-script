@@ -69,6 +69,12 @@ Show some info about the linked project or a specified project:
 $ gas show [fileName|fileId]
 ````
 
+Check if there are any differences between your local files and Google Drive:
+
+````
+$ gas status
+````
+
 There is also the beta feature of including specified external files
 ```
 // Content of gas-include.js
