@@ -27,7 +27,7 @@ npm install
 npm link
 rm -r $commonPart*
 
-# Put credentials in the right Location ($token is set in Circl CI env vars)
+# Put credentials in the right location ($token is set in Circl CI env vars)
 if [ $token ];
 then
     mkdir ~/.google-apps-script
@@ -340,7 +340,7 @@ fi
 
 #Linking and pulling using projectId
 mkdir $projectRootFolder2
-cd $projectRootFolder2
+cd $projectRootFolder2 || exit
 gas link $projectId2
 gas pull
 cd ..
@@ -369,7 +369,7 @@ else
 fi
 
 # Testing gas push and clone
-printf '\n[Push and clone test]\n'
+printf '\n[Push, clone and status test]\n'
 # Create some files and folders and push them
 cd $projectRootFolder2 || exit
 printf '//test1\n' > test1.js
@@ -456,9 +456,18 @@ else
     printf "  $result\n"
 fi
 
-# Delete test2.js and push from projectRootFolder2 and pull in projectName2
+# Delete test2.js, modfy main.js and create test4.js and push from projectRootFolder2 and pull in projectName2
 cd $projectRootFolder2 || exit
-rm testFolder/test2.js
+printf '//main modified\n' > main.js
+printf '//test4\n' > test4.js
+cd testFolder || exit
+rm test2.js
+cd ..
+
+# test gas status
+gas status
+
+# Do a gas push and pull in a different project
 gas push
 cd ..
 cd $projectName2 || exit
@@ -467,7 +476,7 @@ cd ..
 
 # test2.js should not exist anymore
 total=$((total+1))
-if [ ! -f $projectName2/test/test2.js ];
+if [ ! -f $projectName2/testFolder/test2.js ];
 then
     success=$((success+1))
 else
@@ -514,7 +523,7 @@ gas clone $projectName2
 # main.js should exist in $projectName2
 total=$((total+1))
 result=$(cat $projectName2/main.js)
-pattern="function myFunction\(\) \{.*\}"
+pattern="//main modified"
 if [[ "$result" =~ $pattern ]];
 then
     success=$((success+1))
@@ -591,7 +600,6 @@ fi
 
 # Testing gas include
 printf '\n[Include test]\n'
-printf '#todo'
 
 # do gas include
 # check that include file has been created
