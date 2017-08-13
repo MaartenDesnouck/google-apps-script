@@ -34,350 +34,263 @@ then
     printf $token > ~/.google-apps-script/token.json
 fi
 
+# Functions
+function assertRegex {
+    total=$((total+1))
+    identifier=$1
+    result=$2
+    pattern=$3
+    if [[ "$result" =~ $pattern ]];
+    then
+        printf "[✔] $identifier\n"
+        success=$((success+1))
+    else
+        printf "[✘] $identifier\n"
+        printf "  $result\n"
+    fi
+}
+
+function assertFileExists {
+    total=$((total+1))
+    identifier=$1
+    name=$2
+    if [ -e $name ];
+    then
+        printf "[✔] $identifier\n"
+        success=$((success+1))
+    else
+        printf "[✘] $identifier\n"
+    fi
+}
+
+function assertFileDoesNotExist {
+    total=$((total+1))
+    identifier=$1
+    name=$2
+    if [ ! -e $name ];
+    then
+        printf "[✔] $identifier\n"
+        success=$((success+1))
+    else
+        printf "[✘] $identifier\n"
+    fi
+}
+
+function assertFolderExists {
+    total=$((total+1))
+    identifier=$1
+    name=$2
+    if [ -f $name ];
+    then
+        printf "[✔] $identifier\n"
+        success=$((success+1))
+    else
+        printf "[✘] $identifier\n"
+    fi
+}
+
+function assertFolderDoesNotExists {
+    total=$((total+1))
+    identifier=$1
+    name=$2
+    if [ ! -f $name ];
+    then
+        printf "[✔] $identifier\n"
+        success=$((success+1))
+    else
+        printf "[✘] $identifier\n"
+    fi
+}
+
 # Testing auth
 printf '\n[Auth test]\n'
 
-total=$((total+1))
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[1]\n"
-    printf "  $result\n"
-fi
+assertRegex "0.0" "$result" "$pattern"
 
 # Testing gas list and gas create
 printf '\n[List, info and create test]\n'
 
 # Project we are going to create should not exist yet (1)
-total=$((total+1))
 result=$(gas list $projectName1)
-if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
-then
-    success=$((success+1))
-else
-    printf "fail[2]\n"
-    printf "  $result\n"
-fi
+pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+assertRegex "1.0" "$result" "$pattern"
 
 
 # Project we are going to create should not exist yet (2)
-total=$((total+1))
 result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[3]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.1" "$result" "$pattern"
 
 # Create project 1
 gas create $projectName1
 
 # Project we created should be listable using name and have only one result
-total=$((total+1))
 result=$(gas list $projectName1)
 pattern="^\[(.{$idLenght})\] $projectName1$"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[4]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.2" "$result" "$pattern"
 
 # Parse projectId
 projectId1=${BASH_REMATCH[1]}
 
 # Project we created shoud have info when we look it up using name
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[5]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.3" "$result" "$pattern"
 
 # Project we created should have info when we look it up using id
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[6]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.4" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
 result=$(gas list $projectName2)
-total=$((total+1))
-if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
-then
-    success=$((success+1))
-else
-    printf "fail[7]\n"
-    printf "  $result\n"
-fi
+pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+assertRegex "1.5" "$result" "$pattern"
 
 # Create project 2
 gas create $projectName2
 
 # Second project we created should be listable using name and have only one result
-total=$((total+1))
 result=$(gas list $projectName2)
 pattern="^\[(.{$idLenght})\] $projectName2$"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[8]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.6" "$result" "$pattern"
 
 # Parse project id
 projectId2=${BASH_REMATCH[1]}
 
 # Second project we created should have info when we look it up using id
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[9]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.7" "$result" "$pattern"
 
 # List with filter on common part should give us 2 results
-total=$((total+1))
 result=$(gas list $commonPart)
 pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[10]\n"
-    printf "  $result\n"
-fi
+assertRegex "1.8" "$result" "$pattern"
 
 # Testing gas rename
 printf '\n[Rename test]\n'
 
 # Project we are going to rename should exist
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[11]\n"
-    printf "  $result\n"
-fi
+assertRegex "2.0" "$result" "$pattern"
 
 # Rename project
 gas rename $projectName1 $newProjectName1
 
 # Project with new name exists and still has the same id
-total=$((total+1))
 result=$(gas info $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[12]\n"
-    printf "  $result\n"
-fi
+assertRegex "2.1" "$result" "$pattern"
 
 # Project with old name no longer exists
-total=$((total+1))
 result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[13]\n"
-    printf "  $result\n"
-fi
+assertRegex "2.2" "$result" "$pattern"
 
 # Project with old id has a new name
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[14]\n"
-    printf "  $result\n"
-fi
+assertRegex "2.3" "$result" "$pattern"
 
 # Testing gas delete
 printf "\n[Delete test]\n"
 
 # Project we are going to delete should exists
-total=$((total+1))
 result=$(gas info $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[15]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.0" "$result" "$pattern"
 
 # Delete by name
 gas delete $newProjectName1
 
 # Project we deleted should no longer exists based on name
-total=$((total+1))
 result=$(gas info $newProjectName1)
 pattern="No project with name or id '$newProjectName1' found in your Google Drive \[✘\].*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[16]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.1" "$result" "$pattern"
 
 # Project we deleted should no longer exists based on id
-total=$((total+1))
 result=$(gas info $projectId1)
 pattern="No project with name or id '$projectId1' found in your Google Drive \[✘\].*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[17]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.2" "$result" "$pattern"
 
 # Create new project
 gas create $projectName3
 
 # Project we are going to delete should exist based on name
-total=$((total+1))
 result=$(gas info $projectName3)
 pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[18]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.3" "$result" "$pattern"
 
 # Parse projectId
 projectId3=${BASH_REMATCH[1]}
 
 # Project we are going to delete should exist based on id
-total=$((total+1))
 result=$(gas info $projectId3)
 pattern="name:           $projectName3.*id:             $projectId3.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[19]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.4" "$result" "$pattern"
 
 # Delete project based on id
 gas delete $projectId3
 
 # Project we deleted should no longer exist based on name
-total=$((total+1))
 result=$(gas info $projectName3)
 pattern="No project with name or id '$projectName3' found in your Google Drive \[✘\].*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[20]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.5" "$result" "$pattern"
 
 # Project we deleted should no longer exist based on id
-total=$((total+1))
 result=$(gas info $projectId3)
 pattern="No project with name or id '$projectId3' found in your Google Drive \[✘\].*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[21]\n"
-    printf "  $result\n"
-fi
+assertRegex "3.6" "$result" "$pattern"
 
 # Testing gas link and pull
 printf '\n[Link and pull test]\n'
 
 # Project we are going to link and pull should exists
-total=$((total+1))
 result=$(gas info $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[22]\n"
-    printf "  $result\n"
-fi
+assertRegex "4.0" "$result" "$pattern"
 
-#Linking and pulling using projectId
+# Linking and pulling using projectId
 mkdir $projectRootFolder2
-cd $projectRootFolder2 || exit
+cd $projectRootFolder2 || exit 1
 gas link $projectId2
 gas pull
 cd ..
 
 # Main.js should exist in $projectRootFolder2
-total=$((total+1))
 result=$(cat $projectRootFolder2/main.js)
 pattern="function myFunction\(\) \{.*\}"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[23]\n"
-    printf "  $result\n"
-fi
+assertRegex "4.1" "$result" "$pattern"
 
 # ID should exist in $projectRootFolder2/.gas
-total=$((total+1))
 result=$(cat $projectRootFolder2/.gas/ID)
-if [ "$result" = $projectId2 ];
-then
-    success=$((success+1))
-else
-    printf "fail[24]\n"
-    printf "  $result\n"
-fi
+assertRegex "4.2" "$result" "$projectId2"
+
+# Linking a project to a subfolder should fail
+cd $projectRootFolder2 || exit 1
+mkdir 'testFolder'
+cd 'testFolder' || exit 1
+
+result=$(gas link $projectId2)
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[✘\]"
+assertRegex "4.3" "$result" "$pattern"
+
+cd ..
 
 # Testing gas push and clone
 printf '\n[Push, clone and status test]\n'
+
 # Create some files and folders and push them
-cd $projectRootFolder2 || exit
 printf '//test1\n' > test1.js
-mkdir 'testFolder' && cd 'testFolder' || exit
+cd 'testFolder' || exit 1
 printf '//test2\n' > test2.js
 cd ..
-mkdir 'testFolder2' && cd 'testFolder2' || exit
-mkdir 'testFolder3' && cd 'testFolder3' || exit
+mkdir 'testFolder2' && cd 'testFolder2' || exit 1
+mkdir 'testFolder3' && cd 'testFolder3' || exit 1
 printf '//test3\n' > test3.js
 cd ..
 cd ..
@@ -388,79 +301,34 @@ cd ..
 gas clone $projectId2
 
 # test1.js should exist in $projectName2
-total=$((total+1))
 result=$(cat $projectName2/test1.js)
-content='//test1';
-if [ "$result" = "$content" ];
-then
-    success=$((success+1))
-else
-    printf "fail[25]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.0" "$result" "//test1"
 
 # test2.js should exist in $projectName2/testFolder
-total=$((total+1))
 result=$(cat $projectName2/testFolder/test2.js)
-content='//test2';
-if [ "$result" = "$content" ];
-then
-    success=$((success+1))
-else
-    printf "fail[26]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.1" "$result" "//test2"
 
 # test3.js should exist in $projectRootFolder2/testFolder2/testFolder3
-total=$((total+1))
 result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
-content='//test3';
-if [ "$result" = "$content" ];
-then
-    success=$((success+1))
-else
-    printf "fail[27]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.2" "$result" "//test3"
 
 # main.js should exist in $projectName2
-total=$((total+1))
 result=$(cat $projectName2/main.js)
 pattern="function myFunction\(\) \{.*\}"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[28]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.3" "$result" "$pattern"
 
 # .gitignore should exist in $projectName2
-total=$((total+1))
-if [ -f $projectName2/.gitignore ];
-then
-    success=$((success+1))
-else
-    printf "fail[29]\n"
-    printf "$(cat .gitignore)\n"
-fi
+assertFileExists "5.4" "$projectName2/.gitignore"
 
 # ID should exist in $projectName2/.gas
-total=$((total+1))
 result=$(cat $projectName2/.gas/ID)
-if [ "$result" = $projectId2 ];
-then
-    success=$((success+1))
-else
-    printf "fail[30]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.5" "$result" "$projectId2"
 
 # Delete test2.js, modfy main.js and create test4.js and push from projectRootFolder2 and pull in projectName2
-cd $projectRootFolder2 || exit
+cd $projectRootFolder2 || exit 1
 printf '//main modified\n' > main.js
 printf '//test4\n' > test4.js
-cd testFolder || exit
+cd testFolder || exit 1
 rm test2.js
 cd ..
 
@@ -470,133 +338,64 @@ gas status
 # Do a gas push and pull in a different project
 gas push
 cd ..
-cd $projectName2 || exit
+cd $projectName2 || exit 1
 gas pull
 cd ..
 
 # test2.js should not exist anymore
-total=$((total+1))
-if [ ! -f $projectName2/testFolder/test2.js ];
-then
-    success=$((success+1))
-else
-    printf "fail[31]\n"
-fi
+assertFileDoesNotExist "5.6" "$projectName2/testFolder/test2.js"
 
 # test3.js should exist in $projectName2/testFolder2/testFolder3
-total=$((total+1))
 result=$(cat $projectName2/testFolder2/testFolder3/test3.js)
-content='//test3';
-if [ "$result" = "$content" ];
-then
-    success=$((success+1))
-else
-    printf "fail[32]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.7" "$result" "//test3"
 
 # testFolder should not exist amymore
-# test2.js should not exist anymore
-total=$((total+1))
-if [ ! -e $projectName2/testFolder ];
-then
-    success=$((success+1))
-else
-    printf "fail[33]\n"
-fi
+assertFileDoesNotExist "5.8" "$projectName2/testFolder"
 
 # Delete folder
 rm -r $projectName2
 
-# main.js should not in $projectName2
-total=$((total+1))
-if [ ! -f $projectName2/main.js ];
-then
-    success=$((success+1))
-else
-    printf "fail[34]\n"
-fi
+# main.js should not exist in $projectName2
+assertFileDoesNotExist "5.9" "$projectName2/main.js"
 
 # Clone using projectName
 gas clone $projectName2
 
-# main.js should exist in $projectName2
-total=$((total+1))
+# main.js should have a specific content in $projectName2
 result=$(cat $projectName2/main.js)
 pattern="//main modified"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[35]\n"
-    printf "  $result\n"
-fi
+assertRegex "5.10" "$result" "$pattern"
 
-# ID should exist in $projectName2/.gas
-total=$((total+1))
+# ID should exist in $projectName2/.gas and have projectId2 as content
 result=$(cat $projectName2/.gas/ID)
-if [ "$result" = $projectId2 ];
-then
-    success=$((success+1))
-else
-    printf "fail[36]\n"
-    printf "  $result\n"
-fi
-
+assertRegex "5.11" "$result" "$projectId2"
 
 # Testing gas new
 printf '\n[New test]\n'
 
 # Project we are going to create should not exist yet
-total=$((total+1))
 result=$(gas list $projectName4)
-if [ "$result" = "No script projects matching the filter found in your Google Drive [✘]" ];
-then
-    success=$((success+1))
-else
-    printf "fail[37]\n"
-    printf "  $result\n"
-fi
+pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+assertRegex "6.0" "$result" "$pattern"
 
 gas new $projectName4
 
 # Project we created shoud have info when we look it up using name
-total=$((total+1))
 result=$(gas info $projectName4)
 pattern="name:           $projectName4.*id:             (.{$idLenght}).*"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[38]\n"
-    printf "  $result\n"
-fi
+assertRegex "6.1" "$result" "$pattern"
 
 # Parse projectId
 projectId4=${BASH_REMATCH[1]}
 
 # main.js should exist in $projectName4
-total=$((total+1))
 result=$(cat $projectName4/main.js)
 pattern="function myFunction\(\) \{.*\}"
-if [[ "$result" =~ $pattern ]];
-then
-    success=$((success+1))
-else
-    printf "fail[39]\n"
-    printf "  $result"
-fi
+assertRegex "6.2" "$result" "$pattern"
 
 # ID should exist in $projectName4/.gas
-total=$((total+1))
 result=$(cat $projectName4/.gas/ID)
-if [ "$result" = $projectId4 ];
-then
-    success=$((success+1))
-else
-    printf "fail[40]\n"
-    printf "  $result\n"
-fi
+assertRegex "6.3" "$result" "$projectId4"
 
 # Testing gas include
 printf '\n[Include test]\n'
@@ -605,13 +404,13 @@ printf '\n[Include test]\n'
 # check that include file has been created
 
 # write an include file
-# cd $projectRootFolder2 || exit
+# cd $projectRootFolder2 || exit 1
 # printf '//test1\n' > test1.js
-# mkdir 'testFolder' && cd 'testFolder' || exit
+# mkdir 'testFolder' && cd 'testFolder' || exit 1
 # printf '//test2\n' > test2.js
 # cd ..
-# mkdir 'testFolder2' && cd 'testFolder2' || exit
-# mkdir 'testFolder3' && cd 'testFolder3' || exit
+# mkdir 'testFolder2' && cd 'testFolder2' || exit 1
+# mkdir 'testFolder3' && cd 'testFolder3' || exit 1
 # printf '//test3\n' > test3.js
 # cd ..
 # cd ..

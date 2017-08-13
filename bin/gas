@@ -15,40 +15,40 @@ program
     .action(require(lib + '/auth'));
 
 program
-    .command('create <name>')
+    .command('create <projectName>')
     .description('create a new project in your Google Drive')
     .action(require(lib + '/remote-create'));
 
 program
-    .command('init <name>')
+    .command('init <projectName>')
     .alias('new' )
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
     .action(require(lib + '/init'));
 
 program
-    .command('delete <fileName|fileId>')
+    .command('delete <projectName|projectId>')
     .alias('remove')
     .description('delete a project from your Google Drive')
     .action(require(lib + '/remote-delete'));
 
 program
-    .command('rename <fileName|fileId> <newName>')
+    .command('rename <projectName|projectId> <newProjectName>')
     .description('rename a project in your Google Drive')
     .action(require(lib + '/remote-rename'));
 
 program
-    .command('link <fileName|fileId>')
-    .description('link the remote project with the given fileId to the current local folder')
+    .command('link <projectName|projectId>')
+    .description('link the remote project with the given projectId to the current local folder')
     .action(require(lib + '/link'));
 
 program
-    .command('list [nameFilter]')
-    .description('list your remote projects and their fileId\'s (optional filter on filename)')
+    .command('list [filter]')
+    .description('list your remote projects and their id\'s (optional filter on projectName)')
     .action(require(lib + '/list'));
 
 program
-    .command('clone <fileName|fileId>')
-    .description('create a new local folder, link the remote project with the given fileId and do a pull from remote')
+    .command('clone <projectName|projectId>')
+    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote')
     .action(require(lib + '/clone'));
 
 program
@@ -64,14 +64,14 @@ program
     .action(require(lib + '/pull'));
 
 program
-    .command('open [fileName|fileId]')
+    .command('open [projectName|projectId]')
     .description('open the project linked to the current folder or a specified project in the online editor')
     .action(require(lib + '/open'));
 
 program
-    .command('show [fileName|fileId]')
+    .command('show [projectName|projectId]')
     .alias('info')
-    .description('display info the project linked to the current folder or a specified project')
+    .description('display info about the project linked to the current folder or about a specified project')
     .action(require(lib + '/show'));
 
 program
