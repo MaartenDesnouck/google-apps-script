@@ -25,21 +25,21 @@ $ gas auth [-f]
 Create, delete or rename a project in your Google Drive:
 
 ```
-$ gas create <name>
-$ gas delete <fileName|fileId>
-$ gas rename <fileName|fileId> <newName>
+$ gas create <projectName>
+$ gas delete <projectName|projectId>
+$ gas rename <projectName|projectId> <newProjectName>
 ```
 
-List your remote projects and their fileId's (optional filter on filename):
+List your remote projects and their iId's (optional filter on projectName):
 
 ```
-$ gas list [nameFilter]
+$ gas list [filter]
 ```
 
 Link a remote project to your current directory:
 
 ```
-$ gas link <fileName|fileId>
+$ gas link <projectName|projectId>
 ```
 
 Pull and push code from/to your remote project:
@@ -54,19 +54,19 @@ Some shortcuts for creating, linking and pulling projects all in one:
 
 ```
 $ gas init <name>
-$ gas clone <fileName|fileId>
+$ gas clone <projectName|projectId>
 ```
 
 Open the linked project or a specified project in the online editor:
 
 ```
-$ gas open [fileName|fileId]
+$ gas open [projectName|projectId]
 ```
 
 Show some info about the linked project or a specified project:
 
 ````
-$ gas show [fileName|fileId]
+$ gas show [projectName|projectId]
 ````
 
 Check if there are any differences between your local files and Google Drive:
