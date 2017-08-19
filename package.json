@@ -13,10 +13,13 @@
         "url": "git+https://github.com/maartendesnouck/google-apps-script.git"
     },
     "keywords": [
-        "CLI",
+        "google-apps-script",
+        "googleappsscript",
+        "gas",
+        "export",
+        "import",
         "Google",
-        "Apps",
-        "Script"
+        "CLI"
     ],
     "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
     "license": "MIT",
