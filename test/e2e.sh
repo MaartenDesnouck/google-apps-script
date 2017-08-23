@@ -20,6 +20,9 @@ projectId3=''
 projectName4=$commonPart'_'$epoch'_project4'
 projectId4=''
 
+projectName5=$commonPart'_'$epoch'_project5'
+projectId5=''
+
 idLenght=57
 
 # Setup
@@ -239,9 +242,11 @@ assertRegex "linking a project to a subfolder of another project fails" "$result
 
 cd ..
 
-result=$(gas link $projectId1)
-pattern="Linking '$projectName1' to this folder... \[✔\]"
-assertRegex "linking a project to a folder that already is linked is possible" "$result" "$pattern"
+gas create $projectName4
+
+result=$(gas link $projectName4)
+pattern="Linking '$projectName4' to this folder... \[✔\]"
+assertRegex "linking a project to a folder that is already linked to a project is possible" "$result" "$pattern"
 
 gas link $projectId2
 
@@ -332,25 +337,25 @@ assertRegex "5.11" "$result" "$projectId2"
 printf '\n[New test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas list $projectName4)
+result=$(gas list $projectName5)
 pattern="No script projects matching the filter found in your Google Drive \[✘\]"
 assertRegex "6.0" "$result" "$pattern"
 
-gas new $projectName4
+gas new $projectName5
 
 # Project we created shoud have info when we look it up using name
-result=$(gas info $projectName4)
-pattern="name:           $projectName4.*id:             (.{$idLenght}).*"
+result=$(gas info $projectName5)
+pattern="name:           $projectName5.*id:             (.{$idLenght}).*"
 assertRegex "6.1" "$result" "$pattern"
 
-projectId4=${BASH_REMATCH[1]}
+projectId5=${BASH_REMATCH[1]}
 
-result=$(cat $projectName4/main.js)
+result=$(cat $projectName5/main.js)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "main.js exists in the project 4 folder" "$result" "$pattern"
+assertRegex "main.js exists in the project 5 folder" "$result" "$pattern"
 
-result=$(cat $projectName4/.gas/ID)
-assertRegex "the .gas/ID file for project 4 exists" "$result" "$projectId4"
+result=$(cat $projectName5/.gas/ID)
+assertRegex "the .gas/ID file for project 5 exists" "$result" "$projectId5"
 
 # Testing gas include
 printf '\n[Include test]\n'
@@ -376,9 +381,10 @@ printf '\n[Include test]\n'
 printf '\n[Cleaning up]\n'
 gas delete $projectId2
 gas delete $projectName4
+gas delete $projectName5
 rm -r $projectName2
 rm -r $projectRootFolder2
-rm -r $projectName4
+rm -r $projectName5
 
 
 printf "____________________________________________\n"
