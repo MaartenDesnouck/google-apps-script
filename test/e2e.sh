@@ -119,7 +119,7 @@ assertRegex "gas list of project we are going to create returns no results yet" 
 
 result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
-assertRegex "gas info by name of project we are going to create return no results yet" "$result" "$pattern"
+assertRegex "gas info by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create $projectName1
 
@@ -267,25 +267,21 @@ cd ..
 gas clone $projectId2
 
 result=$(cat $projectName2/test1.js)
-assertRegex "test1.js exists in the cloned project after it was pushed in an another folder linked to the smae project" "$result" "//test1"
+assertRegex "test1.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test1"
 
 result=$(cat $projectName2/testFolder/test2.js)
-assertRegex "/testFolder/test2.js exists in the cloned project after it was pushed in an another folder linked to the smae project" "$result" "//test2"
+assertRegex "/testFolder/test2.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test2"
 
 result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
-assertRegex "testFolder2/testFolder3/test3.js exists in the cloned project after it was pushed in an another folder linked to the smae project" "$result" "//test3"
+assertRegex "testFolder2/testFolder3/test3.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test3"
 
-# main.js should exist in $projectName2
 result=$(cat $projectName2/main.js)
-pattern="function myFunction\(\) \{.*\}"
-assertRegex "5.3" "$result" "$pattern"
+assertRegex "main.js exists in the cloned project after it was pushed in an another folder linked to the same project " "$result" "function myFunction\(\) \{.*\}"
 
-# .gitignore should exist in $projectName2
-assertFileExists "5.4" "$projectName2/.gitignore"
+assertFileExists ".gitignore exists in $projectName2" "$projectName2/.gitignore"
 
-# ID should exist in $projectName2/.gas
 result=$(cat $projectName2/.gas/ID)
-assertRegex "5.5" "$result" "$projectId2"
+assertRegex "$projectName2/.gas/ID exists in the cloned project and it has the right content" "$result" "$projectId2"
 
 # Delete test2.js, modfy main.js and create test4.js and push from projectRootFolder2 and pull in projectName2
 cd $projectRootFolder2 || exit 1
