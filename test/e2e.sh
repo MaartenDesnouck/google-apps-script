@@ -110,15 +110,15 @@ function assertFolderDoesNotExists {
 
 
 
-printf '\n[Auth test]\n'
+printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "auth returns succusfull" "$result" "$pattern"
+assertRegex "auth returns succesfull" "$result" "$pattern"
 
 
 
-printf '\n[List, info and create test]\n'
+printf '\n\n[List, info and create test]\n'
 
 result=$(gas list $projectName1)
 pattern="No script projects matching the filter found in your Google Drive \[✘\]"
@@ -163,7 +163,7 @@ assertRegex "gas list of the common prefix returns project1 and project2 wiht th
 
 
 
-printf '\n[Rename test]\n'
+printf '\n\n[Rename test]\n'
 
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
@@ -185,7 +185,7 @@ assertRegex "gas info of the id returns the new name" "$result" "$pattern"
 
 
 
-printf "\n[Delete test]\n"
+printf "\n\n[Delete test]\n"
 
 result=$(gas info $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
@@ -224,7 +224,7 @@ pattern="No project with name or id '$projectId3' found in your Google Drive \[�
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
-printf '\n[Link and pull test]\n'
+printf '\n\n[Link and pull test]\n'
 
 result=$(gas info $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
@@ -263,7 +263,7 @@ gas link $projectId2
 
 
 
-printf '\n[Push, clone and status test]\n'
+printf '\n\n[Push and clone test]\n'
 
 printf '//test1\n' > test1.js
 cd 'testFolder' || exit 1
@@ -340,7 +340,7 @@ assertRegex "The id ID file of our cloned project exists and return the correct 
 
 
 
-printf '\n[Status and pulling/pushing single files test]\n'
+printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas list $projectName5)
@@ -354,9 +354,40 @@ result=$(gas info $projectName5)
 pattern="name:           $projectName5.*id:             (.{$idLenght}).*"
 assertRegex "Found the correct info for newly created project" "$result" "$pattern"
 
+cd $projectName5 || exit 1
+mkdir 'folder'
+printf '//' > folder/modified1.js
+printf '//' > modified2.js
+
+gas push
+
+rm main.js
+printf '//added' > added.js
+printf '//modified' > folder/modified1.js
+printf '//modified2' > modified2.js
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
+
+gas push added.js
+gas push folder/modified1.js 
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 modified and 1 removed file" "$result" "$pattern"
+
+gas pull main.js
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
+assertRegex "1 modified file" "$result" "$pattern"
+
+cd ..
 
 
-printf '\n[New test]\n'
+
+printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas list $projectName6)
@@ -381,35 +412,23 @@ assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
 
 
-printf '\n[Include test]\n'
-
+printf '\n\n[Include test]\n'
+printf '#TODO'
 # do gas include
 # check that include file has been created
-
-# write an include file
-# cd $projectRootFolder2 || exit 1
-# printf '//test1\n' > test1.js
-# mkdir 'testFolder' && cd 'testFolder' || exit 1
-# printf '//test2\n' > test2.js
-# cd ..
-# mkdir 'testFolder2' && cd 'testFolder2' || exit 1
-# mkdir 'testFolder3' && cd 'testFolder3' || exit 1
-# printf '//test3\n' > test3.js
-# cd ..
-# cd ..
-# gas push
-# cd ..
 
 
 
 # Cleaning up at the end by deleting remaining projects and folders
-printf '\n[Cleaning up]\n'
+printf '\n\n[Cleaning up]\n'
 gas delete $projectId2
 gas delete $projectName4
 gas delete $projectName5
+gas delete $projectName6
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
+rm -r $projectName6
 
 
 printf "____________________________________________\n"
