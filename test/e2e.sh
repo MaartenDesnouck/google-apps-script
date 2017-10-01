@@ -20,6 +20,12 @@ projectId3=''
 projectName4=$commonPart'_'$epoch'_project4'
 projectId4=''
 
+projectName5=$commonPart'_'$epoch'_project5'
+projectId5=''
+
+projectName6=$commonPart'_'$epoch'_project6'
+projectId5=''
+
 idLenght=57
 
 # Setup
@@ -102,189 +108,163 @@ function assertFolderDoesNotExists {
     fi
 }
 
-# Testing auth
-printf '\n[Auth test]\n'
+
+
+printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "0.0" "$result" "$pattern"
+assertRegex "auth returns succesfull" "$result" "$pattern"
 
-# Testing gas list and gas create
-printf '\n[List, info and create test]\n'
 
-# Project we are going to create should not exist yet (1)
+
+printf '\n\n[List, info and create test]\n'
+
 result=$(gas list $projectName1)
 pattern="No script projects matching the filter found in your Google Drive \[✘\]"
-assertRegex "1.0" "$result" "$pattern"
+assertRegex "gas list of project we are going to create returns no results yet" "$result" "$pattern"
 
-
-# Project we are going to create should not exist yet (2)
 result=$(gas info $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
-assertRegex "1.1" "$result" "$pattern"
+assertRegex "gas info by name of project we are going to create returns no results yet" "$result" "$pattern"
 
-# Create project 1
 gas create $projectName1
 
-# Project we created should be listable using name and have only one result
 result=$(gas list $projectName1)
 pattern="^\[(.{$idLenght})\] $projectName1$"
-assertRegex "1.2" "$result" "$pattern"
+assertRegex "gas list by name of created project returns a result" "$result" "$pattern"
 
-# Parse projectId
 projectId1=${BASH_REMATCH[1]}
 
-# Project we created shoud have info when we look it up using name
 result=$(gas info $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "1.3" "$result" "$pattern"
-
-# Project we created should have info when we look it up using id
-result=$(gas info $projectId1)
-pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "1.4" "$result" "$pattern"
+assertRegex "gas info by project id of created project returns correct name and id" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
 result=$(gas list $projectName2)
 pattern="No script projects matching the filter found in your Google Drive \[✘\]"
-assertRegex "1.5" "$result" "$pattern"
+assertRegex "gas list of second project we are ging to create returns no results yet" "$result" "$pattern"
 
-# Create project 2
 gas create $projectName2
 
-# Second project we created should be listable using name and have only one result
 result=$(gas list $projectName2)
 pattern="^\[(.{$idLenght})\] $projectName2$"
-assertRegex "1.6" "$result" "$pattern"
+assertRegex "gas list by name of second project we created returns a result" "$result" "$pattern"
 
-# Parse project id
 projectId2=${BASH_REMATCH[1]}
 
-# Second project we created should have info when we look it up using id
-result=$(gas info $projectId1)
-pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "1.7" "$result" "$pattern"
-
-# List with filter on common part should give us 2 results
-result=$(gas list $commonPart)
-pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
-assertRegex "1.8" "$result" "$pattern"
-
-# Testing gas rename
-printf '\n[Rename test]\n'
-
-# Project we are going to rename should exist
-result=$(gas info $projectId1)
-pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "2.0" "$result" "$pattern"
-
-# Rename project
-gas rename $projectName1 $newProjectName1
-
-# Project with new name exists and still has the same id
-result=$(gas info $newProjectName1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
-assertRegex "2.1" "$result" "$pattern"
-
-# Project with old name no longer exists
-result=$(gas info $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
-assertRegex "2.2" "$result" "$pattern"
-
-# Project with old id has a new name
-result=$(gas info $projectId1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
-assertRegex "2.3" "$result" "$pattern"
-
-# Testing gas delete
-printf "\n[Delete test]\n"
-
-# Project we are going to delete should exists
-result=$(gas info $newProjectName1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
-assertRegex "3.0" "$result" "$pattern"
-
-# Delete by name
-gas delete $newProjectName1
-
-# Project we deleted should no longer exists based on name
-result=$(gas info $newProjectName1)
-pattern="No project with name or id '$newProjectName1' found in your Google Drive \[✘\].*"
-assertRegex "3.1" "$result" "$pattern"
-
-# Project we deleted should no longer exists based on id
-result=$(gas info $projectId1)
-pattern="No project with name or id '$projectId1' found in your Google Drive \[✘\].*"
-assertRegex "3.2" "$result" "$pattern"
-
-# Create new project
-gas create $projectName3
-
-# Project we are going to delete should exist based on name
-result=$(gas info $projectName3)
-pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
-assertRegex "3.3" "$result" "$pattern"
-
-# Parse projectId
-projectId3=${BASH_REMATCH[1]}
-
-# Project we are going to delete should exist based on id
-result=$(gas info $projectId3)
-pattern="name:           $projectName3.*id:             $projectId3.*"
-assertRegex "3.4" "$result" "$pattern"
-
-# Delete project based on id
-gas delete $projectId3
-
-# Project we deleted should no longer exist based on name
-result=$(gas info $projectName3)
-pattern="No project with name or id '$projectName3' found in your Google Drive \[✘\].*"
-assertRegex "3.5" "$result" "$pattern"
-
-# Project we deleted should no longer exist based on id
-result=$(gas info $projectId3)
-pattern="No project with name or id '$projectId3' found in your Google Drive \[✘\].*"
-assertRegex "3.6" "$result" "$pattern"
-
-# Testing gas link and pull
-printf '\n[Link and pull test]\n'
-
-# Project we are going to link and pull should exists
 result=$(gas info $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
-assertRegex "4.0" "$result" "$pattern"
+assertRegex "gas info by id of second project we created returns a result with the correct name" "$result" "$pattern"
 
-# Linking and pulling using projectId
+result=$(gas list $commonPart)
+pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
+assertRegex "gas list of the common prefix returns project1 and project2 wiht the correct names and ids" "$result" "$pattern"
+
+
+
+printf '\n\n[Rename test]\n'
+
+result=$(gas info $projectId1)
+pattern="name:           $projectName1.*id:             $projectId1.*"
+assertRegex "gas info of project we are renaming by name exists by id" "$result" "$pattern"
+
+gas rename $projectName1 $newProjectName1
+
+result=$(gas info $newProjectName1)
+pattern="name:           $newProjectName1.*id:             $projectId1.*"
+assertRegex "gas info of project we renamed by name exists with new name and has old id" "$result" "$pattern"
+
+result=$(gas info $projectName1)
+pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
+assertRegex "gas info of the old name returns a not found message" "$result" "$pattern"
+
+result=$(gas info $projectId1)
+pattern="name:           $newProjectName1.*id:             $projectId1.*"
+assertRegex "gas info of the id returns the new name" "$result" "$pattern"
+
+
+
+printf "\n\n[Delete test]\n"
+
+result=$(gas info $newProjectName1)
+pattern="name:           $newProjectName1.*id:             $projectId1.*"
+assertRegex "the project we are deleting by name exists by name" "$result" "$pattern"
+
+gas delete $newProjectName1
+
+result=$(gas info $newProjectName1)
+pattern="No project with name or id '$newProjectName1' found in your Google Drive \[✘\].*"
+assertRegex "gas info by name of the project we deleted by name returns a not found message" "$result" "$pattern"
+
+result=$(gas info $projectId1)
+pattern="No project with name or id '$projectId1' found in your Google Drive \[✘\].*"
+assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
+
+gas create $projectName3
+
+result=$(gas info $projectName3)
+pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
+assertRegex "the third project we created exists by name" "$result" "$pattern"
+
+projectId3=${BASH_REMATCH[1]}
+
+result=$(gas info $projectId3)
+pattern="name:           $projectName3.*id:             $projectId3.*"
+assertRegex "the project we are deleting by id exists by id" "$result" "$pattern"
+
+gas delete $projectId3
+
+result=$(gas info $projectName3)
+pattern="No project with name or id '$projectName3' found in your Google Drive \[✘\].*"
+assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
+
+result=$(gas info $projectId3)
+pattern="No project with name or id '$projectId3' found in your Google Drive \[✘\].*"
+assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
+
+
+printf '\n\n[Link and pull test]\n'
+
+result=$(gas info $projectId2)
+pattern="name:           $projectName2.*id:             $projectId2.*"
+assertRegex "the project we are linking by id and then pulling exists by id" "$result" "$pattern"
+
 mkdir $projectRootFolder2
 cd $projectRootFolder2 || exit 1
 gas link $projectId2
 gas pull
 cd ..
 
-# Main.js should exist in $projectRootFolder2
 result=$(cat $projectRootFolder2/main.js)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "4.1" "$result" "$pattern"
+assertRegex "main.js exists after the pull" "$result" "$pattern"
 
-# ID should exist in $projectRootFolder2/.gas
 result=$(cat $projectRootFolder2/.gas/ID)
-assertRegex "4.2" "$result" "$projectId2"
+assertRegex ".gas/ID exists after the link and pull" "$result" "$projectId2"
 
-# Linking a project to a subfolder should fail
 cd $projectRootFolder2 || exit 1
 mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
 pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[✘\]"
-assertRegex "4.3" "$result" "$pattern"
+assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..
 
-# Testing gas push and clone
-printf '\n[Push, clone and status test]\n'
+gas create $projectName4
 
-# Create some files and folders and push them
+result=$(gas link $projectName4)
+pattern="Linking '$projectName4' to this folder... \[✔\]"
+assertRegex "linking a project to a folder that is already linked to a project is possible" "$result" "$pattern"
+
+gas link $projectId2
+
+
+
+printf '\n\n[Push and clone test]\n'
+
 printf '//test1\n' > test1.js
 cd 'testFolder' || exit 1
 printf '//test2\n' > test2.js
@@ -297,32 +277,24 @@ cd ..
 gas push
 cd ..
 
-# Clone using projectId
 gas clone $projectId2
 
-# test1.js should exist in $projectName2
 result=$(cat $projectName2/test1.js)
-assertRegex "5.0" "$result" "//test1"
+assertRegex "test1.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test1"
 
-# test2.js should exist in $projectName2/testFolder
 result=$(cat $projectName2/testFolder/test2.js)
-assertRegex "5.1" "$result" "//test2"
+assertRegex "/testFolder/test2.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test2"
 
-# test3.js should exist in $projectRootFolder2/testFolder2/testFolder3
 result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
-assertRegex "5.2" "$result" "//test3"
+assertRegex "testFolder2/testFolder3/test3.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test3"
 
-# main.js should exist in $projectName2
 result=$(cat $projectName2/main.js)
-pattern="function myFunction\(\) \{.*\}"
-assertRegex "5.3" "$result" "$pattern"
+assertRegex "main.js exists in the cloned project after it was pushed in an another folder linked to the same project " "$result" "function myFunction\(\) \{.*\}"
 
-# .gitignore should exist in $projectName2
-assertFileExists "5.4" "$projectName2/.gitignore"
+assertFileExists ".gitignore exists in $projectName2" "$projectName2/.gitignore"
 
-# ID should exist in $projectName2/.gas
 result=$(cat $projectName2/.gas/ID)
-assertRegex "5.5" "$result" "$projectId2"
+assertRegex "$projectName2/.gas/ID exists in the cloned project and it has the right content" "$result" "$projectId2"
 
 # Delete test2.js, modfy main.js and create test4.js and push from projectRootFolder2 and pull in projectName2
 cd $projectRootFolder2 || exit 1
@@ -332,9 +304,6 @@ cd testFolder || exit 1
 rm test2.js
 cd ..
 
-# test gas status
-gas status
-
 # Do a gas push and pull in a different project
 gas push
 cd ..
@@ -343,87 +312,123 @@ gas pull
 cd ..
 
 # test2.js should not exist anymore
-assertFileDoesNotExist "5.6" "$projectName2/testFolder/test2.js"
+assertFileDoesNotExist "We removed test2.js, pushed and then pulled in project2, so test2.js should have been deleted" "$projectName2/testFolder/test2.js"
 
 # test3.js should exist in $projectName2/testFolder2/testFolder3
 result=$(cat $projectName2/testFolder2/testFolder3/test3.js)
-assertRegex "5.7" "$result" "//test3"
+assertRegex "test3.js should still exist in project2" "$result" "//test3"
 
 # testFolder should not exist amymore
-assertFileDoesNotExist "5.8" "$projectName2/testFolder"
+assertFileDoesNotExist "We removed all files from testfolder, pushed and then pulled in project2, so testfolder should have been deleted" "$projectName2/testFolder"
 
 # Delete folder
 rm -r $projectName2
 
 # main.js should not exist in $projectName2
-assertFileDoesNotExist "5.9" "$projectName2/main.js"
+assertFileDoesNotExist "We removed the entire project locally so main.js should not exist" "$projectName2/main.js"
 
 # Clone using projectName
 gas clone $projectName2
 
 # main.js should have a specific content in $projectName2
 result=$(cat $projectName2/main.js)
-pattern="//main modified"
-assertRegex "5.10" "$result" "$pattern"
+assertRegex "The main file of our cloned project exists and contains the modified content" "$result" "//main modified"
 
 # ID should exist in $projectName2/.gas and have projectId2 as content
 result=$(cat $projectName2/.gas/ID)
-assertRegex "5.11" "$result" "$projectId2"
+assertRegex "The id ID file of our cloned project exists and return the correct projectid" "$result" "$projectId2"
 
-# Testing gas new
-printf '\n[New test]\n'
+
+
+printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas list $projectName4)
+result=$(gas list $projectName5)
 pattern="No script projects matching the filter found in your Google Drive \[✘\]"
-assertRegex "6.0" "$result" "$pattern"
+assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
-gas new $projectName4
+gas new $projectName5
 
 # Project we created shoud have info when we look it up using name
-result=$(gas info $projectName4)
-pattern="name:           $projectName4.*id:             (.{$idLenght}).*"
-assertRegex "6.1" "$result" "$pattern"
+result=$(gas info $projectName5)
+pattern="name:           $projectName5.*id:             (.{$idLenght}).*"
+assertRegex "Found the correct info for newly created project" "$result" "$pattern"
 
-# Parse projectId
-projectId4=${BASH_REMATCH[1]}
+cd $projectName5 || exit 1
+mkdir 'folder'
+printf '//' > folder/modified1.js
+printf '//' > modified2.js
 
-# main.js should exist in $projectName4
-result=$(cat $projectName4/main.js)
+gas push
+
+rm main.js
+printf '//added' > added.js
+printf '//modified' > folder/modified1.js
+printf '//modified2' > modified2.js
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
+
+gas push added.js
+gas push folder/modified1.js 
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 modified and 1 removed file" "$result" "$pattern"
+
+gas pull main.js
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
+assertRegex "1 modified file" "$result" "$pattern"
+
+cd ..
+
+
+
+printf '\n\n[New test]\n'
+
+# Project we are going to create should not exist yet
+result=$(gas list $projectName6)
+pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
+
+gas new $projectName6
+
+# Project we created shoud have info when we look it up using name
+result=$(gas info $projectName6)
+pattern="name:           $projectName6.*id:             (.{$idLenght}).*"
+assertRegex "Found the correct info for newly created project" "$result" "$pattern"
+
+projectId6=${BASH_REMATCH[1]}
+
+result=$(cat $projectName6/main.js)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "6.2" "$result" "$pattern"
+assertRegex "main.js exists in the project6 folder" "$result" "$pattern"
 
-# ID should exist in $projectName4/.gas
-result=$(cat $projectName4/.gas/ID)
-assertRegex "6.3" "$result" "$projectId4"
+result=$(cat $projectName6/.gas/ID)
+assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
-# Testing gas include
-printf '\n[Include test]\n'
 
+
+printf '\n\n[Include test]\n'
+printf '#TODO'
 # do gas include
 # check that include file has been created
 
-# write an include file
-# cd $projectRootFolder2 || exit 1
-# printf '//test1\n' > test1.js
-# mkdir 'testFolder' && cd 'testFolder' || exit 1
-# printf '//test2\n' > test2.js
-# cd ..
-# mkdir 'testFolder2' && cd 'testFolder2' || exit 1
-# mkdir 'testFolder3' && cd 'testFolder3' || exit 1
-# printf '//test3\n' > test3.js
-# cd ..
-# cd ..
-# gas push
-# cd ..
+
 
 # Cleaning up at the end by deleting remaining projects and folders
-printf '\n[Cleaning up]\n'
+printf '\n\n[Cleaning up]\n'
 gas delete $projectId2
 gas delete $projectName4
+gas delete $projectName5
+gas delete $projectName6
 rm -r $projectName2
 rm -r $projectRootFolder2
-rm -r $projectName4
+rm -r $projectName5
+rm -r $projectName6
 
 
 printf "____________________________________________\n"

@@ -16,7 +16,8 @@ $ npm i -g google-apps-script
 
 # Usage
 
-Authenticate the Drive API (add '-f' to force reauthentication):
+Authenticate the Drive API:   
+(Add '-f' to force reauthentication)
 
 ```
 $ gas auth [-f]
@@ -30,24 +31,25 @@ $ gas delete <projectName|projectId>
 $ gas rename <projectName|projectId> <newProjectName>
 ```
 
-List your remote projects and their iId's (optional filter on projectName):
+List your remote projects and their id's (optional filter on projectName):
 
 ```
 $ gas list [filter]
 ```
 
-Link a remote project to your current directory:
+Link a remote project to your current working directory:
 
 ```
 $ gas link <projectName|projectId>
 ```
 
-Pull and push code from/to your remote project:
-(We map files in local folders to their full path name in a project and the other way around)
+Pull and push code from/to your remote project:   
+(Files in local folders are mapped to their full path name in a project and the other way around)   
+(You can specify to pull or push only a single file by adding a filename to the command)
 
 ```
-$ gas pull
-$ gas push
+$ gas pull [fileName]
+$ gas push [fileName]
 ```
 
 Some shortcuts for creating, linking and pulling projects all in one:

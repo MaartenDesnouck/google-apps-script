@@ -21,7 +21,7 @@ program
 
 program
     .command('init <projectName>')
-    .alias('new' )
+    .alias('new')
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
     .action(require(lib + '/init'));
 
@@ -52,14 +52,14 @@ program
     .action(require(lib + '/clone'));
 
 program
-    .command('push')
+    .command('push [fileName]')
     .alias('deploy')
-    .description('push your local code to the linked project on your Google Drive')
+    .description('push your local code to the linked folder on your Google Drive (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program
-    .command('pull')
-    .option('-i, --include', 'Pull included files from their sources')
+    .command('pull [fileName]')
+    .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
     .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
@@ -86,12 +86,12 @@ program
 
 program
     .command('*')
-    .action(function(argv) {
+    .action(function (argv) {
         console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
         process.exit(2);
     });
 
-program.on('--help', function() {
+program.on('--help', function () {
     console.log('');
     console.log('  Examples:');
     console.log('');

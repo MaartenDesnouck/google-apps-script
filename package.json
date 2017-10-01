@@ -1,6 +1,6 @@
 {
     "name": "google-apps-script",
-    "version": "2.2.6",
+    "version": "2.3.0",
     "description": "gas, the complete CLI for Google Apps Script",
     "main": "index",
     "bin": {
@@ -13,10 +13,13 @@
         "url": "git+https://github.com/maartendesnouck/google-apps-script.git"
     },
     "keywords": [
-        "CLI",
+        "google-apps-script",
+        "googleappsscript",
+        "gas",
+        "export",
+        "import",
         "Google",
-        "Apps",
-        "Script"
+        "CLI"
     ],
     "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
     "license": "MIT",
