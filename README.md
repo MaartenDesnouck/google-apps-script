@@ -17,10 +17,10 @@ $ npm i -g google-apps-script
 # Usage
 
 Authenticate the Drive API:   
-(Add '-f' to force reauthentication)
+(Add '-f' to force reauthentication, add '-s' to show the authentication url instead opening a webbrowser)
 
 ```
-$ gas auth [-f]
+$ gas auth [-f][-s]
 ```
 
 Create, delete or rename a project in your Google Drive:

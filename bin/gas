@@ -11,7 +11,8 @@ program
 program
     .command('auth')
     .option('-f, --force', 'Force reauthentication')
-    .description('authenticate the Drive API (add \'-f\' to force reauthentication)')
+    .option('-s, --show-url', 'Show the authentication url instead opening a webbrowser')
+    .description('authenticate the Drive API (add \'-f\' to force reauthentication, add \'-s\' to show the authentication url instead opening a webbrowser) ')
     .action(require(lib + '/auth'));
 
 program
