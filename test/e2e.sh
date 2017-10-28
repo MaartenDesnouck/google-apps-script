@@ -114,7 +114,7 @@ printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "auth returns succesfull" "$result" "$pattern"
+assertRegex "auth returns succesful" "$result" "$pattern"
 
 
 
@@ -266,8 +266,8 @@ gas link $projectId2
 printf '\n\n[Push and clone test]\n'
 
 printf '//test1\n' > test1.js
-printf '{}' > appsscript.json
-printf '{}' > notallowed.json
+printf '{}\n' > appsscript.json
+printf '{}\n' > notallowed.json
 cd 'testFolder' || exit 1
 printf '//test2\n' > test2.js
 cd ..
