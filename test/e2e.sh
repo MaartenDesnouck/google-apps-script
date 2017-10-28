@@ -114,7 +114,7 @@ printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "auth returns succesfull" "$result" "$pattern"
+assertRegex "auth returns succesful" "$result" "$pattern"
 
 
 
@@ -266,6 +266,8 @@ gas link $projectId2
 printf '\n\n[Push and clone test]\n'
 
 printf '//test1\n' > test1.js
+printf '{}\n' > appsscript.json
+printf '{}\n' > notallowed.json
 cd 'testFolder' || exit 1
 printf '//test2\n' > test2.js
 cd ..
@@ -281,6 +283,11 @@ gas clone $projectId2
 
 result=$(cat $projectName2/test1.js)
 assertRegex "test1.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test1"
+
+result=$(cat $projectName2/appsscript.json)
+assertRegex "appsscript.json exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "{}"
+
+assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/notallowed.json"
 
 result=$(cat $projectName2/testFolder/test2.js)
 assertRegex "/testFolder/test2.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test2"
