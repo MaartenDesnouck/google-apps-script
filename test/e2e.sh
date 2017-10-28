@@ -285,7 +285,7 @@ result=$(cat $projectName2/test1.js)
 assertRegex "test1.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test1"
 
 result=$(cat $projectName2/appsscript.json)
-assertRegex "appsscript.json exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "{}"
+assertRegex "appsscript.json exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "\{\}"
 
 assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/notallowed.json"
 
