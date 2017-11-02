@@ -343,7 +343,7 @@ assertRegex "The main file of our cloned project exists and contains the modifie
 
 # ID should exist in $projectName2/.gas and have projectId2 as content
 result=$(cat $projectName2/.gas/ID)
-assertRegex "The id ID file of our cloned project exists and return the correct projectid" "$result" "$projectId2"
+assertRegex "The ID file of our cloned project exists and return the correct projectid" "$result" "$projectId2"
 
 
 
@@ -372,6 +372,7 @@ rm main.js
 printf '//added' > added.js
 printf '//modified' > folder/modified1.js
 printf '//modified2' > modified2.js
+printf '//' > invalid.txt
 
 result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- main\.js.*"
@@ -389,6 +390,10 @@ gas pull main.js
 result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
 assertRegex "1 modified file" "$result" "$pattern"
+
+result=$(gas push invalid.txt)
+pattern="gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name.*"
+assertRegex "pushing an invalid file returns an error" "$result" "$pattern"
 
 cd ..
 
