@@ -18,10 +18,8 @@ projectName3=$commonPart'_'$epoch'_project3'
 projectId3=''
 
 projectName4=$commonPart'_'$epoch'_project4'
-projectId4=''
 
 projectName5=$commonPart'_'$epoch'_project5'
-projectId5=''
 
 projectName6=$commonPart'_'$epoch'_project6'
 projectId5=''
