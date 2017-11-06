@@ -377,23 +377,22 @@ assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js
 gas push folder/modified1.js 
-gas push main.js -d
 
 result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- main\.js.*"
 assertRegex "1 modified and 1 removed file" "$result" "$pattern"
 
-gas push main.js -d
+gas push added.js -d
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
-assertRegex "1 modified file" "$result" "$pattern"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
 
 gas pull main.js
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
-assertRegex "1 modified file" "$result" "$pattern"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
+assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
 pattern="gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name.*"
