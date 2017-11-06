@@ -55,7 +55,8 @@ program
 program
     .command('push [fileName]')
     .alias('deploy')
-    .description('push your local code to the linked folder on your Google Drive (add a fileName to only pull that file)')
+    .option('-d, --delete', 'Delete the specified file from the linked project on your Google Drive')
+    .description('push your local code to the linked project on your Google Drive (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program

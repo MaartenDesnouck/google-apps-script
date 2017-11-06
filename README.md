@@ -44,12 +44,12 @@ $ gas link <projectName|projectId>
 ```
 
 Pull and push code from/to your remote project:   
-(Files in local folders are mapped to their full path name in a project and the other way around)   
-(You can specify to pull or push only a single file by adding a filename to the command)
+(Files in local folders are mapped to their full path name in a project and the other way around)
+(You can specify to pull or push only a single file by adding a filename to the command and even delete a single remote file uning -d)
 
 ```
 $ gas pull [fileName]
-$ gas push [fileName]
+$ gas push [fileName] [-d]
 ```
 
 Some shortcuts for creating, linking and pulling projects all in one:
