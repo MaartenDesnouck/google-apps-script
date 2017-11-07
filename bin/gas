@@ -21,6 +21,14 @@ program
     .action(require(lib + '/remote-create'));
 
 program
+    .command('config [path]')
+    .option('-r, --remove', 'Remove the current config')
+    .option('-i, --import', 'Import a specified config file')
+    .option('-e, --export', 'Export a config file to the specified location')
+    .description('configure the CLI with certain settings')
+    .action(require(lib + '/config'));
+
+program
     .command('init <projectName>')
     .alias('new')
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
