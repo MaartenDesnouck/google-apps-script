@@ -427,6 +427,13 @@ assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
 
 
+printf '\n\n[Config test]\n'
+printf '#TODO'
+# do gas include
+# check that include file has been created
+
+
+
 printf '\n\n[Include test]\n'
 printf '#TODO'
 # do gas include
