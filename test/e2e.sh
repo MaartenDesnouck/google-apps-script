@@ -436,7 +436,7 @@ pattern="\{\}"
 assertRegex "the config file is correct (1/5)" "$result" "$pattern"
 
 # configure gas to use .gs
-echo 'y\nn' | gas config
+printf 'y\nn\n' | gas config
 gas config -e config2.json
 
 result=$(cat config2.json)
@@ -444,7 +444,7 @@ pattern="\{\"extension\":\".gs\"\}"
 assertRegex "the config file is correct (2/5)" "$result" "$pattern"
 
 # configure gas to use a custom Oauth 2.0 project
-echo 'n\ny\nA\nB' | gas config
+printf 'n\ny\nA\nB\n' | gas config
 gas config -e config3.json
 
 result=$(cat config3.json)
@@ -452,7 +452,7 @@ pattern="\{\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
 assertRegex "the config file is correct (3/5)" "$result" "$pattern"
 
 # configure gas to use a custom Oauth 2.0 project and .gs
-echo 'y\ny\nA\nB' | gas config
+printf 'y\ny\nA\nB\n' | gas config
 gas config -e config4.json
 
 result=$(cat config4.json)
