@@ -111,7 +111,7 @@ printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
 pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "auth returns succesful" "$result" "$pattern"
+assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
@@ -428,10 +428,46 @@ assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
 
 printf '\n\n[Config test]\n'
-printf '#TODO'
-# do gas include
-# check that include file has been created
 
+# when not configured, config file should contain {}
+gas config -e config1.json
+result=$(cat config1.json)
+pattern="\{\}"
+assertRegex "the config file is correct (1/5)" "$result" "$pattern"
+
+# configure gas to use .gs
+echo 'y\nn' | gas config
+gas config -e config2.json
+
+result=$(cat config2.json)
+pattern="\{\"extension\":\".gs\"\}"
+assertRegex "the config file is correct (2/5)" "$result" "$pattern"
+
+# configure gas to use a custom Oauth 2.0 project
+echo 'n\ny\nA\nB' | gas config
+gas config -e config3.json
+
+result=$(cat config3.json)
+pattern="\{\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
+assertRegex "the config file is correct (3/5)" "$result" "$pattern"
+
+# configure gas to use a custom Oauth 2.0 project and .gs
+echo 'y\ny\nA\nB' | gas config
+gas config -e config4.json
+
+result=$(cat config4.json)
+pattern="\{\"extension\":\".gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
+assertRegex "the config file is correct (4/5)" "$result" "$pattern"
+
+# import a config file
+gas config -i config.json
+gas config -e config5.json
+
+result=$(cat config5.json)
+pattern="\{\"extension\":\".gs\"\}"
+assertRegex "the config file is correct (5/5)" "$result" "$pattern"
+
+# TODO some pulls and pushes
 
 
 printf '\n\n[Include test]\n'
