@@ -467,7 +467,18 @@ result=$(cat config5.json)
 pattern="\{\"extension\":\".gs\"\}"
 assertRegex "the config file is correct (5/5)" "$result" "$pattern"
 
+# importing a config file without a path
+result=$(gas config -i)
+pattern="Please provide a config file to import [✘]*"
+assertRegex "config throws error when forgetting config file" "$result" "$pattern"
+
+# exporting a config file without a path
+result=$(gas config -e)
+pattern="\{\"extension\":\".gs\"\}*"
+assertRegex "exporting a config file without a path just prints the config" "$result" "$pattern"
+
 # TODO some pulls and pushes
+
 
 
 printf '\n\n[Include test]\n'
