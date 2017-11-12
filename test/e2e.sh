@@ -460,7 +460,7 @@ pattern="\{\"extension\":\".gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
 assertRegex "the config file is correct (4/5)" "$result" "$pattern"
 
 # import a config file
-gas config -i config.json
+gas config -i config1.json
 gas config -e config5.json
 
 result=$(cat config5.json)
