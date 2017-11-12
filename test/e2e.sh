@@ -493,10 +493,12 @@ assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
 
-# assert that main.gs exists
+# assert that main.gs exists after clone
 result=$(cat $projectName7/main.gs)
 pattern="function myFunction\(\) \{.*\}"
 assertRegex "main.gs exists after the pull" "$result" "$pattern"
+
+
 
 # todo add more chekcs: sigle file push and regular push
 
@@ -515,6 +517,7 @@ gas delete $projectId2
 gas delete $projectName4
 gas delete $projectName5
 gas delete $projectName6
+gas delete $projectName7
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
