@@ -23,6 +23,10 @@ projectName5=$commonPart'_'$epoch'_project5'
 
 projectName6=$commonPart'_'$epoch'_project6'
 
+projectName7=$commonPart'_'$epoch'_project7'
+
+configTestFolder='configTest'
+
 idLenght=57
 
 # Setup
@@ -173,7 +177,7 @@ pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "gas info of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas info $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
+pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\]"
 assertRegex "gas info of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas info $projectId1)
@@ -429,6 +433,9 @@ assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
 printf '\n\n[Config test]\n'
 
+mkdir $configTestFolder
+cd $configTestFolder
+
 # when not configured, config file should contain {}
 gas config -e config1.json
 result=$(cat config1.json)
@@ -440,7 +447,7 @@ printf 'y\nn\n' | gas config
 gas config -e config2.json
 
 result=$(cat config2.json)
-pattern="\{\"extension\":\".gs\"\}"
+pattern="\{\"extension\":\"\.gs\"\}"
 assertRegex "the config file is correct (2/5)" "$result" "$pattern"
 
 # configure gas to use a custom Oauth 2.0 project
@@ -456,28 +463,42 @@ printf 'y\ny\nA\nB\n' | gas config
 gas config -e config4.json
 
 result=$(cat config4.json)
-pattern="\{\"extension\":\".gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
+pattern="\{\"extension\":\"\.gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
 assertRegex "the config file is correct (4/5)" "$result" "$pattern"
 
 # import a config file
-gas config -i config1.json
+gas config -i config2.json
 gas config -e config5.json
 
 result=$(cat config5.json)
-pattern="\{\"extension\":\".gs\"\}"
+pattern="\{\"extension\":\"\.gs\"\}"
 assertRegex "the config file is correct (5/5)" "$result" "$pattern"
 
 # importing a config file without a path
 result=$(gas config -i)
-pattern="Please provide a config file to import [✘]*"
+pattern="Please provide a config file to import \[✘\]"
 assertRegex "config throws error when forgetting config file" "$result" "$pattern"
 
 # exporting a config file without a path
 result=$(gas config -e)
-pattern="\{\"extension\":\".gs\"\}*"
+pattern="\{\"extension\":\"\.gs\"\}"
 assertRegex "exporting a config file without a path just prints the config" "$result" "$pattern"
 
-# TODO some pulls and pushes
+cd ..
+
+# Project we are going to create should not exist yet
+result=$(gas list $projectName7)
+pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
+
+gas new $projectName7
+
+# assert that main.gs exists
+result=$(cat $projectName7/main.gs)
+pattern="function myFunction\(\) \{.*\}"
+assertRegex "main.gs exists after the pull" "$result" "$pattern"
+
+# todo add more chekcs: sigle file push and regular push
 
 
 
@@ -498,6 +519,7 @@ rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
 rm -r $projectName6
+rm -r $configTestFolder
 
 
 printf "____________________________________________\n"
