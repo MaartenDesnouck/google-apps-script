@@ -440,7 +440,7 @@ cd $configTestFolder
 gas config -e config1.json
 result=$(cat config1.json)
 pattern="\{\}"
-assertRegex "the config file is correct (1/5)" "$result" "$pattern"
+assertRegex "the config file is correct (1/6)" "$result" "$pattern"
 
 # configure gas to use .gs
 printf 'y\nn\n' | gas config
@@ -448,7 +448,7 @@ gas config -e config2.json
 
 result=$(cat config2.json)
 pattern="\{\"extension\":\"\.gs\"\}"
-assertRegex "the config file is correct (2/5)" "$result" "$pattern"
+assertRegex "the config file is correct (2/6)" "$result" "$pattern"
 
 # configure gas to use a custom Oauth 2.0 project
 printf 'n\ny\nA\nB\n' | gas config
@@ -456,7 +456,7 @@ gas config -e config3.json
 
 result=$(cat config3.json)
 pattern="\{\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
-assertRegex "the config file is correct (3/5)" "$result" "$pattern"
+assertRegex "the config file is correct (3/6)" "$result" "$pattern"
 
 # configure gas to use a custom Oauth 2.0 project and .gs
 printf 'y\ny\nA\nB\n' | gas config
@@ -464,15 +464,22 @@ gas config -e config4.json
 
 result=$(cat config4.json)
 pattern="\{\"extension\":\"\.gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
-assertRegex "the config file is correct (4/5)" "$result" "$pattern"
+assertRegex "the config file is correct (4/6)" "$result" "$pattern"
+
+# testing config -r
+gas config -r
+gas config -e config5.json
+result=$(cat config5.json)
+pattern="\{\}"
+assertRegex "the config file is correct (5/6)" "$result" "$pattern"
 
 # import a config file
 gas config -i config2.json
-gas config -e config5.json
+gas config -e config6.json
 
-result=$(cat config5.json)
+result=$(cat config6.json)
 pattern="\{\"extension\":\"\.gs\"\}"
-assertRegex "the config file is correct (5/5)" "$result" "$pattern"
+assertRegex "the config file is correct (5/6)" "$result" "$pattern"
 
 # importing a config file without a path
 result=$(gas config -i)
@@ -507,7 +514,7 @@ gas new $projectName7
 cd $projectName7 || exit 1
 
 # assert that main.gs exists after clone
-result=$(cat $projectName7/main.gs)
+result=$(cat main.gs)
 pattern="function myFunction\(\) \{.*\}"
 assertRegex "main.gs exists after the pull" "$result" "$pattern"
 
@@ -522,7 +529,7 @@ assertRegex "js.js is unpushable" "$result" "$pattern"
 
 # assert that pushing gs.gs succeeds
 result=$(gas push folder/gs.gs)
-pattern="Pushing .* > folder/gs.gs' to Google Drive... [\[✔v]\]"
+pattern="Pushing .* > folder/gs.gs' to Google Drive... \[[✔v]\]"
 assertRegex "gs.gs is pushable" "$result" "$pattern"
 
 printf '//gs' > folder/gs2.gs
@@ -542,10 +549,10 @@ pattern="//gs"
 assertRegex "gs.gs exists after the pull" "$result" "$pattern"
 
 # assert that js.gs does not exist after clone
-assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/folder/js.gs"
+assertFileDoesNotExist "folder/js.gs should not have been added to the project" "$projectName7/folder/js.gs"
 
 # assert that js.js does not exist after clone
-assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/folder/js.js"
+assertFileDoesNotExist "folder/js.js should not have been added to the project" "$projectName7/folder/js.js"
 
 
 

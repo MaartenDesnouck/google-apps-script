@@ -16,7 +16,7 @@ $ npm i -g google-apps-script
 
 # Usage
 
-Authenticate the Drive API:   
+Authenticate the Drive API:
 (Add '-f' to force reauthentication, add '-s' to show the authentication url instead opening a webbrowser)
 
 ```
@@ -77,13 +77,10 @@ Check if there are any differences between your local files and Google Drive:
 $ gas status
 ````
 
-There is also the beta feature of including specified external files
-```
-// Content of gas-include.js
-'time.js' - 'https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script-include/master/Time.js'
+For advanced users there is the option to configure gas to use .gs as local extension or use a custom Google OAuth2 client to do API requests
 
-$ gas include
-$ gas push
+```
+$ gas config [-e][-i][-r]
 ```
 
 # Examples

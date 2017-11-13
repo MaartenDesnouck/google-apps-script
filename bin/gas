@@ -16,23 +16,22 @@ program
     .action(require(lib + '/auth'));
 
 program
-    .command('create <projectName>')
-    .description('create a new project in your Google Drive')
-    .action(require(lib + '/remote-create'));
+    .command('clone <projectName|projectId>')
+    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote')
+    .action(require(lib + '/clone'));
 
 program
     .command('config [path]')
-    .option('-r, --remove', 'Remove the current config')
+    .option('-e, --export', 'Export a config file to the specified location')    
     .option('-i, --import', 'Import a specified config file')
-    .option('-e, --export', 'Export a config file to the specified location')
-    .description('configure the CLI with certain settings')
+    .option('-r, --reset', 'Reset the config to default values')
+    .description('configure gas to use .gs instad of .js or to use a custom OAuth client')
     .action(require(lib + '/config'));
 
 program
-    .command('init <projectName>')
-    .alias('new')
-    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
-    .action(require(lib + '/init'));
+    .command('create <projectName>')
+    .description('create a new project in your Google Drive')
+    .action(require(lib + '/remote-create'));
 
 program
     .command('delete <projectName|projectId>')
@@ -41,9 +40,15 @@ program
     .action(require(lib + '/remote-delete'));
 
 program
-    .command('rename <projectName|projectId> <newProjectName>')
-    .description('rename a project in your Google Drive')
-    .action(require(lib + '/remote-rename'));
+    .command('include')
+    .description('pull included files specified in \'gas-include.js\'')
+    .action(require(lib + '/include'));
+
+program
+    .command('init <projectName>')
+    .alias('new')
+    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
+    .action(require(lib + '/init'));
 
 program
     .command('link <projectName|projectId>')
@@ -56,9 +61,15 @@ program
     .action(require(lib + '/list'));
 
 program
-    .command('clone <projectName|projectId>')
-    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote')
-    .action(require(lib + '/clone'));
+    .command('open [projectName|projectId]')
+    .description('open the project linked to the current folder or a specified project in the online editor')
+    .action(require(lib + '/open'));
+
+program
+    .command('pull [fileName]')
+    .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
+    .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
+    .action(require(lib + '/pull'));
 
 program
     .command('push [fileName]')
@@ -68,15 +79,9 @@ program
     .action(require(lib + '/push'));
 
 program
-    .command('pull [fileName]')
-    .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
-    .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
-    .action(require(lib + '/pull'));
-
-program
-    .command('open [projectName|projectId]')
-    .description('open the project linked to the current folder or a specified project in the online editor')
-    .action(require(lib + '/open'));
+    .command('rename <projectName|projectId> <newProjectName>')
+    .description('rename a project in your Google Drive')
+    .action(require(lib + '/remote-rename'));
 
 program
     .command('show [projectName|projectId]')
@@ -88,11 +93,6 @@ program
     .command('status')
     .description('display the status of your local files')
     .action(require(lib + '/status'));
-
-program
-    .command('include')
-    .description('pull included files specified in \'gas-include.js\'')
-    .action(require(lib + '/include'));
 
 program
     .command('*')
