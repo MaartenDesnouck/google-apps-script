@@ -479,7 +479,7 @@ gas config -e config6.json
 
 result=$(cat config6.json)
 pattern="\{\"extension\":\"\.gs\"\}"
-assertRegex "the config file is correct (5/6)" "$result" "$pattern"
+assertRegex "the config file is correct (6/6)" "$result" "$pattern"
 
 # importing a config file without a path
 result=$(gas config -i)

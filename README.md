@@ -77,10 +77,12 @@ Check if there are any differences between your local files and Google Drive:
 $ gas status
 ````
 
-For advanced users there is the option to configure gas to use .gs as local extension or use a custom Google OAuth2 client to do API requests
+# Config
+
+For advanced users there is the option to configure gas to use .gs as local extension or use a custom Google OAuth2 client to do the API requests
 
 ```
-$ gas config [-e][-i][-r]
+$ gas config [--export][-import][--reset] [configFile.json]
 ```
 
 # Examples
