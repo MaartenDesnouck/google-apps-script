@@ -23,6 +23,10 @@ projectName5=$commonPart'_'$epoch'_project5'
 
 projectName6=$commonPart'_'$epoch'_project6'
 
+projectName7=$commonPart'_'$epoch'_project7'
+
+configTestFolder='configTest'
+
 idLenght=57
 
 # Setup
@@ -110,19 +114,19 @@ function assertFolderDoesNotExists {
 printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
-pattern="You are successfully authenticated as '.*' \[✔\]";
-assertRegex "auth returns succesful" "$result" "$pattern"
+pattern="You are successfully authenticated as '.*' \[[✔v]\]";
+assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
 printf '\n\n[List, info and create test]\n'
 
 result=$(gas list $projectName1)
-pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "gas list of project we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas info $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive \[✘\].*"
+pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\].*"
 assertRegex "gas info by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create $projectName1
@@ -139,7 +143,7 @@ assertRegex "gas info by project id of created project returns correct name and 
 
 # Second project we are going to create should not exist yet
 result=$(gas list $projectName2)
-pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "gas list of second project we are ging to create returns no results yet" "$result" "$pattern"
 
 gas create $projectName2
@@ -173,7 +177,7 @@ pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "gas info of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas info $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive [✘]*"
+pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\]"
 assertRegex "gas info of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas info $projectId1)
@@ -191,11 +195,11 @@ assertRegex "the project we are deleting by name exists by name" "$result" "$pat
 gas delete $newProjectName1
 
 result=$(gas info $newProjectName1)
-pattern="No project with name or id '$newProjectName1' found in your Google Drive \[✘\].*"
+pattern="No project with name or id '$newProjectName1' found in your Google Drive \[[✘x]\].*"
 assertRegex "gas info by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
 result=$(gas info $projectId1)
-pattern="No project with name or id '$projectId1' found in your Google Drive \[✘\].*"
+pattern="No project with name or id '$projectId1' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
 gas create $projectName3
@@ -213,11 +217,11 @@ assertRegex "the project we are deleting by id exists by id" "$result" "$pattern
 gas delete $projectId3
 
 result=$(gas info $projectName3)
-pattern="No project with name or id '$projectName3' found in your Google Drive \[✘\].*"
+pattern="No project with name or id '$projectName3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
 result=$(gas info $projectId3)
-pattern="No project with name or id '$projectId3' found in your Google Drive \[✘\].*"
+pattern="No project with name or id '$projectId3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
@@ -245,7 +249,7 @@ mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
-pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[✘\]"
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[[✘x]\]"
 assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..
@@ -253,7 +257,7 @@ cd ..
 gas create $projectName4
 
 result=$(gas link $projectName4)
-pattern="Linking '$projectName4' to this folder... \[✔\]"
+pattern="Linking '$projectName4' to this folder... \[[✔v]\]"
 assertRegex "linking a project to a folder that is already linked to a project is possible" "$result" "$pattern"
 
 gas link $projectId2
@@ -348,7 +352,7 @@ printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas list $projectName5)
-pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName5
@@ -382,11 +386,17 @@ result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- main\.js.*"
 assertRegex "1 modified and 1 removed file" "$result" "$pattern"
 
+gas push added.js -d
+
+result=$(gas status)
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- main\.js.*"
+assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
+
 gas pull main.js
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*"
-assertRegex "1 modified file" "$result" "$pattern"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
+assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
 pattern="gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name.*"
@@ -400,7 +410,7 @@ printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas list $projectName6)
-pattern="No script projects matching the filter found in your Google Drive \[✘\]"
+pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName6
@@ -421,6 +431,131 @@ assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
 
 
 
+printf '\n\n[Config test]\n'
+
+mkdir $configTestFolder
+cd $configTestFolder
+
+# when not configured, config file should contain {}
+gas config -e config1.json
+result=$(cat config1.json)
+pattern="\{\}"
+assertRegex "the config file is correct (1/6)" "$result" "$pattern"
+
+# configure gas to use .gs
+printf 'y\nn\n' | gas config
+gas config -e config2.json
+
+result=$(cat config2.json)
+pattern="\{\"extension\":\"\.gs\"\}"
+assertRegex "the config file is correct (2/6)" "$result" "$pattern"
+
+# configure gas to use a custom Oauth 2.0 project
+printf 'n\ny\nA\nB\n' | gas config
+gas config -e config3.json
+
+result=$(cat config3.json)
+pattern="\{\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
+assertRegex "the config file is correct (3/6)" "$result" "$pattern"
+
+# configure gas to use a custom Oauth 2.0 project and .gs
+printf 'y\ny\nA\nB\n' | gas config
+gas config -e config4.json
+
+result=$(cat config4.json)
+pattern="\{\"extension\":\"\.gs\",\"client\":\{\"id\":\"A\",\"secret\":\"B\"\}\}"
+assertRegex "the config file is correct (4/6)" "$result" "$pattern"
+
+# testing config -r
+gas config -r
+gas config -e config5.json
+result=$(cat config5.json)
+pattern="\{\}"
+assertRegex "the config file is correct (5/6)" "$result" "$pattern"
+
+# import a config file
+gas config -i config2.json
+gas config -e config6.json
+
+result=$(cat config6.json)
+pattern="\{\"extension\":\"\.gs\"\}"
+assertRegex "the config file is correct (6/6)" "$result" "$pattern"
+
+# importing a config file without a path
+result=$(gas config -i)
+pattern="Please provide a config file to import \[[✘x]\]"
+assertRegex "config throws error when forgetting config file" "$result" "$pattern"
+
+# exporting a config file without a path
+result=$(gas config -e)
+pattern="\{\"extension\":\"\.gs\"\}"
+assertRegex "exporting a config file without a path just prints the config" "$result" "$pattern"
+
+cd ..
+
+# Put config in the right location ($config is set in Circl CI env vars)
+if [ $config ];
+then
+    printf $config > ~/.google-apps-script/config.json
+fi
+
+# update the token for the new config
+if [ $config_token ];
+then
+    printf $config_token > ~/.google-apps-script/token.json
+fi
+
+# Project we are going to create should not exist yet
+result=$(gas list $projectName7)
+pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
+assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
+
+gas new $projectName7
+cd $projectName7 || exit 1
+
+# assert that main.gs exists after clone
+result=$(cat main.gs)
+pattern="function myFunction\(\) \{.*\}"
+assertRegex "main.gs exists after the pull" "$result" "$pattern"
+
+mkdir 'folder'
+printf '//js' > folder/js.js
+printf '//gs' > folder/gs.gs
+
+# assert that pushing js.js fails
+result=$(gas push folder/js.js)
+pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name. \[[✘x]\]"
+assertRegex "js.js is unpushable" "$result" "$pattern"
+
+# assert that pushing gs.gs succeeds
+result=$(gas push folder/gs.gs)
+pattern="Pushing .* > folder/gs.gs' to Google Drive... \[[✔v]\]"
+assertRegex "gs.gs is pushable" "$result" "$pattern"
+
+printf '//gs' > folder/gs2.gs
+gas push
+cd ..
+rm -rf $projectName7
+gas clone $projectName7
+
+# assert that main.gs exists after clone
+result=$(cat $projectName7/main.gs)
+pattern="function myFunction\(\) \{.*\}"
+assertRegex "main.gs exists after the pull" "$result" "$pattern"
+
+# assert that gs.gs exists after clone
+result=$(cat $projectName7/folder/gs.gs)
+pattern="//gs"
+assertRegex "gs.gs exists after the pull" "$result" "$pattern"
+
+# assert that js.gs does not exist after clone
+assertFileDoesNotExist "folder/js.gs should not have been added to the project" "$projectName7/folder/js.gs"
+
+# assert that js.js does not exist after clone
+assertFileDoesNotExist "folder/js.js should not have been added to the project" "$projectName7/folder/js.js"
+
+
+
 printf '\n\n[Include test]\n'
 printf '#TODO'
 # do gas include
@@ -434,10 +569,13 @@ gas delete $projectId2
 gas delete $projectName4
 gas delete $projectName5
 gas delete $projectName6
+gas delete $projectName7
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
 rm -r $projectName6
+rm -r $projectName7
+rm -r $configTestFolder
 
 
 printf "____________________________________________\n"
