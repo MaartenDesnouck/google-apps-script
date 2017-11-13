@@ -486,21 +486,66 @@ assertRegex "exporting a config file without a path just prints the config" "$re
 
 cd ..
 
+# Put config in the right location ($config is set in Circl CI env vars)
+if [ $config ];
+then
+    printf $config > ~/.google-apps-script/config.json
+fi
+
+# update the token for the new config
+if [ $config_token ];
+then
+    printf $config_token > ~/.google-apps-script/token.json
+fi
+
 # Project we are going to create should not exist yet
 result=$(gas list $projectName7)
 pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
+cd $projectName7 || exit 1
 
 # assert that main.gs exists after clone
 result=$(cat $projectName7/main.gs)
 pattern="function myFunction\(\) \{.*\}"
 assertRegex "main.gs exists after the pull" "$result" "$pattern"
 
+mkdir 'folder'
+printf '//js' > folder/js.js
+printf '//gs' > folder/gs.gs
 
+# assert that pushing js.js fails
+result=$(gas push folder/js.js)
+pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name. \[[✘x]\]"
+assertRegex "js.js is unpushable" "$result" "$pattern"
 
-# todo add more chekcs: sigle file push and regular push
+# assert that pushing gs.gs succeeds
+result=$(gas push folder/gs.gs)
+pattern="Pushing .* > folder/gs.gs' to Google Drive... [\[✔v]\]"
+assertRegex "gs.gs is pushable" "$result" "$pattern"
+
+printf '//gs' > folder/gs2.gs
+gas push
+cd ..
+rm -rf $projectName7
+gas clone $projectName7
+
+# assert that main.gs exists after clone
+result=$(cat $projectName7/main.gs)
+pattern="function myFunction\(\) \{.*\}"
+assertRegex "main.gs exists after the pull" "$result" "$pattern"
+
+# assert that gs.gs exists after clone
+result=$(cat $projectName7/folder/gs.gs)
+pattern="//gs"
+assertRegex "gs.gs exists after the pull" "$result" "$pattern"
+
+# assert that js.gs does not exist after clone
+assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/folder/js.gs"
+
+# assert that js.js does not exist after clone
+assertFileDoesNotExist "notallowed.json should not have been added to the project" "$projectName2/folder/js.js"
 
 
 
