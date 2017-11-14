@@ -43,9 +43,9 @@ Link a remote project to your current working directory:
 $ gas link <projectName|projectId>
 ```
 
-Pull and push code from/to your remote project:   
+Pull and push code from/to your remote project:
 (Files in local folders are mapped to their full path name in a project and the other way around)
-(You can specify to pull or push only a single file by adding a filename to the command and even delete a single remote file uning -d)
+(You can specify to pull or push only a single file by adding a filename to the command and even delete a single remote file using s-d)
 
 ```
 $ gas pull [fileName]
