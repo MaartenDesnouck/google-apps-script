@@ -1,6 +1,6 @@
 {
     "name": "google-apps-script",
-    "version": "2.7.2",
+    "version": "2.7.3",
     "description": "gas, the complete CLI for Google Apps Script",
     "main": "index",
     "bin": {
@@ -32,7 +32,7 @@
         "commander": "^2.11.0",
         "fs-extra": "^4.0.2",
         "google-auth-library": "^0.12.0",
-        "googleapis": "^22.2.0",
+        "googleapis": "^23.0.0",
         "has-unicode": "^2.0.1",
         "open": "^0.0.5",
         "request": "^2.83.0",

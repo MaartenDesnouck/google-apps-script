@@ -82,9 +82,10 @@ $ gas show [projectName|projectId]
 $ gas status
 ````
 
-# Config
+# Config (optional)
 
-#### Configure gas to use .gs as local extension or to use a custom Google OAuth2 client to do the API requests (optional)
+#### Configure gas to use .gs as local extension or to use a custom Google OAuth2 client to do the API requests
+- [How to setup a a custom Google OAuth2 client for gas, from A to Z](./README/how-to-setup-oauthclient.md)
 - Add -e to export your current config to configFile.json
 - Add -i to import a config from configFile.json
 - Add -r to reset the config to the default values
