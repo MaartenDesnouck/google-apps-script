@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/MaartenDesnouck/google-apps-script/master/images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
+<img src="./images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
 
 # gas, for locally developing Google Apps Script projects
 
@@ -82,9 +82,10 @@ $ gas show [projectName|projectId]
 $ gas status
 ````
 
-# Config
+# Config (optional)
 
-#### Configure gas to use .gs as local extension or to use a custom Google OAuth2 client to do the API requests (optional)
+#### Configure gas to use .gs as local extension or to use a custom Google OAuth2 client to do the API requests
+- [How to setup a a custom Google OAuth2 client for gas, from A to Z](./README/how-to-setup-oauthclient.md)
 - Add -e to export your current config to configFile.json
 - Add -i to import a config from configFile.json
 - Add -r to reset the config to the default values
