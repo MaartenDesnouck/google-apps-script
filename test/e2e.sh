@@ -238,8 +238,8 @@ gas link $projectId2
 result=$(cat .gas/ID)
 assertRegex ".gas/ID exists after the link" "$result" "$projectId2"
 
-mkdir subfolder
-cd subfolder || exit 1
+mkdir 'subfolder'
+cd 'subfolder' || exit 1
 gas unlink
 cd ..
 
@@ -259,7 +259,7 @@ mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
-pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[[✘x]\]"
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[[✘x]\].*"
 assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..
