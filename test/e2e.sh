@@ -96,7 +96,7 @@ function assertFolderExists {
     fi
 }
 
-function assertFolderDoesNotExists {
+function assertFolderDoesNotExist {
     total=$((total+1))
     identifier=$1
     name=$2
@@ -225,7 +225,7 @@ pattern="No project with name or id '$projectId3' found in your Google Drive \[[
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
-printf '\n\n[Link and pull test]\n'
+printf '\n\n[Link, unlink and pull test]\n'
 
 result=$(gas info $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
@@ -234,6 +234,18 @@ assertRegex "the project we are linking by id and then pulling exists by id" "$r
 mkdir $projectRootFolder2
 cd $projectRootFolder2 || exit 1
 gas link $projectId2
+
+result=$(cat .gas/ID)
+assertRegex ".gas/ID exists after the link" "$result" "$projectId2"
+
+mkdir 'subfolder'
+cd 'subfolder' || exit 1
+gas unlink
+cd ..
+
+assertFolderDoesNotExist ".gas folder does not exist after the unlink " "$result"
+
+gas link $projectId2
 gas pull
 cd ..
 
@@ -241,15 +253,13 @@ result=$(cat $projectRootFolder2/main.js)
 pattern="function myFunction\(\) \{.*\}"
 assertRegex "main.js exists after the pull" "$result" "$pattern"
 
-result=$(cat $projectRootFolder2/.gas/ID)
-assertRegex ".gas/ID exists after the link and pull" "$result" "$projectId2"
 
 cd $projectRootFolder2 || exit 1
 mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
-pattern="You seem to be linking a project inside another project. Cowardly chose not to do that. \[[✘x]\]"
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that.*\[[✘x]\]"
 assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..

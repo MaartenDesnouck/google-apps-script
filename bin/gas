@@ -95,6 +95,12 @@ program
     .action(require(lib + '/status'));
 
 program
+    .command('unlink')
+    .description('unlink the linked remote project')
+    .action(require(lib + '/unlink'));
+
+
+program
     .command('*')
     .action(function (argv) {
         console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
