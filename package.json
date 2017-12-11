@@ -1,6 +1,6 @@
 {
     "name": "google-apps-script",
-    "version": "2.8.0",
+    "version": "2.8.1",
     "description": "gas, the complete CLI for Google Apps Script",
     "main": "index",
     "bin": {
@@ -18,8 +18,13 @@
         "gas",
         "export",
         "import",
+        "download",
+        "upload",
         "Google",
-        "CLI"
+        "apps",
+        "script",
+        "CLI",
+        "drive"
     ],
     "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
     "license": "MIT",
@@ -29,8 +34,8 @@
     "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
     "dependencies": {
         "colors": "^1.1.2",
-        "commander": "^2.11.0",
-        "fs-extra": "^4.0.2",
+        "commander": "^2.12.2",
+        "fs-extra": "^5.0.0",
         "googleapis": "^23.0.0",
         "has-unicode": "^2.0.1",
         "open": "^0.0.5",
