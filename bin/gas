@@ -22,7 +22,7 @@ program
 
 program
     .command('config [path]')
-    .option('-e, --export', 'Export a config file to the specified location')    
+    .option('-e, --export', 'Export a config file to the specified location')
     .option('-i, --import', 'Import a specified config file')
     .option('-r, --reset', 'Reset the config to default values')
     .description('configure gas to use .gs instad of .js or to use a custom OAuth client')
@@ -70,6 +70,11 @@ program
     .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
     .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
+
+program
+    .command('publish')
+    .description('publish a library to gas-include')
+    .action(require(lib + '/publish'));
 
 program
     .command('push [fileName]')
