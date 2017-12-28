@@ -259,7 +259,7 @@ mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
-pattern="You seem to be linking a project inside another project. Cowardly chose not to do that.*\[[✘x]\]"
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that.]"
 assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..
@@ -409,7 +409,7 @@ pattern="There are some difference between your local files and Google Drive for
 assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
-pattern="gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name.*"
+pattern="This file is unpushable to Google Drive because of an invalid extension or name.*"
 assertRegex "pushing an invalid file returns an error" "$result" "$pattern"
 
 cd ..
