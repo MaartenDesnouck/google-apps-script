@@ -259,7 +259,7 @@ mkdir 'testFolder'
 cd 'testFolder' || exit 1
 
 result=$(gas link $projectId2)
-pattern="You seem to be linking a project inside another project. Cowardly chose not to do that.]"
+pattern="You seem to be linking a project inside another project. Cowardly chose not to do that."
 assertRegex "linking a project to a subfolder of another project fails" "$result" "$pattern"
 
 cd ..
@@ -307,7 +307,7 @@ result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
 assertRegex "testFolder2/testFolder3/test3.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test3"
 
 result=$(cat $projectName2/main.js)
-assertRegex "main.js exists in the cloned project after it was pushed in an another folder linked to the same project " "$result" "function myFunction\(\) \{.*\}"
+assertRegex "main.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "function myFunction\(\) \{.*\}"
 
 assertFileExists ".gitignore exists in $projectName2" "$projectName2/.gitignore"
 
@@ -534,7 +534,7 @@ printf '//gs' > folder/gs.gs
 
 # assert that pushing js.js fails
 result=$(gas push folder/js.js)
-pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name. \[[✘x]\]"
+pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*gas returned an error: This file is unpushable to Google Drive because of an invalid extension or name."
 assertRegex "js.js is unpushable" "$result" "$pattern"
 
 # assert that pushing gs.gs succeeds
