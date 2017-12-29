@@ -26,10 +26,10 @@ $ npm i -g google-apps-script
 $ gas auth [-f][-s]
 ```
 
-####  Initialize a new project or clone an existing one
+#### Setup a new project or clone an existing one
 
 ```
-$ gas init <projectName>
+$ gas new <projectName>
 $ gas clone <projectName|projectId>
 ```
 
@@ -98,7 +98,7 @@ $ gas config [-e][-i][-r] [configFile.json]
 # Examples
 
 ```
-$ gas init myScript
+$ gas new myScript
 $ cd myScript
 $ gas open
 ```
@@ -113,7 +113,7 @@ $ gas create myScript2
 $ mkdir src
 $ cd src
 $ gas link myScript2
-$ gas info
+$ gas show
 $ gas pull
 ```
 

@@ -119,15 +119,15 @@ assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
-printf '\n\n[List, info and create test]\n'
+printf '\n\n[List, shaow and create test]\n'
 
 result=$(gas list $projectName1)
 pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
 assertRegex "gas list of project we are going to create returns no results yet" "$result" "$pattern"
 
-result=$(gas info $projectName1)
+result=$(gas show $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\].*"
-assertRegex "gas info by name of project we are going to create returns no results yet" "$result" "$pattern"
+assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create $projectName1
 
@@ -137,9 +137,9 @@ assertRegex "gas list by name of created project returns a result" "$result" "$p
 
 projectId1=${BASH_REMATCH[1]}
 
-result=$(gas info $projectId1)
+result=$(gas show $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "gas info by project id of created project returns correct name and id" "$result" "$pattern"
+assertRegex "gas show by project id of created project returns correct name and id" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
 result=$(gas list $projectName2)
@@ -154,9 +154,9 @@ assertRegex "gas list by name of second project we created returns a result" "$r
 
 projectId2=${BASH_REMATCH[1]}
 
-result=$(gas info $projectId2)
+result=$(gas show $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
-assertRegex "gas info by id of second project we created returns a result with the correct name" "$result" "$pattern"
+assertRegex "gas show by id of second project we created returns a result with the correct name" "$result" "$pattern"
 
 result=$(gas list $commonPart)
 pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
@@ -166,68 +166,68 @@ assertRegex "gas list of the common prefix returns project1 and project2 wiht th
 
 printf '\n\n[Rename test]\n'
 
-result=$(gas info $projectId1)
+result=$(gas show $projectId1)
 pattern="name:           $projectName1.*id:             $projectId1.*"
-assertRegex "gas info of project we are renaming by name exists by id" "$result" "$pattern"
+assertRegex "gas show of project we are renaming by name exists by id" "$result" "$pattern"
 
 gas rename $projectName1 $newProjectName1
 
-result=$(gas info $newProjectName1)
+result=$(gas show $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
-assertRegex "gas info of project we renamed by name exists with new name and has old id" "$result" "$pattern"
+assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
-result=$(gas info $projectName1)
+result=$(gas show $projectName1)
 pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\]"
-assertRegex "gas info of the old name returns a not found message" "$result" "$pattern"
+assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
-result=$(gas info $projectId1)
+result=$(gas show $projectId1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
-assertRegex "gas info of the id returns the new name" "$result" "$pattern"
+assertRegex "gas show of the id returns the new name" "$result" "$pattern"
 
 
 
 printf "\n\n[Delete test]\n"
 
-result=$(gas info $newProjectName1)
+result=$(gas show $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "the project we are deleting by name exists by name" "$result" "$pattern"
 
 gas delete $newProjectName1
 
-result=$(gas info $newProjectName1)
+result=$(gas show $newProjectName1)
 pattern="No project with name or id '$newProjectName1' found in your Google Drive \[[✘x]\].*"
-assertRegex "gas info by name of the project we deleted by name returns a not found message" "$result" "$pattern"
+assertRegex "gas show by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
-result=$(gas info $projectId1)
+result=$(gas show $projectId1)
 pattern="No project with name or id '$projectId1' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
 gas create $projectName3
 
-result=$(gas info $projectName3)
+result=$(gas show $projectName3)
 pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
 assertRegex "the third project we created exists by name" "$result" "$pattern"
 
 projectId3=${BASH_REMATCH[1]}
 
-result=$(gas info $projectId3)
+result=$(gas show $projectId3)
 pattern="name:           $projectName3.*id:             $projectId3.*"
 assertRegex "the project we are deleting by id exists by id" "$result" "$pattern"
 
 gas delete $projectId3
 
-result=$(gas info $projectName3)
+result=$(gas show $projectName3)
 pattern="No project with name or id '$projectName3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
-result=$(gas info $projectId3)
+result=$(gas show $projectId3)
 pattern="No project with name or id '$projectId3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
 printf '\n\n[Link, unlink and pull test]\n'
 
-result=$(gas info $projectId2)
+result=$(gas show $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
 assertRegex "the project we are linking by id and then pulling exists by id" "$result" "$pattern"
 
@@ -368,9 +368,9 @@ assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 gas new $projectName5
 
 # Project we created shoud have info when we look it up using name
-result=$(gas info $projectName5)
+result=$(gas show $projectName5)
 pattern="name:           $projectName5.*id:             (.{$idLenght}).*"
-assertRegex "Found the correct info for newly created project" "$result" "$pattern"
+assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 cd $projectName5 || exit 1
 mkdir 'folder'
@@ -426,9 +426,9 @@ assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 gas new $projectName6
 
 # Project we created shoud have info when we look it up using name
-result=$(gas info $projectName6)
+result=$(gas show $projectName6)
 pattern="name:           $projectName6.*id:             (.{$idLenght}).*"
-assertRegex "Found the correct info for newly created project" "$result" "$pattern"
+assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 projectId6=${BASH_REMATCH[1]}
 

@@ -45,8 +45,7 @@ program
     .action(require(lib + '/include'));
 
 program
-    .command('init <projectName>')
-    .alias('new')
+    .command('new <projectName>')
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
     .action(require(lib + '/init'));
 
@@ -78,7 +77,6 @@ program
 
 program
     .command('push [fileName]')
-    .alias('deploy')
     .option('-d, --delete', 'Delete the specified file from the linked project on your Google Drive')
     .description('push your local code to the linked project on your Google Drive (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
