@@ -41,8 +41,15 @@ program
 
 program
     .command('include')
+    .command('i')
+    .option('-s, --save', 'Save the included package in package.json')
     .description('pull included files specified in \'gas-include.js\'')
     .action(require(lib + '/include'));
+
+program
+    .command('init')
+    .description('interactively configure a package.json')
+    .action(require(lib + '/init'));
 
 program
     .command('new <projectName>')
