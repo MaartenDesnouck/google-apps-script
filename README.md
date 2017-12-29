@@ -119,7 +119,7 @@ $ gas pull
 
 # .gitignore
 
-Gas creates some extra files in a .gas folder of which only 'ID' should be checked into git,
+Gas creates some extra files in a .gas folder. None should be checked into git,
  so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
 
 <hr>
