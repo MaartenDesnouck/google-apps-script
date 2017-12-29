@@ -119,7 +119,7 @@ assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
-printf '\n\n[List, shaow and create test]\n'
+printf '\n\n[List, show and create test]\n'
 
 result=$(gas list $projectName1)
 pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"

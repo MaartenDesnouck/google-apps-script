@@ -41,7 +41,7 @@ program
 
 program
     .command('include')
-    .command('i')
+    .alias('i')
     .option('-s, --save', 'Save the included package in package.json')
     .description('pull included files specified in \'gas-include.js\'')
     .action(require(lib + '/include'));
@@ -54,7 +54,7 @@ program
 program
     .command('new <projectName>')
     .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
-    .action(require(lib + '/init'));
+    .action(require(lib + '/new'));
 
 program
     .command('link <projectName|projectId>')
