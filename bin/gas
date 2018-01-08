@@ -42,8 +42,8 @@ program
 program
     .command('include')
     .alias('i')
-    .option('-s, --save', 'Save the included package in package.json')
-    .description('pull included files specified in \'gas-include.js\'')
+    .option('-s, --save <dependency>', 'Save the specified dependency package in package.json')
+    .description('add included files specified in \'gas-include.js\'')
     .action(require(lib + '/include'));
 
 program
@@ -73,7 +73,6 @@ program
 
 program
     .command('pull [fileName]')
-    .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
     .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
