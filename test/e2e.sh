@@ -409,7 +409,7 @@ pattern="There are some difference between your local files and Google Drive for
 assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
-pattern="This file is unpushable to Google Drive because of an invalid extension or name.*"
+pattern="This file is unpushable to Google Drive because of an invalid extension or name"
 assertRegex "pushing an invalid file returns an error" "$result" "$pattern"
 
 cd ..
