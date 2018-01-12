@@ -41,6 +41,7 @@ $ gas list [filter]
 ```
 
 #### Pull and push code from/to your remote project
+- Gas also supports shared scripts and Team Drives
 - Files in subfolders are mapped to their relative pathname in a project and the other way around
 - You can specify to pull or push a single file by adding a filename to the command
 - Delete a single remote file by adding -d to the push command
@@ -51,6 +52,7 @@ $ gas push [fileName] [-d]
 ```
 
 #### Create, delete or rename a project in your Google Drive
+- Create will always happen in the root of My Drive (for now)
 
 ```
 $ gas create <projectName>

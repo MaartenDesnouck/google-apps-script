@@ -37,7 +37,7 @@
         "commander": "^2.12.2",
         "firebase": "^4.8.1",
         "fs-extra": "^5.0.0",
-        "googleapis": "^23.0.0",
+        "googleapis": "^24.0.0",
         "has-unicode": "^2.0.1",
         "open": "^0.0.5",
         "request": "^2.83.0",
