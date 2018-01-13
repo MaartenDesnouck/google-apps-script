@@ -40,6 +40,11 @@ program
     .action(require(lib + '/remote-delete'));
 
 program
+    .command('deploy')
+    .description('deploy a new version of your Google Apps Script project')
+    .action(require(lib + '/deploy'));
+
+program
     .command('include')
     .alias('i')
     .option('-s, --save <dependency>', 'Save the specified dependency package in package.json')

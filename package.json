@@ -24,7 +24,8 @@
         "apps",
         "script",
         "CLI",
-        "drive"
+        "drive",
+        "script.google.com"
     ],
     "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
     "license": "MIT",
