@@ -16,8 +16,8 @@ program
     .action(require(lib + '/auth'));
 
 program
-    .command('clone <projectName|projectId>')
-    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote')
+    .command('clone <scriptTitle|scriptId>')
+    .description('create a new local folder, link the remote script with the given scriptId and do a pull from remote')
     .action(require(lib + '/clone'));
 
 program
@@ -29,19 +29,19 @@ program
     .action(require(lib + '/config'));
 
 program
-    .command('create <projectName>')
-    .description('create a new project in your Google Drive')
+    .command('create <scriptTitle>')
+    .description('create a new script in your Google Drive')
     .action(require(lib + '/remote-create'));
 
 program
-    .command('delete <projectName|projectId>')
+    .command('delete <scriptTitle|scriptId>')
     .alias('remove')
-    .description('delete a project from your Google Drive')
+    .description('delete a script from your Google Drive')
     .action(require(lib + '/remote-delete'));
 
 program
-    .command('deploy')
-    .description('deploy a new version of your Google Apps Script project')
+    .command('deploy [version] [description]')
+    .description('deploy a new version of your Google Apps Script')
     .action(require(lib + '/deploy'));
 
 program
@@ -57,23 +57,23 @@ program
     .action(require(lib + '/init'));
 
 program
-    .command('new <projectName>')
-    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
+    .command('new <scriptTitle>')
+    .description('create a new Google Apps Script in your Google Drive and then clone that script locally')
     .action(require(lib + '/new'));
 
 program
-    .command('link <projectName|projectId>')
-    .description('link the remote project with the given projectId to the current local folder')
+    .command('link <scriptTitle|scriptId>')
+    .description('link the remote script with the given scriptId to the current local folder')
     .action(require(lib + '/link'));
 
 program
     .command('list [filter]')
-    .description('list your remote projects and their id\'s (optional filter on projectName)')
+    .description('list your remote scripts and their id\'s (optional filter on scriptTitle)')
     .action(require(lib + '/list'));
 
 program
-    .command('open [projectName|projectId]')
-    .description('open the project linked to the current folder or a specified project in the online editor')
+    .command('open [scriptTitle|scriptId]')
+    .description('open the script linked to the current folder or a specified script in the online editor')
     .action(require(lib + '/open'));
 
 program
@@ -88,19 +88,19 @@ program
 
 program
     .command('push [fileName]')
-    .option('-d, --delete', 'Delete the specified file from the linked project on your Google Drive')
-    .description('push your local code to the linked project on your Google Drive (add a fileName to only pull that file)')
+    .option('-d, --delete', 'Delete the specified file from the linked script on your Google Drive')
+    .description('push your local code to the linked script on your Google Drive (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program
-    .command('rename <projectName|projectId> <newProjectName>')
-    .description('rename a project in your Google Drive')
+    .command('rename <scriptTitle|scriptId> <newScriptTitle>')
+    .description('rename a script in your Google Drive')
     .action(require(lib + '/remote-rename'));
 
 program
-    .command('show [projectName|projectId]')
+    .command('show [scriptTitle|scriptId]')
     .alias('info')
-    .description('display info about the project linked to the current folder or about a specified project')
+    .description('display info about the script linked to the current folder or about a specified script')
     .action(require(lib + '/show'));
 
 program
@@ -110,8 +110,19 @@ program
 
 program
     .command('unlink')
-    .description('unlink the linked remote project')
+    .description('unlink the linked remote script')
     .action(require(lib + '/unlink'));
+
+program
+    .command('version [scriptId]')
+    .option('-d, --description <description>', 'Give the new version of a script a description')    
+    .description('create a new fixed version for the script linked to the current folder or for a specified script')
+    .action(require(lib + '/version'));
+
+program
+    .command('versions [scriptId]')
+    .description('list the versions of the script linked to the current folder or of a specified script')
+    .action(require(lib + '/versions'));
 
 
 program
