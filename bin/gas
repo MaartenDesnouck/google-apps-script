@@ -40,15 +40,22 @@ program
     .action(require(lib + '/remote-delete'));
 
 program
-    .command('deploy [version] [description]')
+    .command('deploy [scriptTitle|scriptId]')
+    .option('-v, --versionNr <versionNr>', 'deploy a specific versionNumber')
+    .option('-d, --description <description>', 'add a decription to the deployment')
     .description('deploy a new version of your Google Apps Script')
     .action(require(lib + '/deploy'));
 
 program
+    .command('deployments [scriptTitle|scriptId]')
+    .description('show the deployements of the script linked to the current folder or about a specified script')
+    .action(require(lib + '/deployments'));
+
+program
     .command('include')
     .alias('i')
-    .option('-s, --save <dependency>', 'Save the specified dependency package in package.json')
-    .description('add included files specified in \'gas-include.js\'')
+    .option('-s, --save <dependency>', 'save the specified dependency package in gas-include.json')
+    .description('add included files specified in \'gas-include.json\'')
     .action(require(lib + '/include'));
 
 program
@@ -68,7 +75,7 @@ program
 
 program
     .command('list [filter]')
-    .description('list your remote scripts and their id\'s (optional filter on scriptTitle)')
+    .description('list your remote standalone scripts and their id\'s (optional filter on scriptTitle)')
     .action(require(lib + '/list'));
 
 program
@@ -110,12 +117,12 @@ program
 
 program
     .command('unlink')
-    .description('unlink the linked remote script')
+    .description('unlink the remote script linked to the current folder')
     .action(require(lib + '/unlink'));
 
 program
     .command('version [scriptId]')
-    .option('-d, --description <description>', 'Give the new version of a script a description')    
+    .option('-d, --description <description>', 'specify a description for the new version')
     .description('create a new fixed version for the script linked to the current folder or for a specified script')
     .action(require(lib + '/version'));
 
