@@ -105,6 +105,12 @@ program
     .action(require(lib + '/remote-rename'));
 
 program
+    .command('run [scriptTitle|scriptId]')
+    .option('-f, --function <function>', 'run the specified function in the the script linked to the current folder or for a specified script')
+    .description('run a function in your remote script')
+    .action(require(lib + '/run'));
+
+program
     .command('show [scriptTitle|scriptId]')
     .alias('info')
     .description('display info about the script linked to the current folder or about a specified script')

@@ -126,7 +126,7 @@ pattern="No script projects matching the filter found in your Google Drive \[[�
 assertRegex "gas list of project we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectName1' found in your Google Drive \[[✘x]\].*"
 assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create $projectName1
@@ -177,7 +177,7 @@ pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with name or id '$projectName1' found in your Google Drive \[[✘x]\]"
+pattern="No project with title or id '$projectName1' found in your Google Drive \[[✘x]\]"
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
@@ -195,11 +195,11 @@ assertRegex "the project we are deleting by name exists by name" "$result" "$pat
 gas delete $newProjectName1
 
 result=$(gas show $newProjectName1)
-pattern="No project with name or id '$newProjectName1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$newProjectName1' found in your Google Drive \[[✘x]\].*"
 assertRegex "gas show by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
-pattern="No project with name or id '$projectId1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectId1' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
 gas create $projectName3
@@ -217,11 +217,11 @@ assertRegex "the project we are deleting by id exists by id" "$result" "$pattern
 gas delete $projectId3
 
 result=$(gas show $projectName3)
-pattern="No project with name or id '$projectName3' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectName3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
 result=$(gas show $projectId3)
-pattern="No project with name or id '$projectId3' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectId3' found in your Google Drive \[[✘x]\].*"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
@@ -249,9 +249,9 @@ gas link $projectId2
 gas pull
 cd ..
 
-result=$(cat $projectRootFolder2/main.js)
+result=$(cat $projectRootFolder2/Code.js)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "main.js exists after the pull" "$result" "$pattern"
+assertRegex "Code.js exists after the pull" "$result" "$pattern"
 
 
 cd $projectRootFolder2 || exit 1
@@ -306,17 +306,17 @@ assertRegex "/testFolder/test2.js exists in the cloned project after it was push
 result=$(cat $projectRootFolder2/testFolder2/testFolder3/test3.js)
 assertRegex "testFolder2/testFolder3/test3.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "//test3"
 
-result=$(cat $projectName2/main.js)
-assertRegex "main.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "function myFunction\(\) \{.*\}"
+result=$(cat $projectName2/Code.js)
+assertRegex "Code.js exists in the cloned project after it was pushed in an another folder linked to the same project" "$result" "function myFunction\(\) \{.*\}"
 
 assertFileExists ".gitignore exists in $projectName2" "$projectName2/.gitignore"
 
 result=$(cat $projectName2/.gas/ID)
 assertRegex "$projectName2/.gas/ID exists in the cloned project and it has the right content" "$result" "$projectId2"
 
-# Delete test2.js, modfy main.js and create test4.js and push from projectRootFolder2 and pull in projectName2
+# Delete test2.js, modfy Code.js and create test4.js and push from projectRootFolder2 and pull in projectName2
 cd $projectRootFolder2 || exit 1
-printf '//main modified\n' > main.js
+printf '//main modified\n' > Code.js
 printf '//test4\n' > test4.js
 cd testFolder || exit 1
 rm test2.js
@@ -342,14 +342,14 @@ assertFileDoesNotExist "We removed all files from testfolder, pushed and then pu
 # Delete folder
 rm -r $projectName2
 
-# main.js should not exist in $projectName2
-assertFileDoesNotExist "We removed the entire project locally so main.js should not exist" "$projectName2/main.js"
+# Code.js should not exist in $projectName2
+assertFileDoesNotExist "We removed the entire project locally so Code.js should not exist" "$projectName2/Code.js"
 
 # Clone using projectName
 gas clone $projectName2
 
-# main.js should have a specific content in $projectName2
-result=$(cat $projectName2/main.js)
+# Code.js should have a specific content in $projectName2
+result=$(cat $projectName2/Code.js)
 assertRegex "The main file of our cloned project exists and contains the modified content" "$result" "//main modified"
 
 # ID should exist in $projectName2/.gas and have projectId2 as content
@@ -379,7 +379,7 @@ printf '//' > modified2.js
 
 gas push
 
-rm main.js
+rm Code.js
 printf '//added' > added.js
 printf '//modified' > folder/modified1.js
 printf '//modified2' > modified2.js
@@ -402,7 +402,7 @@ result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- main\.js.*"
 assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
 
-gas pull main.js
+gas pull Code.js
 
 result=$(gas status)
 pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
@@ -432,9 +432,9 @@ assertRegex "Found the correct show for newly created project" "$result" "$patte
 
 projectId6=${BASH_REMATCH[1]}
 
-result=$(cat $projectName6/main.js)
+result=$(cat $projectName6/Code.js)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "main.js exists in the project6 folder" "$result" "$pattern"
+assertRegex "Code.js exists in the project6 folder" "$result" "$pattern"
 
 result=$(cat $projectName6/.gas/ID)
 assertRegex "the .gas/ID file for project6 exists" "$result" "$projectId6"
