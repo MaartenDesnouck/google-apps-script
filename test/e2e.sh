@@ -534,7 +534,7 @@ printf '//gs' > folder/gs.gs
 
 # assert that pushing js.js fails
 result=$(gas push folder/js.js)
-pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*This file is unpushable to Google Drive because of an invalid extension or name."
+pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*This file is unpushable to Google Drive because of an invalid extension or name"
 assertRegex "js.js is unpushable" "$result" "$pattern"
 
 # assert that pushing gs.gs succeeds
