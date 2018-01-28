@@ -316,7 +316,7 @@ assertRegex "$projectName2/.gas/ID exists in the cloned project and it has the r
 
 # Delete test2.js, modfy Code.js and create test4.js and push from projectRootFolder2 and pull in projectName2
 cd $projectRootFolder2 || exit 1
-printf '//main modified\n' > Code.js
+printf '//Code modified\n' > Code.js
 printf '//test4\n' > test4.js
 cd testFolder || exit 1
 rm test2.js
@@ -350,7 +350,7 @@ gas clone $projectName2
 
 # Code.js should have a specific content in $projectName2
 result=$(cat $projectName2/Code.js)
-assertRegex "The main file of our cloned project exists and contains the modified content" "$result" "//main modified"
+assertRegex "The Code file of our cloned project exists and contains the modified content" "$result" "//Code modified"
 
 # ID should exist in $projectName2/.gas and have projectId2 as content
 result=$(cat $projectName2/.gas/ID)
@@ -386,20 +386,20 @@ printf '//modified2' > modified2.js
 printf '//' > invalid.txt
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- main\.js.*"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js
 gas push folder/modified1.js 
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- main\.js.*"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js -d
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- main\.js.*"
+pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
 
 gas pull Code.js
@@ -523,10 +523,10 @@ assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 gas new $projectName7
 cd $projectName7 || exit 1
 
-# assert that main.gs exists after clone
-result=$(cat main.gs)
+# assert that Code.gs exists after clone
+result=$(cat Code.gs)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "main.gs exists after the pull" "$result" "$pattern"
+assertRegex "Code.gs exists after the pull" "$result" "$pattern"
 
 mkdir 'folder'
 printf '//js' > folder/js.js
@@ -548,10 +548,10 @@ cd ..
 rm -rf $projectName7
 gas clone $projectName7
 
-# assert that main.gs exists after clone
-result=$(cat $projectName7/main.gs)
+# assert that Code.gs exists after clone
+result=$(cat $projectName7/Code.gs)
 pattern="function myFunction\(\) \{.*\}"
-assertRegex "main.gs exists after the pull" "$result" "$pattern"
+assertRegex "Code.gs exists after the pull" "$result" "$pattern"
 
 # assert that gs.gs exists after clone
 result=$(cat $projectName7/folder/gs.gs)
@@ -573,7 +573,7 @@ printf '#TODO'
 
 
 
-# Cleaning up at the end by deleting remaining projects and folders
+# Cleaning up at the end by deleting reCodeing projects and folders
 printf '\n\n[Cleaning up]\n'
 gas delete $projectId2
 gas delete $projectName4
