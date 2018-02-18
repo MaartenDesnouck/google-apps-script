@@ -35,10 +35,10 @@
     "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
     "dependencies": {
         "colors": "^1.1.2",
-        "commander": "^2.13.0",
+        "commander": "^2.14.1",
         "firebase": "^4.8.1",
         "fs-extra": "^5.0.0",
-        "googleapis": "^25.0.0",
+        "googleapis": "^26.0.1",
         "has-unicode": "^2.0.1",
         "open": "^0.0.5",
         "request": "^2.83.0",
