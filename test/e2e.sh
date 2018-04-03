@@ -25,6 +25,8 @@ projectName6=$commonPart'_'$epoch'_project6'
 
 projectName7=$commonPart'_'$epoch'_project7'
 
+projectName8=$commonPart'_'$epoch'_project8'
+
 configTestFolder='configTest'
 
 idLenght=57
@@ -53,7 +55,7 @@ function assertRegex {
         success=$((success+1))
     else
         printf "[✘] $identifier\n"
-        printf "  $result\n"
+        printf ">$result<\n"
     fi
 }
 
@@ -114,26 +116,26 @@ function assertFolderDoesNotExist {
 printf '\n\n[Auth test]\n'
 
 result=$(gas auth)
-pattern="You are successfully authenticated as '.*' \[[✔v]\]";
+pattern="You are successfully authenticated as '.*' \[.*\]"
 assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
-printf '\n\n[List, show and create test]\n'
+printf '\n\n[Get scripts, show and create test]\n'
 
-result=$(gas list $projectName1)
-pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
-assertRegex "gas list of project we are going to create returns no results yet" "$result" "$pattern"
+result=$(gas get scripts $projectName1)
+pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+assertRegex "gas get of a script we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with title or id '$projectName1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectName1' found in your Google Drive \[.*\]"
 assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
-gas create $projectName1
+gas create script $projectName1
 
-result=$(gas list $projectName1)
+result=$(gas get scripts $projectName1)
 pattern="^\[(.{$idLenght})\] $projectName1$"
-assertRegex "gas list by name of created project returns a result" "$result" "$pattern"
+assertRegex "gas get scripts by name of created project returns a result" "$result" "$pattern"
 
 projectId1=${BASH_REMATCH[1]}
 
@@ -142,15 +144,15 @@ pattern="name:           $projectName1.*id:             $projectId1.*"
 assertRegex "gas show by project id of created project returns correct name and id" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
-result=$(gas list $projectName2)
-pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
-assertRegex "gas list of second project we are ging to create returns no results yet" "$result" "$pattern"
+result=$(gas get scripts $projectName2)
+pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+assertRegex "gas get scripts of second project we are ging to create returns no results yet" "$result" "$pattern"
 
-gas create $projectName2
+gas create script $projectName2
 
-result=$(gas list $projectName2)
+result=$(gas get scripts $projectName2)
 pattern="^\[(.{$idLenght})\] $projectName2$"
-assertRegex "gas list by name of second project we created returns a result" "$result" "$pattern"
+assertRegex "gas get scripts by name of second project we created returns a result" "$result" "$pattern"
 
 projectId2=${BASH_REMATCH[1]}
 
@@ -158,9 +160,9 @@ result=$(gas show $projectId2)
 pattern="name:           $projectName2.*id:             $projectId2.*"
 assertRegex "gas show by id of second project we created returns a result with the correct name" "$result" "$pattern"
 
-result=$(gas list $commonPart)
+result=$(gas get scripts $commonPart)
 pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
-assertRegex "gas list of the common prefix returns project1 and project2 wiht the correct names and ids" "$result" "$pattern"
+assertRegex "gas get scripts of the common prefix returns project1 and project2 wiht the correct names and ids" "$result" "$pattern"
 
 
 
@@ -177,7 +179,7 @@ pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with title or id '$projectName1' found in your Google Drive \[[✘x]\]"
+pattern="No project with title or id '$projectName1' found in your Google Drive \[.*\]"
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
@@ -192,17 +194,17 @@ result=$(gas show $newProjectName1)
 pattern="name:           $newProjectName1.*id:             $projectId1.*"
 assertRegex "the project we are deleting by name exists by name" "$result" "$pattern"
 
-gas delete $newProjectName1
+gas delete script $newProjectName1
 
 result=$(gas show $newProjectName1)
-pattern="No project with title or id '$newProjectName1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$newProjectName1' found in your Google Drive \[.*\]"
 assertRegex "gas show by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
-pattern="No project with title or id '$projectId1' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectId1' found in your Google Drive \[.*\]"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
-gas create $projectName3
+gas create script $projectName3
 
 result=$(gas show $projectName3)
 pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
@@ -214,15 +216,16 @@ result=$(gas show $projectId3)
 pattern="name:           $projectName3.*id:             $projectId3.*"
 assertRegex "the project we are deleting by id exists by id" "$result" "$pattern"
 
-gas delete $projectId3
+gas delete script $projectId3
 
 result=$(gas show $projectName3)
-pattern="No project with title or id '$projectName3' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectName3' found in your Google Drive \[.*\]"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
 result=$(gas show $projectId3)
-pattern="No project with title or id '$projectId3' found in your Google Drive \[[✘x]\].*"
+pattern="No project with title or id '$projectId3' found in your Google Drive \[.*\]"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
+
 
 
 printf '\n\n[Link, unlink and pull test]\n'
@@ -264,10 +267,10 @@ assertRegex "linking a project to a subfolder of another project fails" "$result
 
 cd ..
 
-gas create $projectName4
+gas create script $projectName4
 
 result=$(gas link $projectName4)
-pattern="Linking '$projectName4' to this folder... \[[✔v]\]"
+pattern="Linking '$projectName4' to this folder... \[.*\]"
 assertRegex "linking a project to a folder that is already linked to a project is possible" "$result" "$pattern"
 
 gas link $projectId2
@@ -361,8 +364,8 @@ assertRegex "The ID file of our cloned project exists and return the correct pro
 printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas list $projectName5)
-pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
+result=$(gas get scripts $projectName5)
+pattern="No script projects matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName5
@@ -419,8 +422,8 @@ cd ..
 printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas list $projectName6)
-pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
+result=$(gas get scripts $projectName6)
+pattern="No script projects matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName6
@@ -493,7 +496,7 @@ assertRegex "the config file is correct (6/6)" "$result" "$pattern"
 
 # importing a config file without a path
 result=$(gas config -i)
-pattern="Please provide a config file to import \[[✘x]\]"
+pattern="Please provide a config file to import \[.*\]"
 assertRegex "config throws error when forgetting config file" "$result" "$pattern"
 
 # exporting a config file without a path
@@ -516,8 +519,8 @@ then
 fi
 
 # Project we are going to create should not exist yet
-result=$(gas list $projectName7)
-pattern="No script projects matching the filter found in your Google Drive \[[✘x]\]"
+result=$(gas get scripts $projectName7)
+pattern="No script projects matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
@@ -534,12 +537,12 @@ printf '//gs' > folder/gs.gs
 
 # assert that pushing js.js fails
 result=$(gas push folder/js.js)
-pattern="Pushing .* > folder/js.js' to Google Drive... \[[✘x]\].*This file is unpushable to Google Drive because of an invalid extension or name"
+pattern="Pushing .* > folder/js.js' to Google Drive... \[.*\].*This file is unpushable to Google Drive because of an invalid extension or name"
 assertRegex "js.js is unpushable" "$result" "$pattern"
 
 # assert that pushing gs.gs succeeds
 result=$(gas push folder/gs.gs)
-pattern="Pushing .* > folder/gs.gs' to Google Drive... \[[✔v]\]"
+pattern="Pushing .* > folder/gs.gs' to Google Drive... \[.*\]"
 assertRegex "gs.gs is pushable" "$result" "$pattern"
 
 printf '//gs' > folder/gs2.gs
@@ -566,6 +569,43 @@ assertFileDoesNotExist "folder/js.js should not have been added to the project" 
 
 
 
+printf '\n\n[Versions test]\n'
+
+gas new $projectName8
+cd $projectName8 || exit 1
+
+# assert that creating new version gives correct output
+result=$(gas create version)
+pattern="Created version nr\. 1 for '$projectName8' \[.*\]"
+assertRegex "created new version" "$result" "$pattern"
+
+# assert that creating new version with description gives correct output
+result=$(gas create version -d e2e)
+pattern="Created version nr\. 2 for '$projectName8' \[.*\]"
+assertRegex "created version with description" "$result" "$pattern"
+
+# assert that getting all versions gives correct output
+result=$(gas get versions)
+pattern=".*\[1\].*undefined.*\[2\].*e2e.*"
+assertRegex "listed all versions" "$result" "$pattern"
+
+cd ..
+
+
+
+printf '\n\n[Deploy test]\n'
+# deploy with no version
+# deploy a version
+# deploy with a description
+printf '#TODO'
+
+
+
+printf '\n\n[Publish test]\n'
+printf '#TODO'
+
+
+
 printf '\n\n[Include test]\n'
 printf '#TODO'
 # do gas include
@@ -575,16 +615,18 @@ printf '#TODO'
 
 # Cleaning up at the end by deleting reCodeing projects and folders
 printf '\n\n[Cleaning up]\n'
-gas delete $projectId2
-gas delete $projectName4
-gas delete $projectName5
-gas delete $projectName6
-gas delete $projectName7
+gas delete script $projectId2
+gas delete script $projectName4
+gas delete script $projectName5
+gas delete script $projectName6
+gas delete script $projectName7
+gas delete script $projectName8
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
 rm -r $projectName6
 rm -r $projectName7
+rm -r $projectName8
 rm -r $configTestFolder
 
 

@@ -1,0 +1,35 @@
+#!/usr/bin/env node
+
+var package = require('../package.json');
+var program = require('commander');
+var path = require('path');
+var lib = path.join(__dirname, '../lib');
+
+program
+    .command('scripts [filter]')
+    .description('list your remote standalone scripts and their id\'s (optional filter on scriptTitle)')
+    .action(require(lib + '/list'));
+
+program
+    .command('deployments [scriptTitle|scriptId]')
+    .description('show the deployments of the script linked to the current folder or about a specified script')
+    .action(require(lib + '/deployments'));
+
+program
+    .command('versions [scriptId]')
+    .description('list the versions of the script linked to the current folder or of a specified script')
+    .action(require(lib + '/versions'));
+
+program
+    .command('*')
+    .action(function (argv) {
+        console.log('\'gas get %s\' is not a valid command use \'gas -h\' for help', argv);
+        process.exit(2);
+    });
+
+program.parse(process.argv);
+
+if (program.args.length < 1) {
+    program.outputHelp();
+    process.exit(2);
+}
