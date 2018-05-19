@@ -124,7 +124,7 @@ assertRegex "auth returns successfully" "$result" "$pattern"
 printf '\n\n[Get scripts, show and create test]\n'
 
 result=$(gas get scripts $projectName1)
-pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
 assertRegex "gas get of a script we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
@@ -134,48 +134,48 @@ assertRegex "gas show by name of project we are going to create returns no resul
 gas create script $projectName1
 
 result=$(gas get scripts $projectName1)
-pattern="^\[(.{$idLenght})\] $projectName1$"
+pattern="^ID.*NAME.*(.{$idLenght}) $projectName1$"
 assertRegex "gas get scripts by name of created project returns a result" "$result" "$pattern"
 
 projectId1=${BASH_REMATCH[1]}
 
 result=$(gas show $projectId1)
-pattern="name:           $projectName1.*id:             $projectId1.*"
+pattern="NAME             $projectName1.*ID               $projectId1.*"
 assertRegex "gas show by project id of created project returns correct name and id" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
 result=$(gas get scripts $projectName2)
-pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
 assertRegex "gas get scripts of second project we are ging to create returns no results yet" "$result" "$pattern"
 
 gas create script $projectName2
 
 result=$(gas get scripts $projectName2)
-pattern="^\[(.{$idLenght})\] $projectName2$"
+pattern="^ID.*NAME.*(.{$idLenght}) $projectName2$"
 assertRegex "gas get scripts by name of second project we created returns a result" "$result" "$pattern"
 
 projectId2=${BASH_REMATCH[1]}
 
 result=$(gas show $projectId2)
-pattern="name:           $projectName2.*id:             $projectId2.*"
+pattern="NAME             $projectName2.*ID               $projectId2.*"
 assertRegex "gas show by id of second project we created returns a result with the correct name" "$result" "$pattern"
 
 result=$(gas get scripts $commonPart)
-pattern="\[$projectId1\] $projectName1.*\[$projectId2\] $projectName2.*"
-assertRegex "gas get scripts of the common prefix returns project1 and project2 wiht the correct names and ids" "$result" "$pattern"
+pattern="^ID.*NAME.*$projectId1 $projectName1.*$projectId2 $projectName2$"
+assertRegex "gas get scripts of the common prefix returns project1 and project2 with the correct names and ids" "$result" "$pattern"
 
 
 
 printf '\n\n[Rename test]\n'
 
 result=$(gas show $projectId1)
-pattern="name:           $projectName1.*id:             $projectId1.*"
+pattern="NAME             $projectName1.*ID               $projectId1.*"
 assertRegex "gas show of project we are renaming by name exists by id" "$result" "$pattern"
 
 gas rename $projectName1 $newProjectName1
 
 result=$(gas show $newProjectName1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
+pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
@@ -183,7 +183,7 @@ pattern="No project with title or id '$projectName1' found in your Google Drive 
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
+pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "gas show of the id returns the new name" "$result" "$pattern"
 
 
@@ -191,7 +191,7 @@ assertRegex "gas show of the id returns the new name" "$result" "$pattern"
 printf "\n\n[Delete test]\n"
 
 result=$(gas show $newProjectName1)
-pattern="name:           $newProjectName1.*id:             $projectId1.*"
+pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "the project we are deleting by name exists by name" "$result" "$pattern"
 
 gas delete script $newProjectName1
@@ -207,13 +207,13 @@ assertRegex "the project we deleted by name no longer exists by id" "$result" "$
 gas create script $projectName3
 
 result=$(gas show $projectName3)
-pattern="name:           $projectName3.*id:             (.{$idLenght}).*"
+pattern="NAME             $projectName3.*ID              (.{$idLenght}).*"
 assertRegex "the third project we created exists by name" "$result" "$pattern"
 
 projectId3=${BASH_REMATCH[1]}
 
 result=$(gas show $projectId3)
-pattern="name:           $projectName3.*id:             $projectId3.*"
+pattern="NAME             $projectName3.*ID               $projectId3.*"
 assertRegex "the project we are deleting by id exists by id" "$result" "$pattern"
 
 gas delete script $projectId3
@@ -231,7 +231,7 @@ assertRegex "the project we deleted by id no longer exists by id" "$result" "$pa
 printf '\n\n[Link, unlink and pull test]\n'
 
 result=$(gas show $projectId2)
-pattern="name:           $projectName2.*id:             $projectId2.*"
+pattern="NAME             $projectName2.*ID               $projectId2.*"
 assertRegex "the project we are linking by id and then pulling exists by id" "$result" "$pattern"
 
 mkdir $projectRootFolder2
@@ -365,14 +365,14 @@ printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName5)
-pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName5
 
 # Project we created shoud have info when we look it up using name
 result=$(gas show $projectName5)
-pattern="name:           $projectName5.*id:             (.{$idLenght}).*"
+pattern="NAME             $projectName5.*ID              (.{$idLenght}).*"
 assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 cd $projectName5 || exit 1
@@ -423,14 +423,14 @@ printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName6)
-pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName6
 
 # Project we created shoud have info when we look it up using name
 result=$(gas show $projectName6)
-pattern="name:           $projectName6.*id:             (.{$idLenght}).*"
+pattern="NAME             $projectName6.*ID              (.{$idLenght}).*"
 assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 projectId6=${BASH_REMATCH[1]}
@@ -520,7 +520,7 @@ fi
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName7)
-pattern="No script projects matching the filter found in your Google Drive \[.*\]"
+pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
@@ -576,17 +576,17 @@ cd $projectName8 || exit 1
 
 # assert that creating new version gives correct output
 result=$(gas create version)
-pattern="Created version nr\. 1 for '$projectName8' \[.*\]"
+pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
 assertRegex "created new version" "$result" "$pattern"
 
 # assert that creating new version with description gives correct output
 result=$(gas create version -d e2e)
-pattern="Created version nr\. 2 for '$projectName8' \[.*\]"
+pattern="Creating new version for '$projectName8'... \[.*\].*2.*e2e"
 assertRegex "created version with description" "$result" "$pattern"
 
 # assert that getting all versions gives correct output
 result=$(gas get versions)
-pattern=".*\[1\].*undefined.*\[2\].*e2e.*"
+pattern=".*1.*2.*e2e.*"
 assertRegex "listed all versions" "$result" "$pattern"
 
 cd ..

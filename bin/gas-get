@@ -8,17 +8,17 @@ var lib = path.join(__dirname, '../lib');
 program
     .command('scripts [filter]')
     .description('list your remote standalone scripts and their id\'s (optional filter on scriptTitle)')
-    .action(require(lib + '/list'));
+    .action(require(lib + '/get-scripts'));
 
 program
     .command('deployments [scriptTitle|scriptId]')
     .description('show the deployments of the script linked to the current folder or about a specified script')
-    .action(require(lib + '/deployments'));
+    .action(require(lib + '/get-deployments'));
 
 program
     .command('versions [scriptId]')
     .description('list the versions of the script linked to the current folder or of a specified script')
-    .action(require(lib + '/versions'));
+    .action(require(lib + '/get-versions'));
 
 program
     .command('*')

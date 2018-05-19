@@ -76,12 +76,11 @@ program
 program
     .command('rename <scriptTitle|scriptId> <newScriptTitle>')
     .description('rename a script in your Google Drive')
-    .action(require(lib + '/remote-rename'))
+    .action(require(lib + '/rename-script'))
     .parse(process.argv);
 
 program
     .command('run [scriptTitle|scriptId]')
-    .option('-f, --function <function>', 'run the specified function in the the script linked to the current folder or for a specified script')
     .description('run a function in your remote script')
     .action(require(lib + '/run'))
     .parse(process.argv);
@@ -136,7 +135,7 @@ program.on('--help', function () {
     console.log('    $ cd myScript');
     console.log('    $ gas open');
     console.log('');
-    console.log('    $ gas list');
+    console.log('    $ gas get scripts');
     console.log('    $ gas clone myScript');
     console.log('');
     console.log('    $ mkdir src');

@@ -37,7 +37,7 @@ $ gas clone <projectName|projectId>
 - There is an optional filter on projectName
 
 ```
-$ gas list [filter]
+$ gas get scripts [filter]
 ```
 
 #### Pull and push code from/to your remote project
@@ -106,7 +106,7 @@ $ gas open
 ```
 
 ```
-$ gas list
+$ gas get scripts
 $ gas clone myScript
 ```
 

@@ -8,20 +8,22 @@ var lib = path.join(__dirname, '../lib');
 program
     .command('script <scriptTitle>')
     .description('create a new script in your Google Drive')
-    .action(require(lib + '/remote-create'));
+    .action(require(lib + '/create-script'));
 
 program
-    .command('deployment [scriptTitle|scriptId]')
-    .option('-v, --versionNumber <versionNr>', 'deploy a specific versionNumber')
+    .command('deployment')
+    .option('-s, --script <scriptIdentifier>', 'deploy a version for a script that is not the one linked to current directory')
+    .option('-v, --versionNumber <versionNr>', 'deploy a specific version')
     .option('-d, --description <description>', 'add a decription to the deployment')
-    .description('deploy a new version of your Google Apps Script')
-    .action(require(lib + '/deployment'));
+    .description('deploy a version of your Google Apps Script')
+    .action(require(lib + '/create-deployment'));
 
 program
-    .command('version [scriptId]')
+    .command('version')
+    .option('-s, --script <scriptIdentifier>', 'create a version for a script that is not linked to current directory')
     .option('-d, --description <description>', 'specify a description for the new version')
-    .description('create a new fixed version for the script linked to the current folder or for a specified script')
-    .action(require(lib + '/version'));
+    .description('create a new fixed version a script')
+    .action(require(lib + '/create-version'));
 
 program
     .command('*')

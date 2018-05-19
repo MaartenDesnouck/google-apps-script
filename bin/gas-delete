@@ -6,9 +6,9 @@ var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('script <scriptTitle>')
+    .command('script [scriptTitle|scriptId]')
     .description('delete a script from your Google Drive')
-    .action(require(lib + '/remote-delete'));
+    .action(require(lib + '/delete-script'));
 
 program
     .command('*')
