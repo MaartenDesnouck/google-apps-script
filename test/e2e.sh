@@ -207,7 +207,7 @@ assertRegex "the project we deleted by name no longer exists by id" "$result" "$
 gas create script $projectName3
 
 result=$(gas show $projectName3)
-pattern="NAME             $projectName3.*ID              (.{$idLenght}).*"
+pattern="NAME             $projectName3.*ID               (.{$idLenght}).*"
 assertRegex "the third project we created exists by name" "$result" "$pattern"
 
 projectId3=${BASH_REMATCH[1]}
@@ -372,7 +372,7 @@ gas new $projectName5
 
 # Project we created shoud have info when we look it up using name
 result=$(gas show $projectName5)
-pattern="NAME             $projectName5.*ID              (.{$idLenght}).*"
+pattern="NAME             $projectName5.*ID               (.{$idLenght}).*"
 assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 cd $projectName5 || exit 1
@@ -430,7 +430,7 @@ gas new $projectName6
 
 # Project we created shoud have info when we look it up using name
 result=$(gas show $projectName6)
-pattern="NAME             $projectName6.*ID              (.{$idLenght}).*"
+pattern="NAME             $projectName6.*ID               (.{$idLenght}).*"
 assertRegex "Found the correct show for newly created project" "$result" "$pattern"
 
 projectId6=${BASH_REMATCH[1]}
