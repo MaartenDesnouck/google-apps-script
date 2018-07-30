@@ -1,19 +1,11 @@
-version: 2
+version: 2.0
 jobs:
-  test:
-    docker:
-      - image: circleci/node:4.8.2-jessie
-    steps:
-      - checkout
-      - run:
-          name: Test
-          command: ./test/e2e.sh:
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - test:
-          filters:
-            branches:
-              only: master
+ build:
+   docker:
+     - image: alpine:3.7
+   steps:
+     - run:
+         name: The First Step
+         command: |
+           echo 'Hello World!'
+           echo 'This is the delivery pipeline'
