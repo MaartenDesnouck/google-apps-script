@@ -32,8 +32,8 @@ configTestFolder='configTest'
 idLenght=57
 
 # Setup
-npm install
-npm link
+sudo npm install
+sudo npm link
 rm -r $commonPart*
 
 # Put credentials in the right location ($token is set in Circl CI env vars)
