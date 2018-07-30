@@ -22,8 +22,8 @@ program
 
 program
     .command('*')
-    .action(function (argv) {
-        console.log('\'gas get %s\' is not a valid command use \'gas -h\' for help', argv);
+    .action((argv) => {
+        console.log('\'gas get %s\' is not a valid command use \'gas get -h\' for help', argv);
         process.exit(2);
     });
 

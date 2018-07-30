@@ -13,96 +13,81 @@ program
     .option('-f, --force', 'Force reauthentication')
     .option('-s, --show-url', 'Show the authentication url instead opening a webbrowser')
     .description('authenticate the Drive API')
-    .action(require(lib + '/auth'))
-    .parse(process.argv);
+    .action(require(lib + '/auth'));
 
 program
     .command('clone <scriptTitle|scriptId>')
     .description('create a new local folder, link the remote script with the given scriptId and do a pull from remote')
-    .action(require(lib + '/clone'))
-    .parse(process.argv);
+    .action(require(lib + '/clone'));
 
 program
     .command('include')
     .alias('i')
     .option('-s, --save <dependency>', 'save the specified dependency package in gas-include.json')
     .description('add included files specified in \'gas-include.json\'')
-    .action(require(lib + '/include'))
-    .parse(process.argv);
+    .action(require(lib + '/include'));
 
 program
     .command('init')
     .description('interactively configure a package.json')
-    .action(require(lib + '/init'))
-    .parse(process.argv);
+    .action(require(lib + '/init'));
 
 program
     .command('new <scriptTitle>')
     .description('create a new Google Apps Script in your Google Drive and then clone that script locally')
-    .action(require(lib + '/new'))
-    .parse(process.argv);
+    .action(require(lib + '/new'));
 
 program
     .command('link <scriptTitle|scriptId>')
     .description('link the remote script with the given scriptId to the current local folder')
-    .action(require(lib + '/link'))
-    .parse(process.argv);
+    .action(require(lib + '/link'));
 
 program
     .command('open [scriptTitle|scriptId]')
     .description('open the script linked to the current folder or a specified script in the online editor')
-    .action(require(lib + '/open'))
-    .parse(process.argv);
+    .action(require(lib + '/open'));
 
 program
     .command('pull [fileName]')
     .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
-    .action(require(lib + '/pull'))
-    .parse(process.argv);
+    .action(require(lib + '/pull'));
 
 program
     .command('publish')
     .description('publish a library to gas-include')
-    .action(require(lib + '/publish'))
-    .parse(process.argv);
+    .action(require(lib + '/publish'));
 
 program
     .command('push [fileName]')
     .option('-d, --delete', 'Delete the specified file from the linked script on your Google Drive')
     .description('push your local code to the linked script on your Google Drive (add a fileName to only pull that file)')
-    .action(require(lib + '/push'))
-    .parse(process.argv);
+    .action(require(lib + '/push'));
 
 program
     .command('rename <scriptTitle|scriptId> <newScriptTitle>')
     .description('rename a script in your Google Drive')
-    .action(require(lib + '/rename-script'))
-    .parse(process.argv);
+    .action(require(lib + '/rename-script'));
 
 program
     .command('run [scriptTitle|scriptId]')
+    .option('-f, --function', '')
     .description('run a function in your remote script')
-    .action(require(lib + '/run'))
-    .parse(process.argv);
+    .action(require(lib + '/run'));
 
 program
     .command('show [scriptTitle|scriptId]')
     .alias('info')
     .description('display info about the script linked to the current folder or about a specified script')
-    .action(require(lib + '/show'))
-    .parse(process.argv);
-
+    .action(require(lib + '/show'));
 program
     .command('status')
     .description('display the status of your local files')
-    .action(require(lib + '/status'))
-    .parse(process.argv);
+    .action(require(lib + '/status'));
 
 program
     .command('unlink')
     .description('unlink the remote script linked to the current folder')
-    .action(require(lib + '/unlink'))
-    .parse(process.argv);
+    .action(require(lib + '/unlink'));
 
 program
     .command('config [path]')
@@ -110,22 +95,20 @@ program
     .option('-i, --import', 'Import a specified config file')
     .option('-r, --reset', 'Reset the config to default values')
     .description('configure gas to use .gs instad of .js or to use a custom OAuth client')
-    .action(require(lib + '/config'))
-    .parse(process.argv);
+    .action(require(lib + '/config'));
 
 program
     .command('get', 'Do get stuff')
-    .command('create', 'Do create stuff')
-    .command('delete', 'Do delete stuff')
     .parse(process.argv);
 
 program
     .command('*')
-    .action(function (argv) {
+    .action((argv) => {
         console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
         process.exit(2);
     })
-    .parse(process.argv);
+
+program.parse(process.argv);
 
 program.on('--help', function () {
     console.log('');

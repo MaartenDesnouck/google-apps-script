@@ -1,6 +1,6 @@
 {
     "name": "google-apps-script",
-    "version": "3.0.0",
+    "version": "4.0.0",
     "description": "gas, the complete CLI for Google Apps Script",
     "bin": {
         "gas": "./bin/gas",
@@ -35,15 +35,15 @@
     },
     "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
     "dependencies": {
-        "colors": "^1.2.5",
+        "colors": "^1.3.1",
         "columnify": "^1.5.4",
-        "commander": "^2.15.1",
+        "commander": "^2.16.0",
         "firebase": "^5.0.3",
-        "fs-extra": "^6.0.1",
-        "googleapis": "^30.0.0",
+        "fs-extra": "^7.0.0",
+        "googleapis": "^32.0.0",
         "has-unicode": "^2.0.1",
         "opn": "^5.3.0",
-        "request": "^2.86.0",
+        "request": "^2.87.0",
         "request-promise": "^4.2.2",
         "sanitize-filename": "^1.6.1",
         "semver": "^5.5.0",
