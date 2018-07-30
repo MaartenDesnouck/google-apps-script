@@ -1,9 +1,19 @@
 version: 2
 jobs:
-    build:
-      node:
-        version: 7.10.0
+  test:
+    docker:
+      - image: circleci/node:4.8.2-jessie
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: ./test/e2e.sh:
 
-test:
-  override:
-    - ./test/e2e.sh:
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: master
