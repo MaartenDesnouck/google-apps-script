@@ -130,7 +130,7 @@ pattern="No remote standalone projects matching the filter found \[.*\]"
 assertRegex "gas get of a project we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No remote project with title or id '$projectName1' found \[.*\]"
+pattern="No remote project with name or id '$projectName1' found \[.*\]"
 assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create project $projectName1
@@ -181,7 +181,7 @@ pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No remote project with title or id '$projectName1' found \[.*\]"
+pattern="No remote project with name or id '$projectName1' found \[.*\]"
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
@@ -199,11 +199,11 @@ assertRegex "the project we are deleting by name exists by name" "$result" "$pat
 gas delete project $newProjectName1
 
 result=$(gas show $newProjectName1)
-pattern="No remote project with title or id '$newProjectName1' found \[.*\]"
+pattern="No remote project with name or id '$newProjectName1' found \[.*\]"
 assertRegex "gas show by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
-pattern="No remote project with title or id '$projectId1' found \[.*\]"
+pattern="No remote project with name or id '$projectId1' found \[.*\]"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
 gas create project $projectName3
@@ -221,11 +221,11 @@ assertRegex "the project we are deleting by id exists by id" "$result" "$pattern
 gas delete project $projectId3
 
 result=$(gas show $projectName3)
-pattern="No remote project with title or id '$projectName3' found \[.*\]"
+pattern="No remote project with name or id '$projectName3' found \[.*\]"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
 result=$(gas show $projectId3)
-pattern="No remote project with title or id '$projectId3' found \[.*\]"
+pattern="No remote project with name or id '$projectId3' found \[.*\]"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 

@@ -1,4 +1,4 @@
-<img src="./images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
+<img src="./images/logo/gas-logo.png" alt="gas logo" name="gas" align="right" height="96" width="96"/>
 
 # gas, for locally developing Google Apps Script projects
 
@@ -93,9 +93,9 @@ $ gas status
 - Create will always happen in the root of My Drive (for now)
 
 ```
-$ gas create script <projectName>
-$ gas delete script <projectName|projectId>
-$ gas get scripts [filter]
+$ gas create project <projectName>
+$ gas delete project <projectName|projectId>
+$ gas get projects [filter]
 ```
 
 #### Create or get a version
@@ -133,7 +133,7 @@ $ gas open
 ```
 
 ```
-$ gas get scripts
+$ gas get project
 $ gas clone myScript
 ```
 

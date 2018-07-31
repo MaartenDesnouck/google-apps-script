@@ -6,7 +6,7 @@ var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('project <projectTitle>')
+    .command('project <projectName>')
     .description('create a new remote script project')
     .action(require(lib + '/create-project'));
 
