@@ -655,7 +655,7 @@ gas delete script $projectName5
 gas delete script $projectName6
 gas delete script $projectName7
 gas delete script $projectName8
-gas delete script $projectName8
+gas delete script $projectName9
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
