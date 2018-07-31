@@ -1,6 +1,6 @@
 <img src="./images/logo/gas-logo.png" alt="gas logo" name="gas" align="right" height="96" width="96"/>
 
-# gas, for locally developing Google Apps Script projects
+# gas, the Google Apps Script command-line tool
 
 [![npm](https://img.shields.io/npm/v/google-apps-script.svg)](https://www.npmjs.com/package/google-apps-script)
 [![GitHub stars](https://img.shields.io/github/stars/MaartenDesnouck/google-apps-script.svg?style=social&label=Star)](https://github.com/MaartenDesnouck/google-apps-script)
@@ -29,8 +29,8 @@ $ gas auth [-f][-s]
 ```
 
 ## Local development
-- Standalone scripts can be referenced by Name, container bound script projects must be referenced by projectsId. 
-- You can find all projectsIds from the url of the details page in [My Scripts](https://script.google.com/home/my)
+- Standalone scripts can be referenced by name, container bound script projects must be referenced by projectId. 
+- You can find a projectIds from the url of a details page in [My Scripts](https://script.google.com/home/my)
 
 #### Setup a new script project or clone an existing one
 
@@ -48,7 +48,7 @@ $ gas get projects [filter]
 
 #### Pull and push code from/to your remote script project
 - Gas also supports shared scripts, Team Drives and container bound scripts
-- Files in subfolders are mapped to their relative pathname in a script and the other way around
+- Files in subfolders are mapped to their relative pathname in a project and the other way around
 - You can specify to pull or push a single file by adding a filename to the command
 - Delete a single remote file by adding -d to the push command
 
@@ -70,24 +70,24 @@ $ gas rename <projectName|projectId> <newProjectName>
 $ gas link <projectName|projectId>
 ```
 
-#### Open the linked or a specified script in the online editor
+#### Open the linked or a specified project in the online editor
 
 ```
 $ gas open [projectName|projectId]
 ```
 
-#### Show some info about the linked or a specified script
+#### Show some info about the linked or a specified project
 
 ````
 $ gas show [projectName|projectId]
 ````
 
-#### Check for differences between your local and remote script files
+#### Check for differences between your local and remote project files
 ````
 $ gas status
 ````
 
-## Managing scripts, versions and deployments
+## Managing projects, versions and deployments
 
 #### Create, delete or get a remote project
 - Create will always happen in the root of My Drive (for now)
@@ -127,21 +127,21 @@ $ gas config [-e][-i][-r] [configFile.json]
 # Examples
 
 ```
-$ gas new myScript
-$ cd myScript
+$ gas new myProject
+$ cd myProject
 $ gas open
 ```
 
 ```
-$ gas get project
-$ gas clone myScript
+$ gas get projects
+$ gas clone myProject
 ```
 
 ```
-$ gas create myScript2
+$ gas create myProject2
 $ mkdir src
 $ cd src
-$ gas link myScript2
+$ gas link myProject2
 $ gas show
 $ gas pull
 ```
