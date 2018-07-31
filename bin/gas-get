@@ -7,17 +7,17 @@ var lib = path.join(__dirname, '../lib');
 
 program
     .command('scripts [filter]')
-    .description('list your remote standalone scripts and their id\'s (optional filter on scriptTitle)')
-    .action(require(lib + '/get-scripts'));
+    .description('list your remote standalone script projects and their ids (optional filter on projectName)')
+    .action(require(lib + '/get-projects'));
 
 program
-    .command('deployments [scriptTitle|scriptId]')
-    .description('show the deployments of the script linked to the current folder or about a specified script')
+    .command('deployments [projectName|projectId]')
+    .description('show the deployments of the script project linked to the current folder or about a specified script')
     .action(require(lib + '/get-deployments'));
 
 program
-    .command('versions [scriptId]')
-    .description('list the versions of the script linked to the current folder or of a specified script')
+    .command('versions [projectId]')
+    .description('list the versions of the script project linked to the current folder or of a specified script')
     .action(require(lib + '/get-versions'));
 
 program

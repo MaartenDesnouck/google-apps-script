@@ -18,6 +18,8 @@ $ npm i -g google-apps-script
 
 # Usage
 
+## Logging In
+
 #### Authenticate the Drive API
  - Add -f to force reauthentication
  - Add -s to show the authentication url instead of opening a webbrowser
@@ -26,23 +28,27 @@ $ npm i -g google-apps-script
 $ gas auth [-f][-s]
 ```
 
-#### Setup a new project or clone an existing one
+## Local development
+- Standalone scripts can be referenced by Name, container bound script projects must be referenced by projectsId. 
+- You can find all projectsIds from the url of the details page in [My Scripts](https://script.google.com/home/my)
+
+#### Setup a new script project or clone an existing one
 
 ```
 $ gas new <projectName>
 $ gas clone <projectName|projectId>
 ```
 
-#### List your remote projects and their ids
+#### List your remote standalone script projects and their ids
 - There is an optional filter on projectName
 
 ```
-$ gas get scripts [filter]
+$ gas get projects [filter]
 ```
 
-#### Pull and push code from/to your remote project
-- Gas also supports shared scripts and Team Drives
-- Files in subfolders are mapped to their relative pathname in a project and the other way around
+#### Pull and push code from/to your remote script project
+- Gas also supports shared scripts, Team Drives and container bound scripts
+- Files in subfolders are mapped to their relative pathname in a script and the other way around
 - You can specify to pull or push a single file by adding a filename to the command
 - Delete a single remote file by adding -d to the push command
 
@@ -51,39 +57,60 @@ $ gas pull [fileName]
 $ gas push [fileName] [-d]
 ```
 
-#### Create, delete or rename a remote project
-- Create will always happen in the root of My Drive (for now)
+#### Rename a remote script
 
 ```
-$ gas create <projectName>
-$ gas delete <projectName|projectId>
 $ gas rename <projectName|projectId> <newProjectName>
 ```
 
-#### Linking a project to the current working directory
+#### Linking a script to the current working directory
 - See the last [example](#examples) for some context
 
 ```
 $ gas link <projectName|projectId>
 ```
 
-#### Open the linked project or a specified project in the online editor
+#### Open the linked or a specified script in the online editor
 
 ```
 $ gas open [projectName|projectId]
 ```
 
-#### Show some info about the linked project or a specified project
+#### Show some info about the linked or a specified script
 
 ````
 $ gas show [projectName|projectId]
 ````
 
-#### Check for differences between your local and remote project files
-
+#### Check for differences between your local and remote script files
 ````
 $ gas status
 ````
+
+## Managing scripts, versions and deployments
+
+#### Create, delete or get a remote script
+- Create will always happen in the root of My Drive (for now)
+
+```
+$ gas create script <projectName>
+$ gas delete script <projectName|projectId>
+$ gas get scripts [filter]
+```
+
+#### Create or get a version
+
+```
+$ gas create version [-d description] [-s projectName|projectId]
+$ gas get versions [projectName|projectId]
+```
+
+#### Create or get a deployment
+
+```
+$ gas create deployment [-d description] [-v versionNumber] [-s projectName|projectId]
+$ gas get deployments [projectName|projectId]
+```
 
 # Config (optional)
 
@@ -122,7 +149,7 @@ $ gas pull
 # .gitignore
 
 Gas creates some extra files in a .gas folder. None should be checked into git,
- so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
+ so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your script if there isn't one present yet.
 
 <hr>
 That's all (so far).

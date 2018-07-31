@@ -16,8 +16,8 @@ program
     .action(require(lib + '/auth'));
 
 program
-    .command('clone <scriptTitle|scriptId>')
-    .description('create a new local folder, link the remote script with the given scriptId and do a pull from remote all in one')
+    .command('clone <projectName|projectId>')
+    .description('create a new local folder, link the remote script with the given projectId and do a pull from remote all in one')
     .action(require(lib + '/clone'));
 
 program
@@ -33,17 +33,17 @@ program
     .action(require(lib + '/init'));
 
 program
-    .command('new <scriptTitle>')
+    .command('new <projectName>')
     .description('create a new remote Google Apps Script and then clone that script locally')
     .action(require(lib + '/new'));
 
 program
-    .command('link <scriptTitle|scriptId>')
-    .description('link the remote script with the given scriptId to the current local folder')
+    .command('link <projectName|projectId>')
+    .description('link the remote script with the given projectId to the current local folder')
     .action(require(lib + '/link'));
 
 program
-    .command('open [scriptTitle|scriptId]')
+    .command('open [projectName|projectId]')
     .description('open the script linked to the current folder or a specified script in the online editor')
     .action(require(lib + '/open'));
 
@@ -64,18 +64,18 @@ program
     .action(require(lib + '/push'));
 
 program
-    .command('rename <scriptTitle|scriptId> <newScriptTitle>')
-    .description('rename a remote script')
-    .action(require(lib + '/rename-script'));
+    .command('rename <projectName|projectId> <newProjectName>')
+    .description('rename a remote script project')
+    .action(require(lib + '/rename-project'));
 
 program
-    .command('run [scriptTitle|scriptId]')
+    .command('run [projectName|projectId]')
     .option('-f, --function', '')
     .description('run a function in your remote script')
     .action(require(lib + '/run'));
 
 program
-    .command('show [scriptTitle|scriptId]')
+    .command('show [projectName|projectId]')
     .alias('info')
     .description('display info about the script linked to the current folder or about a specified script')
     .action(require(lib + '/show'));

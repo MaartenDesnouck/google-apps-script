@@ -6,23 +6,23 @@ var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('script <scriptTitle>')
-    .description('create a new remote script')
-    .action(require(lib + '/create-script'));
+    .command('project <projectTitle>')
+    .description('create a new remote script project')
+    .action(require(lib + '/create-project'));
 
 program
     .command('deployment')
-    .option('-s, --script <scriptIdentifier>', 'deploy a version for a script that is not the one linked to current directory')
+    .option('-p, --project <projectIdentifier>', 'deploy a version for a script project that is not the one linked to current directory')
     .option('-v, --versionNumber <versionNr>', 'deploy a specific version')
     .option('-d, --description <description>', 'add a decription to the deployment')
-    .description('deploy a version of your Google Apps Script')
+    .description('deploy a version of your Google Apps Script [-d description] [-v versionNumber] [-p projectIdentifier]')
     .action(require(lib + '/create-deployment'));
 
 program
     .command('version')
-    .option('-s, --script <scriptIdentifier>', 'create a version for a script that is not linked to current directory')
+    .option('-p, --project <projectIdentifier>', 'create a version for a script project that is not linked to current directory')
     .option('-d, --description <description>', 'specify a description for the new version')
-    .description('create a new fixed version a script')
+    .description('create a new fixed version a script [-d description] [-p projectIdentifier]')
     .action(require(lib + '/create-version'));
 
 program
