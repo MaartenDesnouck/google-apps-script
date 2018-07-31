@@ -89,7 +89,7 @@ $ gas status
 
 ## Managing scripts, versions and deployments
 
-#### Create, delete or get a remote script
+#### Create, delete or get a remote project
 - Create will always happen in the root of My Drive (for now)
 
 ```
@@ -101,14 +101,14 @@ $ gas get scripts [filter]
 #### Create or get a version
 
 ```
-$ gas create version [-d description] [-s projectName|projectId]
+$ gas create version [-d description] [-p projectName|projectId]
 $ gas get versions [projectName|projectId]
 ```
 
 #### Create or get a deployment
 
 ```
-$ gas create deployment [-d description] [-v versionNumber] [-s projectName|projectId]
+$ gas create deployment [-d description] [-v versionNumber] [-p projectName|projectId]
 $ gas get deployments [projectName|projectId]
 ```
 
@@ -149,7 +149,7 @@ $ gas pull
 # .gitignore
 
 Gas creates some extra files in a .gas folder. None should be checked into git,
- so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your script if there isn't one present yet.
+ so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
 
 <hr>
 That's all (so far).

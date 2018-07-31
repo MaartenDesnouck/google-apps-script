@@ -123,21 +123,21 @@ assertRegex "auth returns successfully" "$result" "$pattern"
 
 
 
-printf '\n\n[Get scripts, show and create test]\n'
+printf '\n\n[Get project, show and create test]\n'
 
-result=$(gas get scripts $projectName1)
-pattern="No remote standalone scripts matching the filter found \[.*\]"
-assertRegex "gas get of a script we are going to create returns no results yet" "$result" "$pattern"
+result=$(gas get projects $projectName1)
+pattern="No remote standalone projects matching the filter found \[.*\]"
+assertRegex "gas get of a project we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
 pattern="No remote project with title or id '$projectName1' found \[.*\]"
 assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
-gas create script $projectName1
+gas create project $projectName1
 
-result=$(gas get scripts $projectName1)
+result=$(gas get projects $projectName1)
 pattern="^ID.*NAME.*(.{$idLenght}) $projectName1$"
-assertRegex "gas get scripts by name of created project returns a result" "$result" "$pattern"
+assertRegex "gas get projects by name of created project returns a result" "$result" "$pattern"
 
 projectId1=${BASH_REMATCH[1]}
 
@@ -146,15 +146,15 @@ pattern="NAME             $projectName1.*ID               $projectId1.*"
 assertRegex "gas show by project id of created project returns correct name and id" "$result" "$pattern"
 
 # Second project we are going to create should not exist yet
-result=$(gas get scripts $projectName2)
-pattern="No remote standalone scripts matching the filter found \[.*\]"
-assertRegex "gas get scripts of second project we are ging to create returns no results yet" "$result" "$pattern"
+result=$(gas get projects $projectName2)
+pattern="No remote standalone projects matching the filter found \[.*\]"
+assertRegex "gas get projects of second project we are ging to create returns no results yet" "$result" "$pattern"
 
-gas create script $projectName2
+gas create project $projectName2
 
-result=$(gas get scripts $projectName2)
+result=$(gas get projects $projectName2)
 pattern="^ID.*NAME.*(.{$idLenght}) $projectName2$"
-assertRegex "gas get scripts by name of second project we created returns a result" "$result" "$pattern"
+assertRegex "gas get projects by name of second project we created returns a result" "$result" "$pattern"
 
 projectId2=${BASH_REMATCH[1]}
 
@@ -162,9 +162,9 @@ result=$(gas show $projectId2)
 pattern="NAME             $projectName2.*ID               $projectId2.*"
 assertRegex "gas show by id of second project we created returns a result with the correct name" "$result" "$pattern"
 
-result=$(gas get scripts $commonPart)
+result=$(gas get projects $commonPart)
 pattern="^ID.*NAME.*$projectId1 $projectName1.*$projectId2 $projectName2$"
-assertRegex "gas get scripts of the common prefix returns project1 and project2 with the correct names and ids" "$result" "$pattern"
+assertRegex "gas get projects of the common prefix returns project1 and project2 with the correct names and ids" "$result" "$pattern"
 
 
 
@@ -196,7 +196,7 @@ result=$(gas show $newProjectName1)
 pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "the project we are deleting by name exists by name" "$result" "$pattern"
 
-gas delete script $newProjectName1
+gas delete project $newProjectName1
 
 result=$(gas show $newProjectName1)
 pattern="No remote project with title or id '$newProjectName1' found \[.*\]"
@@ -206,7 +206,7 @@ result=$(gas show $projectId1)
 pattern="No remote project with title or id '$projectId1' found \[.*\]"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
-gas create script $projectName3
+gas create project $projectName3
 
 result=$(gas show $projectName3)
 pattern="NAME             $projectName3.*ID               (.{$idLenght}).*"
@@ -218,7 +218,7 @@ result=$(gas show $projectId3)
 pattern="NAME             $projectName3.*ID               $projectId3.*"
 assertRegex "the project we are deleting by id exists by id" "$result" "$pattern"
 
-gas delete script $projectId3
+gas delete project $projectId3
 
 result=$(gas show $projectName3)
 pattern="No remote project with title or id '$projectName3' found \[.*\]"
@@ -269,7 +269,7 @@ assertRegex "linking a project to a subfolder of another project fails" "$result
 
 cd ..
 
-gas create script $projectName4
+gas create project $projectName4
 
 result=$(gas link $projectName4)
 pattern="Linking '$projectName4' to this folder... \[.*\]"
@@ -366,8 +366,8 @@ assertRegex "The ID file of our cloned project exists and return the correct pro
 printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas get scripts $projectName5)
-pattern="No remote standalone scripts matching the filter found \[.*\]"
+result=$(gas get projects $projectName5)
+pattern="No remote standalone projects matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName5
@@ -424,8 +424,8 @@ cd ..
 printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
-result=$(gas get scripts $projectName6)
-pattern="No remote standalone scripts matching the filter found \[.*\]"
+result=$(gas get projects $projectName6)
+pattern="No remote standalone projects matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName6
@@ -521,8 +521,8 @@ then
 fi
 
 # Project we are going to create should not exist yet
-result=$(gas get scripts $projectName7)
-pattern="No remote standalone scripts matching the filter found \[.*\]"
+result=$(gas get projects $projectName7)
+pattern="No remote standalone projects matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
@@ -581,10 +581,10 @@ result=$(gas create version)
 pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
 assertRegex "created new version" "$result" "$pattern"
 
-# assert that creating new version with script gives correct output
+# assert that creating new version with project gives correct output
 result=$(gas create version -s $projectName8)
 pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
-assertRegex "created new version with script specified" "$result" "$pattern"
+assertRegex "created new version with project specified" "$result" "$pattern"
 
 # assert that creating new version with description gives correct output
 result=$(gas create version -d e2e-version-test)
@@ -610,10 +610,10 @@ result=$(gas create deployment)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
 assertRegex "created new deployment" "$result" "$pattern"
 
-# assert that creating new deployment with scriptgives correct output
+# assert that creating new deployment with projectgives correct output
 result=$(gas create deployment -s $projectName9)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
-assertRegex "created new deployment with script specified" "$result" "$pattern"
+assertRegex "created new deployment with project specified" "$result" "$pattern"
 
 # assert that creating new deployment with versionNumber gives correct output
 result=$(gas create deployment -v 1)
@@ -649,13 +649,13 @@ printf '#TODO'
 
 # Cleaning up at the end by deleting reCodeing projects and folders
 printf '\n\n[Cleaning up]\n'
-gas delete script $projectId2
-gas delete script $projectName4
-gas delete script $projectName5
-gas delete script $projectName6
-gas delete script $projectName7
-gas delete script $projectName8
-gas delete script $projectName9
+gas delete project $projectId2
+gas delete project $projectName4
+gas delete project $projectName5
+gas delete project $projectName6
+gas delete project $projectName7
+gas delete project $projectName8
+gas delete project $projectName9
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5

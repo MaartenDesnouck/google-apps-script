@@ -17,7 +17,7 @@ program
 
 program
     .command('clone <projectName|projectId>')
-    .description('create a new local folder, link the remote script with the given projectId and do a pull from remote all in one')
+    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote all in one')
     .action(require(lib + '/clone'));
 
 program
@@ -34,22 +34,22 @@ program
 
 program
     .command('new <projectName>')
-    .description('create a new remote Google Apps Script and then clone that script locally')
+    .description('create a new remote Google Apps Script project and then clone that project locally')
     .action(require(lib + '/new'));
 
 program
     .command('link <projectName|projectId>')
-    .description('link the remote script with the given projectId to the current local folder')
+    .description('link the remote project with the given projectId to the current local folder')
     .action(require(lib + '/link'));
 
 program
     .command('open [projectName|projectId]')
-    .description('open the script linked to the current folder or a specified script in the online editor')
+    .description('open the project linked to the current folder or a specified project in the online editor')
     .action(require(lib + '/open'));
 
 program
     .command('pull [fileName]')
-    .description('pull the remote version of the linked Google Apps Script, (add \'-i\' to also pull included files)')
+    .description('pull the remote version of the linked project, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
 program
@@ -59,25 +59,25 @@ program
 
 program
     .command('push [fileName]')
-    .option('-d, --delete', 'Delete the specified file from the linked remote script')
-    .description('push your local code to the linked remote script (add a fileName to only pull that file)')
+    .option('-d, --delete', 'Delete the specified file from the linked remote project')
+    .description('push your local code to the linked remote project (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program
     .command('rename <projectName|projectId> <newProjectName>')
-    .description('rename a remote script project')
+    .description('rename a remote project')
     .action(require(lib + '/rename-project'));
 
 program
     .command('run [projectName|projectId]')
     .option('-f, --function', '')
-    .description('run a function in your remote script')
+    .description('run a function in your remote project')
     .action(require(lib + '/run'));
 
 program
     .command('show [projectName|projectId]')
     .alias('info')
-    .description('display info about the script linked to the current folder or about a specified script')
+    .description('display info about the project linked to the current folder or about a specified project')
     .action(require(lib + '/show'));
 
 program
@@ -87,7 +87,7 @@ program
 
 program
     .command('unlink')
-    .description('unlink the remote script linked to the current folder')
+    .description('unlink the remote project linked to the current folder')
     .action(require(lib + '/unlink'));
 
 program

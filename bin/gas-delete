@@ -8,7 +8,7 @@ var lib = path.join(__dirname, '../lib');
 program
     .command('script [projectName|projectId]')
     .description('delete a remote script project')
-    .action(require(lib + '/delete-script'));
+    .action(require(lib + '/delete-project'));
 
 program
     .command('*')
