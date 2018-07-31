@@ -79,6 +79,7 @@ program
     .alias('info')
     .description('display info about the script linked to the current folder or about a specified script')
     .action(require(lib + '/show'));
+
 program
     .command('status')
     .description('display the status of your local files')
@@ -98,17 +99,14 @@ program
     .action(require(lib + '/config'));
 
 program
-    .command('get', 'Do get stuff')
-    .parse(process.argv);
+    .command('get', 'Get subcommand')
 
 program
-    .command('*')
-    .action((argv) => {
-        console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
-        process.exit(2);
-    })
+    .command('delete', 'Delete subcommand')
 
-program.parse(process.argv);
+program
+    .command('create', 'Delete subcommand')
+    .parse(process.argv);
 
 program.on('--help', function () {
     console.log('');
@@ -129,8 +127,3 @@ program.on('--help', function () {
     console.log('    $ gas pull');
     console.log('');
 });
-
-if (program.args.length < 1) {
-    program.outputHelp();
-    process.exit(2);
-}
