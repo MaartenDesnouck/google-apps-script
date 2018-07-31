@@ -584,12 +584,12 @@ assertRegex "created new version" "$result" "$pattern"
 # assert that creating new version with script gives correct output
 result=$(gas create version -s $projectName8)
 pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
-assertRegex "created new version" "$result" "$pattern"
+assertRegex "created new version with script specified" "$result" "$pattern"
 
 # assert that creating new version with description gives correct output
 result=$(gas create version -d e2e-version-test)
 pattern="Creating new version for '$projectName8'... \[.*\].*2.*e2e"
-assertRegex "created new version with description" "$result" "$pattern"
+assertRegex "created new version with description specified" "$result" "$pattern"
 
 # assert that getting all versions gives correct output
 result=$(gas get versions)
@@ -613,17 +613,17 @@ assertRegex "created new deployment" "$result" "$pattern"
 # assert that creating new deployment with scriptgives correct output
 result=$(gas create deployment -s $projectName9)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
-assertRegex "created new deployment" "$result" "$pattern"
+assertRegex "created new deployment with script specified" "$result" "$pattern"
 
 # assert that creating new deployment with versionNumber gives correct output
 result=$(gas create deployment -v 1)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*2.*e2e"
-assertRegex "created new deployment with version" "$result" "$pattern"
+assertRegex "created new deployment with version specified" "$result" "$pattern"
 
 # assert that creating new deployment with description gives correct output
 result=$(gas create deployment -d e2e-deployment-test)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*2.*e2e"
-assertRegex "created new deployment with description" "$result" "$pattern"
+assertRegex "created new deployment with description specified" "$result" "$pattern"
 
 # assert that getting all deployments gives correct output
 result=$(gas get deployments)
