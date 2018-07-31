@@ -5,29 +5,29 @@ total=0;
 
 epoch=$(date +%s)
 
-commonPart='gas_e2e'
-projectName1=$commonPart'_'$epoch'_project1'
-newProjectName1=$commonPart'_'$epoch'_project1_renamed'
+commonPart='gas_e2e'_'$epoch'
+projectName1=$commonPart'_project1'
+newProjectName1=$commonPart'_project1_renamed'
 projectId1=''
 
-projectName2=$commonPart'_'$epoch'_project2'
+projectName2=$commonPart'_project2'
 projectId2=''
-projectRootFolder2=$commonPart'_'$epoch'_project2_rootFolder'
+projectRootFolder2=$commonPart'_project2_rootFolder'
 
-projectName3=$commonPart'_'$epoch'_project3'
+projectName3=$commonPart'_project3'
 projectId3=''
 
-projectName4=$commonPart'_'$epoch'_project4'
+projectName4=$commonPart'_project4'
 
-projectName5=$commonPart'_'$epoch'_project5'
+projectName5=$commonPart'_project5'
 
-projectName6=$commonPart'_'$epoch'_project6'
+projectName6=$commonPart'_project6'
 
-projectName7=$commonPart'_'$epoch'_project7'
+projectName7=$commonPart'_project7'
 
-projectName8=$commonPart'_'$epoch'_project8'
+projectName8=$commonPart'_project8'
 
-projectName9=$commonPart'_'$epoch'_project9'
+projectName9=$commonPart'_project9'
 
 configTestFolder='configTest'
 
