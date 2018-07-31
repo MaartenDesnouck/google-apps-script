@@ -5,7 +5,7 @@ total=0;
 
 epoch=$(date +%s)
 
-commonPart='gas_e2e'_'$epoch'
+commonPart='gas_e2e_'$epoch
 projectName1=$commonPart'_project1'
 newProjectName1=$commonPart'_project1_renamed'
 projectId1=''
