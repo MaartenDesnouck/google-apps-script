@@ -6,7 +6,7 @@ var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('scripts [filter]')
+    .command('projects [filter]')
     .description('list your remote standalone script projects and their ids (optional filter on projectName)')
     .action(require(lib + '/get-projects'));
 

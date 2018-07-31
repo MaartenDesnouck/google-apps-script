@@ -6,7 +6,7 @@ var path = require('path');
 var lib = path.join(__dirname, '../lib');
 
 program
-    .command('script [projectName|projectId]')
+    .command('project [projectName|projectId]')
     .description('delete a remote script project')
     .action(require(lib + '/delete-project'));
 
