@@ -27,6 +27,8 @@ projectName7=$commonPart'_'$epoch'_project7'
 
 projectName8=$commonPart'_'$epoch'_project8'
 
+projectName8=$commonPart'_'$epoch'_project9'
+
 configTestFolder='configTest'
 
 idLenght=57
@@ -579,30 +581,62 @@ result=$(gas create version)
 pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
 assertRegex "created new version" "$result" "$pattern"
 
+# assert that creating new version with script gives correct output
+result=$(gas create version -s $projectName8)
+pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
+assertRegex "created new version" "$result" "$pattern"
+
 # assert that creating new version with description gives correct output
-result=$(gas create version -d e2e)
+result=$(gas create version -d e2e-version-test)
 pattern="Creating new version for '$projectName8'... \[.*\].*2.*e2e"
-assertRegex "created version with description" "$result" "$pattern"
+assertRegex "created new version with description" "$result" "$pattern"
 
 # assert that getting all versions gives correct output
 result=$(gas get versions)
-pattern=".*1.*2.*e2e.*"
+pattern=".*1.*2.*e2e-version-test.*"
 assertRegex "listed all versions" "$result" "$pattern"
 
 cd ..
 
 
 
-printf '\n\n[Deploy test]\n'
-# deploy with no version
-# deploy a version
-# deploy with a description
-printf '#TODO'
+printf '\n\n[Deployments test]\n'
+
+gas new $projectName9
+cd $projectName9 || exit 1
+
+# assert that creating new deployment gives correct output
+result=$(gas create deployment)
+pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
+assertRegex "created new deployment" "$result" "$pattern"
+
+# assert that creating new deployment with scriptgives correct output
+result=$(gas create deployment -s $projectName9)
+pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
+assertRegex "created new deployment" "$result" "$pattern"
+
+# assert that creating new deployment with versionNumber gives correct output
+result=$(gas create deployment -v 1)
+pattern="Creating new deployment for '$projectName9'... \[.*\].*2.*e2e"
+assertRegex "created new deployment with version" "$result" "$pattern"
+
+# assert that creating new deployment with description gives correct output
+result=$(gas create deployment -d e2e-deployment-test)
+pattern="Creating new deployment for '$projectName9'... \[.*\].*2.*e2e"
+assertRegex "created new deployment with description" "$result" "$pattern"
+
+# assert that getting all deployments gives correct output
+result=$(gas get deployments)
+pattern=".*1.*2.*e2e-deployment-test.*"
+assertRegex "listed all deployments" "$result" "$pattern"
+
+cd ..
 
 
 
 printf '\n\n[Publish test]\n'
 printf '#TODO'
+# publish a new package
 
 
 
@@ -621,12 +655,14 @@ gas delete script $projectName5
 gas delete script $projectName6
 gas delete script $projectName7
 gas delete script $projectName8
+gas delete script $projectName8
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
 rm -r $projectName6
 rm -r $projectName7
 rm -r $projectName8
+rm -r $projectName9
 rm -r $configTestFolder
 
 
