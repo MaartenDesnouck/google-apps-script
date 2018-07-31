@@ -107,23 +107,3 @@ program
 program
     .command('create', '\'gas create\' subcommand, execute \'gas create -h\' for more info')
     .parse(process.argv);
-
-program.on('--help', function () {
-    console.log('');
-    console.log('  Examples:');
-    console.log('');
-    console.log('    $ gas new myScript');
-    console.log('    $ cd myScript');
-    console.log('    $ gas open');
-    console.log('');
-    console.log('    $ gas get scripts');
-    console.log('    $ gas clone myScript');
-    console.log('');
-    console.log('    $ mkdir src');
-    console.log('    $ cd src');
-    console.log('    $ gas create myScript2');
-    console.log('    $ gas link myScript');
-    console.log('    $ gas info');
-    console.log('    $ gas pull');
-    console.log('');
-});

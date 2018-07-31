@@ -8,6 +8,12 @@
         "gas-create": "./bin/gas-create",
         "gas-delete": "./bin/gas-delete"
     },
+    "scripts": {
+        "gas": "./bin/gas",
+        "gas-get": "./bin/gas-get",
+        "gas-create": "./bin/gas-create",
+        "gas-delete": "./bin/gas-delete"
+    },
     "preferGlobal": true,
     "repository": {
         "type": "git",
