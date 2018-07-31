@@ -12,29 +12,29 @@ program
     .command('auth')
     .option('-f, --force', 'Force reauthentication')
     .option('-s, --show-url', 'Show the authentication url instead opening a webbrowser')
-    .description('authenticate the Drive API')
+    .description('authenticate to the Google APIs')
     .action(require(lib + '/auth'));
 
 program
     .command('clone <scriptTitle|scriptId>')
-    .description('create a new local folder, link the remote script with the given scriptId and do a pull from remote')
+    .description('create a new local folder, link the remote script with the given scriptId and do a pull from remote all in one')
     .action(require(lib + '/clone'));
 
 program
     .command('include')
     .alias('i')
     .option('-s, --save <dependency>', 'save the specified dependency package in gas-include.json')
-    .description('add included files specified in \'gas-include.json\'')
+    .description('[BETA] locally add included files specified in \'gas-include.json\'')
     .action(require(lib + '/include'));
 
 program
     .command('init')
-    .description('interactively configure a package.json')
+    .description('interactively configure a package.json file')
     .action(require(lib + '/init'));
 
 program
     .command('new <scriptTitle>')
-    .description('create a new Google Apps Script in your Google Drive and then clone that script locally')
+    .description('create a new remote Google Apps Script and then clone that script locally')
     .action(require(lib + '/new'));
 
 program
@@ -49,23 +49,23 @@ program
 
 program
     .command('pull [fileName]')
-    .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
+    .description('pull the remote version of the linked Google Apps Script, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
 program
     .command('publish')
-    .description('publish a library to gas-include')
+    .description('[BETA] publish a library script to gas-include')
     .action(require(lib + '/publish'));
 
 program
     .command('push [fileName]')
-    .option('-d, --delete', 'Delete the specified file from the linked script on your Google Drive')
-    .description('push your local code to the linked script on your Google Drive (add a fileName to only pull that file)')
+    .option('-d, --delete', 'Delete the specified file from the linked remote script')
+    .description('push your local code to the linked remote script (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program
     .command('rename <scriptTitle|scriptId> <newScriptTitle>')
-    .description('rename a script in your Google Drive')
+    .description('rename a remote script')
     .action(require(lib + '/rename-script'));
 
 program
@@ -95,17 +95,17 @@ program
     .option('-e, --export', 'Export a config file to the specified location')
     .option('-i, --import', 'Import a specified config file')
     .option('-r, --reset', 'Reset the config to default values')
-    .description('configure gas to use .gs instad of .js or to use a custom OAuth client')
+    .description('configure gas to use .gs instead of .js or to use a custom OAuth client')
     .action(require(lib + '/config'));
 
 program
-    .command('get', 'Get subcommand')
+    .command('get', '\'gas get\' subcommand, execute \'gas get -h\' for more info')
 
 program
-    .command('delete', 'Delete subcommand')
+    .command('delete', '\'gas delete\' subcommand, execute \'gas delete -h\' for more info')
 
 program
-    .command('create', 'Delete subcommand')
+    .command('create', '\'gas create\' subcommand, execute \'gas create -h\' for more info')
     .parse(process.argv);
 
 program.on('--help', function () {

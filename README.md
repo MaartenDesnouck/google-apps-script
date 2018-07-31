@@ -51,7 +51,7 @@ $ gas pull [fileName]
 $ gas push [fileName] [-d]
 ```
 
-#### Create, delete or rename a project in your Google Drive
+#### Create, delete or rename a remote project
 - Create will always happen in the root of My Drive (for now)
 
 ```
@@ -79,7 +79,7 @@ $ gas open [projectName|projectId]
 $ gas show [projectName|projectId]
 ````
 
-#### Check for differences between your local files and Google Drive
+#### Check for differences between your local and remote project files
 
 ````
 $ gas status

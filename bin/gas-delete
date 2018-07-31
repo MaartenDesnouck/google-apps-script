@@ -7,7 +7,7 @@ var lib = path.join(__dirname, '../lib');
 
 program
     .command('script [scriptTitle|scriptId]')
-    .description('delete a script from your Google Drive')
+    .description('delete a remote script')
     .action(require(lib + '/delete-script'));
 
 program

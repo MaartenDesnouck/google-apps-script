@@ -124,11 +124,11 @@ assertRegex "auth returns successfully" "$result" "$pattern"
 printf '\n\n[Get scripts, show and create test]\n'
 
 result=$(gas get scripts $projectName1)
-pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
+pattern="No remote standalone scripts matching the filter found \[.*\]"
 assertRegex "gas get of a script we are going to create returns no results yet" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with title or id '$projectName1' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$projectName1' found \[.*\]"
 assertRegex "gas show by name of project we are going to create returns no results yet" "$result" "$pattern"
 
 gas create script $projectName1
@@ -145,7 +145,7 @@ assertRegex "gas show by project id of created project returns correct name and 
 
 # Second project we are going to create should not exist yet
 result=$(gas get scripts $projectName2)
-pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
+pattern="No remote standalone scripts matching the filter found \[.*\]"
 assertRegex "gas get scripts of second project we are ging to create returns no results yet" "$result" "$pattern"
 
 gas create script $projectName2
@@ -179,7 +179,7 @@ pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No project with title or id '$projectName1' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$projectName1' \[.*\]"
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
@@ -197,11 +197,11 @@ assertRegex "the project we are deleting by name exists by name" "$result" "$pat
 gas delete script $newProjectName1
 
 result=$(gas show $newProjectName1)
-pattern="No project with title or id '$newProjectName1' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$newProjectName1' found \[.*\]"
 assertRegex "gas show by name of the project we deleted by name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
-pattern="No project with title or id '$projectId1' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$projectId1' found \[.*\]"
 assertRegex "the project we deleted by name no longer exists by id" "$result" "$pattern"
 
 gas create script $projectName3
@@ -219,11 +219,11 @@ assertRegex "the project we are deleting by id exists by id" "$result" "$pattern
 gas delete script $projectId3
 
 result=$(gas show $projectName3)
-pattern="No project with title or id '$projectName3' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$projectName3' found \[.*\]"
 assertRegex "the project we deleted by id no longer exists by name" "$result" "$pattern"
 
 result=$(gas show $projectId3)
-pattern="No project with title or id '$projectId3' found in your Google Drive \[.*\]"
+pattern="No remote project with title or id '$projectId3' found \[.*\]"
 assertRegex "the project we deleted by id no longer exists by id" "$result" "$pattern"
 
 
@@ -365,7 +365,7 @@ printf '\n\n[Status and pulling/pushing single files test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName5)
-pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
+pattern="No remote standalone scripts matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName5
@@ -389,30 +389,30 @@ printf '//modified2' > modified2.js
 printf '//' > invalid.txt
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some difference between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js
 gas push folder/modified1.js 
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some difference between your local and remote projectfiles for  '$projectName5'.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js -d
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some difference between your local and remote projectfiles for  '$projectName5'.*\+ added\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
 
 gas pull Code.js
 
 result=$(gas status)
-pattern="There are some difference between your local files and Google Drive for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
+pattern="There are some difference between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
 assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
-pattern="This file is unpushable to Google Drive because of an invalid extension or name"
+pattern="Can't push this file to remote because of an invalid extension or name"
 assertRegex "pushing an invalid file returns an error" "$result" "$pattern"
 
 cd ..
@@ -423,7 +423,7 @@ printf '\n\n[New test]\n'
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName6)
-pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
+pattern="No remote standalone scripts matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName6
@@ -520,7 +520,7 @@ fi
 
 # Project we are going to create should not exist yet
 result=$(gas get scripts $projectName7)
-pattern="No standalone scripts matching the filter found in your Google Drive \[.*\]"
+pattern="No remote standalone scripts matching the filter found \[.*\]"
 assertRegex "Project we are creating does not exist yet" "$result" "$pattern"
 
 gas new $projectName7
@@ -537,12 +537,12 @@ printf '//gs' > folder/gs.gs
 
 # assert that pushing js.js fails
 result=$(gas push folder/js.js)
-pattern="Pushing .* > folder/js.js' to Google Drive... \[.*\].*This file is unpushable to Google Drive because of an invalid extension or name"
+pattern="Pushing .* > folder/js.js' to remote ... \[.*\].*Can't push this file to remote because of an invalid extension or name"
 assertRegex "js.js is unpushable" "$result" "$pattern"
 
 # assert that pushing gs.gs succeeds
 result=$(gas push folder/gs.gs)
-pattern="Pushing .* > folder/gs.gs' to Google Drive... \[.*\]"
+pattern="Pushing .* > folder/gs.gs' to remote ... \[.*\]"
 assertRegex "gs.gs is pushable" "$result" "$pattern"
 
 printf '//gs' > folder/gs2.gs

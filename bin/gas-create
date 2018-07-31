@@ -7,7 +7,7 @@ var lib = path.join(__dirname, '../lib');
 
 program
     .command('script <scriptTitle>')
-    .description('create a new script in your Google Drive')
+    .description('create a new remote script')
     .action(require(lib + '/create-script'));
 
 program
