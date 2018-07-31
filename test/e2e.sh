@@ -27,7 +27,7 @@ projectName7=$commonPart'_'$epoch'_project7'
 
 projectName8=$commonPart'_'$epoch'_project8'
 
-projectName8=$commonPart'_'$epoch'_project9'
+projectName9=$commonPart'_'$epoch'_project9'
 
 configTestFolder='configTest'
 
