@@ -179,7 +179,7 @@ pattern="NAME             $newProjectName1.*ID               $projectId1.*"
 assertRegex "gas show of project we renamed by name exists with new name and has old id" "$result" "$pattern"
 
 result=$(gas show $projectName1)
-pattern="No remote project with title or id '$projectName1' \[.*\]"
+pattern="No remote project with title or id '$projectName1' found \[.*\]"
 assertRegex "gas show of the old name returns a not found message" "$result" "$pattern"
 
 result=$(gas show $projectId1)
@@ -389,26 +389,26 @@ printf '//modified2' > modified2.js
 printf '//' > invalid.txt
 
 result=$(gas status)
-pattern="There are some difference between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some differences between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ folder/modified1\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 2 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js
 gas push folder/modified1.js 
 
 result=$(gas status)
-pattern="There are some difference between your local and remote projectfiles for  '$projectName5'.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some differences between your local and remote projectfiles for '$projectName5'.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 modified and 1 removed file" "$result" "$pattern"
 
 gas push added.js -d
 
 result=$(gas status)
-pattern="There are some difference between your local and remote projectfiles for  '$projectName5'.*\+ added\.js.*~ modified2\.js.*- Code\.js.*"
+pattern="There are some differences between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ modified2\.js.*- Code\.js.*"
 assertRegex "1 added, 1 modified and 1 removed file" "$result" "$pattern"
 
 gas pull Code.js
 
 result=$(gas status)
-pattern="There are some difference between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
+pattern="There are some differences between your local and remote projectfiles for '$projectName5'.*\+ added\.js.*~ modified2\.js.*"
 assertRegex "1 added and 1 modified file" "$result" "$pattern"
 
 result=$(gas push invalid.txt)
