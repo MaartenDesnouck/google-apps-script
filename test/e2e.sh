@@ -582,7 +582,7 @@ pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
 assertRegex "created new version" "$result" "$pattern"
 
 # assert that creating new version with project gives correct output
-result=$(gas create version -s $projectName8)
+result=$(gas create version -p $projectName8)
 pattern="Creating new version for '$projectName8'... \[.*\].*1.*"
 assertRegex "created new version with project specified" "$result" "$pattern"
 
@@ -611,7 +611,7 @@ pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
 assertRegex "created new deployment" "$result" "$pattern"
 
 # assert that creating new deployment with projectgives correct output
-result=$(gas create deployment -s $projectName9)
+result=$(gas create deployment -p $projectName9)
 pattern="Creating new deployment for '$projectName9'... \[.*\].*1.*"
 assertRegex "created new deployment with project specified" "$result" "$pattern"
 
