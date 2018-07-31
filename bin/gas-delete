@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+var package = require('../package.json');
+var program = require('commander');
+var path = require('path');
+var lib = path.join(__dirname, '../lib');
+
+program
+    .command('project [projectName|projectId]')
+    .description('delete a remote script project')
+    .action(require(lib + '/delete-project'));
+
+program
+    .command('*')
+    .action(function (argv) {
+        console.log('\'gas delete %s\' is not a valid command use \'gas -h\' for help', argv);
+        process.exit(2);
+    });
+
+program.parse(process.argv);
+
+if (program.args.length < 1) {
+    program.outputHelp();
+    process.exit(0);
+}

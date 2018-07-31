@@ -1,11 +1,18 @@
 {
     "name": "google-apps-script",
-    "version": "2.9.2",
+    "version": "4.0.0",
     "description": "gas, the complete CLI for Google Apps Script",
-    "main": "index",
     "bin": {
         "gas": "./bin/gas",
-        "google-apps-script": "./bin/gas"
+        "gas-get": "./bin/gas-get",
+        "gas-create": "./bin/gas-create",
+        "gas-delete": "./bin/gas-delete"
+    },
+    "scripts": {
+        "gas": "./bin/gas",
+        "gas-get": "./bin/gas-get",
+        "gas-create": "./bin/gas-create",
+        "gas-delete": "./bin/gas-delete"
     },
     "preferGlobal": true,
     "repository": {
@@ -24,7 +31,8 @@
         "apps",
         "script",
         "CLI",
-        "drive"
+        "drive",
+        "script.google.com"
     ],
     "author": "Maarten Desnouck (maarten.desnouck@gmail.com)",
     "license": "MIT",
@@ -33,14 +41,22 @@
     },
     "homepage": "https://github.com/maartendesnouck/google-apps-script#readme",
     "dependencies": {
-        "colors": "^1.1.2",
-        "commander": "^2.12.2",
-        "fs-extra": "^5.0.0",
-        "googleapis": "^24.0.0",
+        "colors": "^1.3.1",
+        "columnify": "^1.5.4",
+        "commander": "^2.16.0",
+        "firebase": "^5.3.0",
+        "fs-extra": "^7.0.0",
+        "googleapis": "^32.0.0",
         "has-unicode": "^2.0.1",
-        "open": "^0.0.5",
-        "request": "^2.83.0",
+        "opn": "^5.3.0",
+        "request": "^2.87.0",
+        "request-promise": "^4.2.2",
         "sanitize-filename": "^1.6.1",
-        "syntax-error": "^1.3.0"
+        "semver": "^5.5.0",
+        "syntax-error": "^1.4.0"
+    },
+    "engines": {
+        "node": ">=8.0.0",
+        "npm": ">=1.0.0"
     }
 }

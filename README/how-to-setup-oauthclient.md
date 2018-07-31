@@ -1,4 +1,4 @@
-<img src="../images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
+<img src="../images/logo/gas-logo.png" alt="gas logo" name="gas" align="right" height="96" width="96"/>
 
 # How to setup a a custom Google OAuth2 client for gas, from A to Z
 

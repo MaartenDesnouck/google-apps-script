@@ -12,53 +12,35 @@ program
     .command('auth')
     .option('-f, --force', 'Force reauthentication')
     .option('-s, --show-url', 'Show the authentication url instead opening a webbrowser')
-    .description('authenticate the Drive API (add \'-f\' to force reauthentication, add \'-s\' to show the authentication url instead opening a webbrowser) ')
+    .description('authenticate to the Google APIs')
     .action(require(lib + '/auth'));
 
 program
     .command('clone <projectName|projectId>')
-    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote')
+    .description('create a new local folder, link the remote project with the given projectId and do a pull from remote all in one')
     .action(require(lib + '/clone'));
 
 program
-    .command('config [path]')
-    .option('-e, --export', 'Export a config file to the specified location')    
-    .option('-i, --import', 'Import a specified config file')
-    .option('-r, --reset', 'Reset the config to default values')
-    .description('configure gas to use .gs instad of .js or to use a custom OAuth client')
-    .action(require(lib + '/config'));
-
-program
-    .command('create <projectName>')
-    .description('create a new project in your Google Drive')
-    .action(require(lib + '/remote-create'));
-
-program
-    .command('delete <projectName|projectId>')
-    .alias('remove')
-    .description('delete a project from your Google Drive')
-    .action(require(lib + '/remote-delete'));
-
-program
     .command('include')
-    .description('pull included files specified in \'gas-include.js\'')
+    .alias('i')
+    .option('-s, --save <dependency>', 'save the specified dependency package in gas-include.json')
+    .description('[BETA] locally add included files specified in \'gas-include.json\'')
     .action(require(lib + '/include'));
 
 program
-    .command('init <projectName>')
-    .alias('new')
-    .description('create a new Google Apps Script project in your Google Drive and then clone that project locally')
+    .command('init')
+    .description('interactively configure a package.json file')
     .action(require(lib + '/init'));
+
+program
+    .command('new <projectName>')
+    .description('create a new remote Google Apps Script project and then clone that project locally')
+    .action(require(lib + '/new'));
 
 program
     .command('link <projectName|projectId>')
     .description('link the remote project with the given projectId to the current local folder')
     .action(require(lib + '/link'));
-
-program
-    .command('list [filter]')
-    .description('list your remote projects and their id\'s (optional filter on projectName)')
-    .action(require(lib + '/list'));
 
 program
     .command('open [projectName|projectId]')
@@ -67,21 +49,30 @@ program
 
 program
     .command('pull [fileName]')
-    .option('-i, --include', 'Pull included files from their sources (add a fileName to only pull that file)')
-    .description('pull code from your Google Drive, (add \'-i\' to also pull included files)')
+    .description('pull the remote version of the linked project, (add \'-i\' to also pull included files)')
     .action(require(lib + '/pull'));
 
 program
+    .command('publish')
+    .description('[BETA] publish a library script to gas-include')
+    .action(require(lib + '/publish'));
+
+program
     .command('push [fileName]')
-    .alias('deploy')
-    .option('-d, --delete', 'Delete the specified file from the linked project on your Google Drive')
-    .description('push your local code to the linked project on your Google Drive (add a fileName to only pull that file)')
+    .option('-d, --delete', 'Delete the specified file from the linked remote project')
+    .description('push your local code to the linked remote project (add a fileName to only pull that file)')
     .action(require(lib + '/push'));
 
 program
     .command('rename <projectName|projectId> <newProjectName>')
-    .description('rename a project in your Google Drive')
-    .action(require(lib + '/remote-rename'));
+    .description('rename a remote project')
+    .action(require(lib + '/rename-project'));
+
+program
+    .command('run [projectName|projectId]')
+    .option('-f, --function', '')
+    .description('run a function in your remote project')
+    .action(require(lib + '/run'));
 
 program
     .command('show [projectName|projectId]')
@@ -96,40 +87,23 @@ program
 
 program
     .command('unlink')
-    .description('unlink the linked remote project')
+    .description('unlink the remote project linked to the current folder')
     .action(require(lib + '/unlink'));
 
+program
+    .command('config [path]')
+    .option('-e, --export', 'Export a config file to the specified location')
+    .option('-i, --import', 'Import a specified config file')
+    .option('-r, --reset', 'Reset the config to default values')
+    .description('configure gas to use .gs instead of .js or to use a custom OAuth client')
+    .action(require(lib + '/config'));
 
 program
-    .command('*')
-    .action(function (argv) {
-        console.log('\'gas %s\' is not a valid command use \'gas -h\' for help', argv);
-        process.exit(2);
-    });
+    .command('get', '\'gas get\' subcommand, execute \'gas get -h\' for more info')
 
-program.on('--help', function () {
-    console.log('');
-    console.log('  Examples:');
-    console.log('');
-    console.log('    $ gas new myScript');
-    console.log('    $ cd myScript');
-    console.log('    $ gas open');
-    console.log('');
-    console.log('    $ gas list');
-    console.log('    $ gas clone myScript');
-    console.log('');
-    console.log('    $ mkdir src');
-    console.log('    $ cd src');
-    console.log('    $ gas create myScript2');
-    console.log('    $ gas link myScript');
-    console.log('    $ gas info');
-    console.log('    $ gas pull');
-    console.log('');
-});
+program
+    .command('delete', '\'gas delete\' subcommand, execute \'gas delete -h\' for more info')
 
-program.parse(process.argv);
-
-if (program.args.length < 1) {
-    program.outputHelp();
-    process.exit(2);
-}
+program
+    .command('create', '\'gas create\' subcommand, execute \'gas create -h\' for more info')
+    .parse(process.argv);

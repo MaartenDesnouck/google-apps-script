@@ -1,6 +1,6 @@
-<img src="./images/logo/gas-logo.png" alt="gas logo" title="gas" align="right" height="96" width="96"/>
+<img src="./images/logo/gas-logo.png" alt="gas logo" name="gas" align="right" height="96" width="96"/>
 
-# gas, for locally developing Google Apps Script projects
+# gas, the Google Apps Script command-line tool
 
 [![npm](https://img.shields.io/npm/v/google-apps-script.svg)](https://www.npmjs.com/package/google-apps-script)
 [![GitHub stars](https://img.shields.io/github/stars/MaartenDesnouck/google-apps-script.svg?style=social&label=Star)](https://github.com/MaartenDesnouck/google-apps-script)
@@ -18,6 +18,8 @@ $ npm i -g google-apps-script
 
 # Usage
 
+## Logging In
+
 #### Authenticate the Drive API
  - Add -f to force reauthentication
  - Add -s to show the authentication url instead of opening a webbrowser
@@ -26,22 +28,26 @@ $ npm i -g google-apps-script
 $ gas auth [-f][-s]
 ```
 
-####  Initialize a new project or clone an existing one
+## Local development
+- Standalone scripts can be referenced by name, container bound script projects must be referenced by projectId. 
+- You can find a projectIds from the url of a details page in [My Scripts](https://script.google.com/home/my)
+
+#### Setup a new script project or clone an existing one
 
 ```
-$ gas init <projectName>
+$ gas new <projectName>
 $ gas clone <projectName|projectId>
 ```
 
-#### List your remote projects and their ids
+#### List your remote standalone script projects and their ids
 - There is an optional filter on projectName
 
 ```
-$ gas list [filter]
+$ gas get projects [filter]
 ```
 
-#### Pull and push code from/to your remote project
-- Gas also supports shared scripts and Team Drives
+#### Pull and push code from/to your remote script project
+- Gas also supports shared scripts, Team Drives and container bound scripts
 - Files in subfolders are mapped to their relative pathname in a project and the other way around
 - You can specify to pull or push a single file by adding a filename to the command
 - Delete a single remote file by adding -d to the push command
@@ -51,39 +57,60 @@ $ gas pull [fileName]
 $ gas push [fileName] [-d]
 ```
 
-#### Create, delete or rename a project in your Google Drive
-- Create will always happen in the root of My Drive (for now)
+#### Rename a remote script
 
 ```
-$ gas create <projectName>
-$ gas delete <projectName|projectId>
 $ gas rename <projectName|projectId> <newProjectName>
 ```
 
-#### Linking a project to the current working directory
+#### Linking a script to the current working directory
 - See the last [example](#examples) for some context
 
 ```
 $ gas link <projectName|projectId>
 ```
 
-#### Open the linked project or a specified project in the online editor
+#### Open the linked or a specified project in the online editor
 
 ```
 $ gas open [projectName|projectId]
 ```
 
-#### Show some info about the linked project or a specified project
+#### Show some info about the linked or a specified project
 
 ````
 $ gas show [projectName|projectId]
 ````
 
-#### Check for differences between your local files and Google Drive
-
+#### Check for differences between your local and remote project files
 ````
 $ gas status
 ````
+
+## Managing projects, versions and deployments
+
+#### Create, delete or get a remote project
+- Create will always happen in the root of My Drive (for now)
+
+```
+$ gas create project <projectName>
+$ gas delete project <projectName|projectId>
+$ gas get projects [filter]
+```
+
+#### Create or get a version
+
+```
+$ gas create version [-d description] [-p projectName|projectId]
+$ gas get versions [projectName|projectId]
+```
+
+#### Create or get a deployment
+
+```
+$ gas create deployment [-d description] [-v versionNumber] [-p projectName|projectId]
+$ gas get deployments [projectName|projectId]
+```
 
 # Config (optional)
 
@@ -100,28 +127,28 @@ $ gas config [-e][-i][-r] [configFile.json]
 # Examples
 
 ```
-$ gas init myScript
-$ cd myScript
+$ gas new myProject
+$ cd myProject
 $ gas open
 ```
 
 ```
-$ gas list
-$ gas clone myScript
+$ gas get projects
+$ gas clone myProject
 ```
 
 ```
-$ gas create myScript2
+$ gas create myProject2
 $ mkdir src
 $ cd src
-$ gas link myScript2
-$ gas info
+$ gas link myProject2
+$ gas show
 $ gas pull
 ```
 
 # .gitignore
 
-Gas creates some extra files in a .gas folder of which only 'ID' should be checked into git,
+Gas creates some extra files in a .gas folder. None should be checked into git,
  so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
 
 <hr>
