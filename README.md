@@ -16,9 +16,7 @@
 $ npm i -g google-apps-script
 ```
 
-# Usage
-
-## Logging In
+# Logging In
 
 #### Authenticate the Drive API
  - Add -f to force reauthentication
@@ -28,9 +26,9 @@ $ npm i -g google-apps-script
 $ gas auth [-f][-s]
 ```
 
-## Local development
+# Local development
 - Standalone scripts can be referenced by name, container bound script projects must be referenced by projectId. 
-- You can find a projectIds from the url of a details page in [My Scripts](https://script.google.com/home/my)
+- You can find a projectId from the url of a details page in [My Scripts](https://script.google.com/home/my)
 
 #### Setup a new script project or clone an existing one
 
@@ -87,7 +85,14 @@ $ gas show [projectName|projectId]
 $ gas status
 ````
 
-## Managing projects, versions and deployments
+#### Include specified libraries
+- [How to use gas-include, from A to Z](./README/how-to-use-gas-include.md)
+````
+$ gas include
+$ gas include -s packageName 
+````
+
+# Managing projects, versions and deployments
 
 #### Create, delete or get a remote project
 - Create will always happen in the root of My Drive (for now)

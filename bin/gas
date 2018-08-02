@@ -24,12 +24,12 @@ program
     .command('include')
     .alias('i')
     .option('-s, --save <dependency>', 'save the specified dependency package in gas-include.json')
-    .description('[BETA] locally add included files specified in \'gas-include.json\'')
+    .description('locally add included files specified in \'gas-include.json\'')
     .action(require(lib + '/include'));
 
 program
     .command('init')
-    .description('interactively configure a package.json file')
+    .description('interactively configure a gas-include.json file')
     .action(require(lib + '/init'));
 
 program
@@ -54,7 +54,7 @@ program
 
 program
     .command('publish')
-    .description('[BETA] publish a library script to gas-include')
+    .description('publish a library script to gas-include')
     .action(require(lib + '/publish'));
 
 program
