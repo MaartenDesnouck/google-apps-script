@@ -639,9 +639,9 @@ cd $projectName10 || exit 1
 gas include -s sheet
 
 result=$(cat gas-include.json)
-assertRegex "gas-include.json exists and has the right content" "$result" "\{\"dependencies\":\{\"sheet\":\"^1.0.0\"\}\}"
+assertRegex "gas-include.json exists and has the right content" "$result" "\{\"dependencies\":\{\"sheet\":\"\^1.0.0\"\}\}"
 
-result=$(cat gas-include/sheet/sheet.js)
+result=$(cat gas-include/sheet/sheet.gs)
 assertRegex "the sheet package has been included" "$result" ".*sheet_getValue.*"
 
 result=$(cat gas-include/content.json)
