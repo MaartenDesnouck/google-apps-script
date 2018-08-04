@@ -18,16 +18,13 @@ projectName3=$commonPart'_project3'
 projectId3=''
 
 projectName4=$commonPart'_project4'
-
 projectName5=$commonPart'_project5'
-
 projectName6=$commonPart'_project6'
-
 projectName7=$commonPart'_project7'
-
 projectName8=$commonPart'_project8'
-
 projectName9=$commonPart'_project9'
+projectName10=$commonPart'_project10'
+projectName11=$commonPart'_project11'
 
 configTestFolder='configTest'
 
@@ -634,16 +631,36 @@ cd ..
 
 
 
-printf '\n\n[Publish test]\n'
-printf '#TODO'
-# publish a new package
-
-
-
 printf '\n\n[Include test]\n'
-printf '#TODO'
-# do gas include
-# check that include file has been created
+
+gas new $projectName10
+cd $projectName10 || exit 1
+
+gas include -s sheet
+
+result=$(cat gas-include.json)
+assertRegex "gas-include.json exists and has the right content" "$result" "\{\"dependencies\":\{\"sheet\":\"^1.0.0\"\}\}"
+
+result=$(cat gas-include/sheet/sheet.js)
+assertRegex "the sheet package has been included" "$result" ".*sheet_getValue.*"
+
+result=$(cat gas-include/content.json)
+assertRegex "gas-include/content.json exists and has the right content" "$result" "\{\"sheet_1_0_0\":\{\"isRootDependency\":true,\"packageName\":\"sheet\",\"version\":\"1_0_0\"\}\}"
+
+cd ..
+
+
+
+printf '\n\n[Publish test]\n'
+gas new $projectName11
+cd $projectName11 || exit 1
+
+# TODO
+# get the version of a fixed package
+# bump that package number
+# include that package in a new test ?
+
+cd ..
 
 
 
@@ -656,6 +673,8 @@ gas delete project $projectName6
 gas delete project $projectName7
 gas delete project $projectName8
 gas delete project $projectName9
+gas delete project $projectName10
+gas delete project $projectName11
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
