@@ -566,7 +566,7 @@ assertFileDoesNotExist "folder/js.gs should not have been added to the project" 
 
 # assert that js.js does not exist after clone
 assertFileDoesNotExist "folder/js.js should not have been added to the project" "$projectName7/folder/js.js"
-
+gas config -e config1.json
 
 
 printf '\n\n[Versions test]\n'
@@ -642,7 +642,7 @@ gas include -s sheet
 result=$(cat gas-include.json)
 assertRegex "gas-include.json exists and has the right content" "$result" "\{\"dependencies\":\{\"sheet\":\"\^1.0.0\"\}\}"
 
-result=$(cat gas-include/sheet/sheet.gs)
+result=$(cat gas-include/sheet/sheet.js)
 assertRegex "the sheet package has been included" "$result" ".*sheet_getValue.*"
 
 result=$(cat gas-include/content.json)
