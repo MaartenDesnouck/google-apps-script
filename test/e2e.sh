@@ -566,7 +566,7 @@ assertFileDoesNotExist "folder/js.gs should not have been added to the project" 
 
 # assert that js.js does not exist after clone
 assertFileDoesNotExist "folder/js.js should not have been added to the project" "$projectName7/folder/js.js"
-gas config -e config1.json
+gas config -i config3.json
 
 
 printf '\n\n[Versions test]\n'

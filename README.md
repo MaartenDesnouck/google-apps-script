@@ -85,11 +85,17 @@ $ gas show [projectName|projectId]
 $ gas status
 ````
 
+#### Add files in your local folder that you don't want pushed to remote to .gasignore
+- .gasignore works exactly the same as .gitignore but for your Google Apps Script remote
+````
+$ cat .gasignore
+````
+
 #### Include specified libraries
 - [How to use gas-include, from A to Z](./README/how-to-use-gas-include.md)
 ````
 $ gas include
-$ gas include -s packageName 
+$ gas include -s packageName
 ````
 
 # Managing projects, versions and deployments
@@ -140,6 +146,7 @@ $ gas open
 ```
 $ gas get projects
 $ gas clone myProject
+$ cd myProject
 ```
 
 ```
