@@ -25,6 +25,7 @@ projectName8=$commonPart'_project8'
 projectName9=$commonPart'_project9'
 projectName10=$commonPart'_project10'
 projectName11=$commonPart'_project11'
+projectName12=$commonPart'_project12'
 
 configTestFolder='configTest'
 
@@ -713,6 +714,7 @@ gas delete project $projectName8
 gas delete project $projectName9
 gas delete project $projectName10
 gas delete project $projectName11
+gas delete project $projectName12
 rm -r $projectName2
 rm -r $projectRootFolder2
 rm -r $projectName5
