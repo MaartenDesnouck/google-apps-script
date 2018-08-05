@@ -566,7 +566,6 @@ assertFileDoesNotExist "folder/js.gs should not have been added to the project" 
 
 # assert that js.js does not exist after clone
 assertFileDoesNotExist "folder/js.js should not have been added to the project" "$projectName7/folder/js.js"
-gas config -i "$configTestFolder/config3.json"
 
 
 
@@ -643,7 +642,7 @@ gas include -s sheet
 result=$(cat gas-include.json)
 assertRegex "gas-include.json exists and has the right content" "$result" "\{\"dependencies\":\{\"sheet\":\"\^1.0.0\"\}\}"
 
-result=$(cat gas-include/sheet/sheet.js)
+result=$(cat gas-include/sheet/sheet.gs)
 assertRegex "the sheet package has been included" "$result" ".*sheet_getValue.*"
 
 result=$(cat gas-include/content.json)
@@ -670,18 +669,18 @@ printf '\n\n[Ignore test]\n'
 
 gas new $projectName12
 cd $projectName12 || exit 1
-printf '//test1\n' > test1.js
+printf '//test1\n' > test1.gs
 
 mkdir 'testFolder' && cd 'testFolder' || exit 1
-printf '//test2\n' > test2.js
+printf '//test2\n' > test2.gs
 cd ..
 
 mkdir 'ignoreFolder1' && cd 'ignoreFolder1' || exit 1
-printf '//file1\n' > file1.js
+printf '//file1\n' > file1.gs
 cd ..
 
 mkdir 'ignoreFolder2' && cd 'ignoreFolder2' || exit 1
-printf '//file2\n' > file2.js
+printf '//file2\n' > file2.gs
 cd ..
 
 printf 'ignoreFolder1/*\nignoreFolder2/*' > .gasignore
@@ -689,18 +688,18 @@ printf 'ignoreFolder1/*\nignoreFolder2/*' > .gasignore
 gas push
 gas pull
 
-assertFileExists "ignoreFolder1/file1.js still exists" "ignoreFolder1/file1.js"
-assertFileExists "ignoreFolder2/file2.js still exists" "ignoreFolder2/file2.js"
+assertFileExists "ignoreFolder1/file1.gs still exists" "ignoreFolder1/file1.gs"
+assertFileExists "ignoreFolder2/file2.gs still exists" "ignoreFolder2/file2.gs"
 
-rm ignoreFolder1/file1.js
-rm test2.js
+rm ignoreFolder1/file1.gs
+rm test2.gs
 gas pull
 
-assertFileDoesNotExist "ignoreFolder1/file1.js does not exist again" "ignoreFolder1/file1.js"
+assertFileDoesNotExist "ignoreFolder1/file1.gs does not exist again" "ignoreFolder1/file1.gs"
 assertFolderDoesNotExist "ignoreFolder1 does not exists anymore" "ignoreFolder1"
-assertFileExists "ignoreFolder2/file2.js still exists" "ignoreFolder2/file2.js"
-assertFileExists "test1.js still exists" "test1.js"
-assertFileExists "testFolder/test2.js still exists again" "testFolder/test2.js"
+assertFileExists "ignoreFolder2/file2.gs still exists" "ignoreFolder2/file2.gs"
+assertFileExists "test1.gs still exists" "test1.gs"
+assertFileExists "testFolder/test2.gs still exists again" "testFolder/test2.gs"
 
 
 
