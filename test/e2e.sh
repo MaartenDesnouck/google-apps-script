@@ -245,7 +245,7 @@ cd 'subfolder' || exit 1
 gas unlink
 cd ..
 
-assertFolderDoesNotExist ".gas folder does not exist after the unlink " "$result"
+assertFolderDoesNotExist ".gas folder does not exist after the unlink" ".gas"
 
 gas link $projectId2
 gas pull
@@ -661,6 +661,44 @@ cd $projectName11 || exit 1
 # include that package in a new test ?
 
 cd ..
+
+
+
+printf '\n\n[Ignore test]\n'
+
+gas new $projectName12
+cd $projectName12 || exit 1
+printf '//test1\n' > test1.js
+
+mkdir 'testFolder' && cd 'testFolder' || exit 1
+printf '//test2\n' > test2.js
+cd ..
+
+mkdir 'ignoreFolder1' && cd 'ignoreFolder1' || exit 1
+printf '//file1\n' > file1.js
+cd ..
+
+mkdir 'ignoreFolder2' && cd 'ignoreFolder2' || exit 1
+printf '//file2\n' > file2.js
+cd ..
+
+printf 'ignoreFolder1/*\nignoreFolder2/*' > .gasignore
+
+gas push
+gas pull
+
+assertFileExists "ignoreFolder1/file1.js still exists" "ignoreFolder1/file1.js"
+assertFileExists "ignoreFolder2/file2.js still exists" "ignoreFolder2/file2.js"
+
+rm ignoreFolder1/file1.js
+rm test2.js
+gas pull
+
+assertFileDoesNotExist "ignoreFolder1/file1.js does not exist again" "ignoreFolder1/file1.js"
+assertFolderDoesNotExist "ignoreFolder1 does not exists anymore" "ignoreFolder1"
+assertFileExists "ignoreFolder2/file2.js still exists" "ignoreFolder2/file2.js"
+assertFileExists "test1.js still exists" "test1.js"
+assertFileExists "testFolder/test2.js still exists again" "testFolder/test2.js"
 
 
 
