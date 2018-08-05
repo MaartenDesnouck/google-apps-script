@@ -85,11 +85,11 @@ $ gas show [projectName|projectId]
 $ gas status
 ````
 
-#### Include specified libraries
+# Including libraries
 - [How to use gas-include, from A to Z](./README/how-to-use-gas-include.md)
 ````
 $ gas include
-$ gas include -s packageName 
+$ gas include -s packageName
 ````
 
 # Managing projects, versions and deployments
@@ -140,6 +140,7 @@ $ gas open
 ```
 $ gas get projects
 $ gas clone myProject
+$ cd myProject
 ```
 
 ```
@@ -151,10 +152,16 @@ $ gas show
 $ gas pull
 ```
 
-# .gitignore
+# .gitignore and .gasignore
 
 Gas creates some extra files in a .gas folder. None should be checked into git,
  so a  [.gitignore](https://github.com/MaartenDesnouck/google-apps-script/blob/master/gas.gitignore) file gets added to your project if there isn't one present yet.
+
+.gasignore has exacly the same purpose and functionality as .gitignore but for the Google Apps Script remote and gets created by default to ignore the node_modules folder.
+
+````
+$ cat .gasignore
+````
 
 <hr>
 That's all (so far).
