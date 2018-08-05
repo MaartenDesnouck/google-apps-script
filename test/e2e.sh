@@ -692,7 +692,7 @@ assertFileExists "ignoreFolder1/file1.gs still exists" "ignoreFolder1/file1.gs"
 assertFileExists "ignoreFolder2/file2.gs still exists" "ignoreFolder2/file2.gs"
 
 rm ignoreFolder1/file1.gs
-rm test2.gs
+rm testFolder/test2.gs
 gas pull
 
 assertFileDoesNotExist "ignoreFolder1/file1.gs does not exist again" "ignoreFolder1/file1.gs"
