@@ -49,6 +49,7 @@
         "googleapis": "^32.0.0",
         "has-unicode": "^2.0.1",
         "opn": "^5.3.0",
+        "parse-gitignore": "^1.0.1",
         "request": "^2.87.0",
         "request-promise": "^4.2.2",
         "sanitize-filename": "^1.6.1",
