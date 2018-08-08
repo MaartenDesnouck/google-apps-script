@@ -16,7 +16,11 @@
 $ npm i -g google-apps-script
 ```
 
-# Logging In
+# Getting started
+
+#### Enable the Apps Script API for your account
+
+ - Visit https://script.google.com/home/usersettings and enable the Apps Script API
 
 #### Authenticate the Drive API
  - Add -f to force reauthentication
