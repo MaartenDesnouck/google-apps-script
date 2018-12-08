@@ -1,6 +1,6 @@
 {
     "name": "google-apps-script",
-    "version": "4.1.2",
+    "version": "4.1.3",
     "description": "gas, the complete CLI for Google Apps Script",
     "bin": {
         "gas": "./bin/gas",
@@ -44,9 +44,9 @@
         "colors": "^1.3.2",
         "columnify": "^1.5.4",
         "commander": "^2.19.0",
-        "firebase": "^5.5.9",
+        "firebase": "^5.7.0",
         "fs-extra": "^7.0.1",
-        "googleapis": "^35.0.0",
+        "googleapis": "^36.0.0",
         "has-unicode": "^2.0.1",
         "opn": "^5.4.0",
         "parse-gitignore": "^1.0.1",
