@@ -50,8 +50,8 @@
         "has-unicode": "^2.0.1",
         "opn": "^6.0.0",
         "parse-gitignore": "^1.0.1",
-        "request": "^2.88.0",
-        "request-promise": "^4.2.4",
+        "request": "^2.88.2",
+        "request-promise": "^4.2.6",
         "sanitize-filename": "^1.6.3",
         "semver": "^6.3.0",
         "syntax-error": "^1.4.0"
